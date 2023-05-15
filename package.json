@@ -9,7 +9,7 @@
     "start:dev": "(npm run dev --prefix client) & nodemon server/index.js",
     "seed": "node server/db/seed.js"
   },
-  "author": "Sean Hagstrom",
+  "author": "Anna Gibes, ",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",

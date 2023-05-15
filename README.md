@@ -4,7 +4,7 @@ A simple boilerplate for the PERN stack using Vite.js. It includes Node-Postgres
 
 This boilerplate was made using the official [Vite](https://vitejs.dev) template(`npm create vite@latest my-app -- --template react`) for the client. Then, the backend was built around it. You can find more templates to scaffold your project using Vite, [here](https://github.com/vitejs/vite/tree/main/packages/create-vite) or community templates on [Awesome Vite.js](https://github.com/vitejs/awesome-vite#templates).
 
-## Tools
+## Tools #
 
 - [Vite](https://vitejs.dev)
 - [React](https://reactjs.org/)

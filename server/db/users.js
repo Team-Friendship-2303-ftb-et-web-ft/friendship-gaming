@@ -1,5 +1,4 @@
 const client = require('./client');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -17,7 +16,7 @@ async function createUser({username, password}) {
         console.log('could not find user');
         return;
       }
-      
+
       return user;
   } catch (error) {
     console.error(error);
@@ -55,7 +54,7 @@ async function getUserById(userID) {
   try {
     const { rows: [user] } = await client.query(`
       SELECT id, username FROM users
-      WHERE userID=$1
+      WHERE id=$1
     `, [userID]);
 
     if (!user.length) {

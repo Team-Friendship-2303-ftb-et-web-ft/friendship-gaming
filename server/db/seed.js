@@ -70,6 +70,18 @@ const createTables = async () => {
           country varchar(255) NOT NULL,
           postal_code INTEGER 
         );
+        CREATE TABLE cart(
+          id SERIAL PRIMARY KEY,
+          "userId" INTEGER REFERENCES users(id),
+          purchaseStatus BOOLEAN DEFAULT false
+          );
+        CREATE TABLE cartItems(
+            id SERIAL PRIMARY KEY,
+            "cartId"  INTEGER REFERENCES cart(id),
+            "gameId"  INTEGER REFERENCES games(id),
+            quantity INTEGER,
+            priceAtPurchase DECIMAL
+            );
         `);
       console.log("Tables done. Double tapped for good measure.")
   } catch (error) {

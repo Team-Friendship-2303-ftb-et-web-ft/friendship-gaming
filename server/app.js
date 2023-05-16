@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const client = require('./db/client');
+const cors = require('cors');
 
+app.use(cors());
 client.connect();
 const app = express();
 const morgan = require('morgan');

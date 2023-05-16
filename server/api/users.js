@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const jwt = require('jsonwebtoken');
 
 // GET: api/users
 router.get('/', async (req, res, next) => {

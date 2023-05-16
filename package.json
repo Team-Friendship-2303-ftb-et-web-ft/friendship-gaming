@@ -1,5 +1,5 @@
 {
-  "name": "pern-vite",
+  "name": "friendship_gaming",
   "version": "1.0.0",
   "description": "A simple boilerplate for the PERN stack using Vite.js. It includes Node-Postgres v8.8, Express, React 18, React Router DOM v6.6, Morgan, Axios, jsonwebtoken, bcrypt, dotenv, and Nodemon. ",
   "main": "index.js",

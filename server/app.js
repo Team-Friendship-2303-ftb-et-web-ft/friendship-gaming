@@ -5,7 +5,9 @@ const client = require('./db/client');
 client.connect();
 const app = express();
 const morgan = require('morgan');
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));

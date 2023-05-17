@@ -13,6 +13,7 @@ async function createUser({username, password}) {
       `, [username, hashedPassword]);
     console.log(user)
       return user;
+
   } catch (error) {
     console.error(error);
   }

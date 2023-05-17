@@ -1,5 +1,4 @@
 const {
-  client,
   createUser,
   getUser,
   getUserById,
@@ -8,10 +7,25 @@ const {
   getCartByOrder,
   getCartByUserId,
   createCartItems,
-  getCartItemsByOrder
-
-} = require('./client');
-
+  getCartItemsByOrder,
+  createGame,
+  getGameById,
+  getAllGames,
+  getGamesByAuthor,
+  getGamesByGenre,
+  getGamesByTag,
+  updateGame,
+  destroyGame,
+  addTagToGame,
+  removeTagFromGame,
+  createTag,
+    createAddress,
+    getAddressByID,
+    getAddressByUser
+} = require('./index.js');
+const 
+  client
+ = require('./client');
 
 /*******DROP TABLES ********/
 
@@ -19,13 +33,14 @@ const dropTables = async () => {
   try{
     console.log("Dropping tables now!")
     await client.query(`
-    DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS cart;
-    DROP TABLE IF EXISTS cartItems;
+    DROP TABLE IF EXISTS game_tags;
     DROP TABLE IF EXISTS tags;
-    DROP TABLE IF EXISTS userInfo;
+    DROP TABLE IF EXISTS cartItems;
     DROP TABLE IF EXISTS games;
+    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS userInfo;
     DROP TABLE IF EXISTS addresses;
+    DROP TABLE IF EXISTS users;
     `);
     console.log("Tables have been dropped!")
   } catch (error){
@@ -45,24 +60,23 @@ const createTables = async () => {
           username varchar(255) UNIQUE NOT NULL,
           password varchar(255) NOT NULL
         );
+        CREATE TABLE addresses(
+          id SERIAL PRIMARY KEY,
+          street_address varchar(255) NOT NULL,
+          city varchar(255) NOT NULL,
+          state varchar(255) NOT NULL,
+          country varchar(255) NOT NULL,
+          postal_code INTEGER 
+        );
         CREATE TABLE userInfo (
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
           firstName varchar(255) NOT NULL,
           lastName varchar(255) NOT NULL,
-          dateOfBirth DATE
-          isAdmin BOOLEAN DEFAULT false,
+          dateOfBirth DATE,
+          "isAdmin" BOOLEAN DEFAULT false,
           "addressId" INTEGER REFERENCES addresses(id)
         );
-        CREATE TABLE tags(
-          id SERIAL PRIMARY KEY,
-          name VARCHAR(255) UNIQUE NOT NULL
-          );
-        CREATE TABLE game_tags(
-          "gameId" INTEGER REFERENCES games(id),
-          "tagId" INTEGER REFERENCES tags(id),
-          UNIQUE ("gameId", "tagId")
-                  );
         CREATE TABLE games(
           id SERIAL PRIMARY KEY,
           authorName varchar(255) NOT NULL,
@@ -71,14 +85,6 @@ const createTables = async () => {
           price DECIMAL NOT NULL,
           description  varchar(500) NOT NULL,
           featured BOOLEAN DEFAULT false
-        );
-        CREATE TABLE addresses(
-          id SERIAL PRIMARY KEY,
-          street_address varchar(255) NOT NULL,
-          city varchar(255) NOT NULL,
-          state varchar(255) NOT NULL,
-          country varchar(255) NOT NULL,
-          postal_code INTEGER 
         );
         CREATE TABLE cart(
           id SERIAL PRIMARY KEY,
@@ -92,6 +98,15 @@ const createTables = async () => {
             quantity INTEGER,
             priceAtPurchase DECIMAL
             );
+            CREATE TABLE tags(
+              id SERIAL PRIMARY KEY,
+              name VARCHAR(255) UNIQUE NOT NULL
+              );
+            CREATE TABLE game_tags(
+              "gameId" INTEGER REFERENCES games(id),
+              "tagId" INTEGER REFERENCES tags(id),
+              UNIQUE ("gameId", "tagId")
+                      );
         `);
       console.log("Tables done. Double tapped for good measure.")
   } catch (error) {
@@ -370,27 +385,32 @@ async function createInitialTags(){
 
 const rebuildDB = async () => {
   try {
-      client.connect();
-
-      await dropTables();
-      await createTables();
-      await createInitialUsers();
-      await createInitialCarts();
-      await createInitialGames();
-      await createInitialCartItems();
-      await createInitialTags();
-     // await createInitialAddresses();
-      
+    await dropTables();
+    await createTables();
+    await createInitialUsers();
+    await createInitialCarts();
+    await createInitialGames();
+    await createInitialCartItems();
+    await createInitialTags();
+   // await createInitialAddresses();
+   await testDB();
   } catch (error) {
-     throw error;
+    console.error('Error during rebuildDB', error);
+    throw error;
+  } finally {
+    await client.end();
+    console.log("Database has been rebuilt, and you're good to go!");
   }
-}
+};
 
+rebuildDB();
 /******* TESTS ********/
+
+
 
 const testDB = async () => {
   try {
-   /* console.log("Testing, Testing 1,2...?")
+    console.log("Testing, Testing 1,2...?")
 
     
     const users = await getAllUsers();
@@ -426,7 +446,7 @@ const testDB = async () => {
     console.log("Calling getGamesByTagName with #scary");
     const gamesWithScary = await getGamesByTagName("#scary");
     console.log("Result:",gamesWithScary);
-*/
+
 
   } catch (error) {
     console.error("It broke....no work...test fail");
@@ -434,7 +454,3 @@ const testDB = async () => {
   }
 }
 
-rebuildDB()
-  .then(testDB)
-  .catch(console.error)
-  .finally(() => client.end());

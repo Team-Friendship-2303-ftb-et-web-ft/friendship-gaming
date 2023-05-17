@@ -79,14 +79,14 @@ const createTables = async () => {
           "isAdmin" BOOLEAN DEFAULT false,
           "addressId" INTEGER REFERENCES addresses(id)
         );
-        CREATE TABLE games(
+        CREATE TABLE Games(
           id SERIAL PRIMARY KEY,
-          authorName varchar(255) NOT NULL,
-          genre varchar(255) NOT NULL,
-          title varchar(255) NOT NULL,
-          price DECIMAL NOT NULL,
-          description  varchar(500) NOT NULL,
-          featured BOOLEAN DEFAULT false
+          AuthorName varchar(255) NOT NULL,
+          Genre varchar(255) NOT NULL,
+          Title varchar(255) NOT NULL,
+          Price DECIMAL NOT NULL,
+          Description  varchar(500) NOT NULL,
+          Featured BOOLEAN DEFAULT false
         );
         CREATE TABLE cart(
           id SERIAL PRIMARY KEY,
@@ -98,7 +98,7 @@ const createTables = async () => {
             "cartId"  INTEGER REFERENCES cart(id),
             "gameId"  INTEGER REFERENCES games(id),
             quantity INTEGER,
-            priceAtPurchase DECIMAL
+            "PriceAtPurchase" DECIMAL
             );
             CREATE TABLE tags(
               id SERIAL PRIMARY KEY,
@@ -151,124 +151,124 @@ async function createInitialGames(){
   
   const gamesToCreate = [
     {
-      authorName:  "Lysandra Nightshade",
-      genre: "adventure" ,
-      title: "Enchanted Arsenal: The Battle for the Sacred Sword",
-      price: 45.00,
-      description: "A adventure game where you vanquish enchanted furniture to forge the sacred sword." ,
-      featured: true ,
+      AuthorName:  "Lysandra Nightshade",
+      Genre: "adventure" ,
+      Title: "Enchanted Arsenal: The Battle for the Sacred Sword",
+      Price: 45.00,
+      Description: "A adventure game where you vanquish enchanted furniture to forge the sacred sword." ,
+      Featured: true ,
     },
      {
-      authorName: "Nebula Interactive"  ,
-      genre: "FPS",
-      title: "Zombie Uprising: Mutant Mayhem in Moscow",
-      price: 59.99,
-      description:  "An FPS game where you hijack mutant zombies in Russia." ,
-      featured: true,
+      AuthorName: "Nebula Interactive"  ,
+      Genre: "FPS",
+      Title: "Zombie Uprising: Mutant Mayhem in Moscow",
+      Price: 59.99,
+      Description:  "An FPS game where you hijack mutant zombies in Russia." ,
+      Featured: true,
     },
      {
-      authorName: "Blackout Studios" ,
-      genre: "horror",
-      title: "Inferno of the Undead",
-      price: 59.99,
-      description: "An horror game where you retrieve holy artifacts with vampires in the lava kingdom.",
-      featured: true ,
+      AuthorName: "Blackout Studios" ,
+      Genre: "horror",
+      Title: "Inferno of the Undead",
+      Price: 59.99,
+      Description: "An horror game where you retrieve holy artifacts with vampires in the lava kingdom.",
+      Featured: true ,
     },
      {
-      authorName:  "Nexus Interactive",
-      genre: "adventure",
-      title: "Robo-World Builder: The Unknown Frontier",
-      price: 25.99,
-      description:"A adventure game where you build unknown worlds with robots.",
-      featured: false,
+      AuthorName:  "Nexus Interactive",
+      Genre: "adventure",
+      Title: "Robo-World Builder: The Unknown Frontier",
+      Price: 25.99,
+      Description:"A adventure game where you build unknown worlds with robots.",
+      Featured: false,
     },
      {
-      authorName: "Phantasmic Games" ,
-      genre: "adventure",
-      title: "Beyond The Veil" ,
-      price: 45.00,
-      description: "An adventure horror game where you save extra-dimensional entities because, I mean, why the hell not.",
-      featured: false,
+      AuthorName: "Phantasmic Games" ,
+      Genre: "adventure",
+      Title: "Beyond The Veil" ,
+      Price: 45.00,
+      Description: "An adventure horror game where you save extra-dimensional entities because, I mean, why the hell not.",
+      Featured: false,
     },
      {
-      authorName: "AquaSphere Games" ,
-      genre: "adventure",
-      title:  "Oceanic Realms: Divine City Builder" ,
-      price: 49.99,
-      description:  "A god game where you build underwater cities by gaining god points.",
-      featured: false,
+      AuthorName: "AquaSphere Games" ,
+      Genre: "adventure",
+      Title:  "Oceanic Realms: Divine City Builder" ,
+      Price: 49.99,
+      Description:  "A god game where you build underwater cities by gaining god points.",
+      Featured: false,
     },
      {
-      authorName: "MutantMatch Studios" ,
-      genre: "FPS",
-      title: "Chaos Hearts",
-      price: 59.99,
-      description: "A shooting game where you encounter mutants with unpredictable powers.",
-      featured: false,
+      AuthorName: "MutantMatch Studios" ,
+      Genre: "FPS",
+      Title: "Chaos Hearts",
+      Price: 59.99,
+      Description: "A shooting game where you encounter mutants with unpredictable powers.",
+      Featured: false,
     },
      {
-      authorName:  "MythicRealms Interactive",
-      genre: "adventure" ,
-      title: "Eternal Legends: Lost Kingdom",
-      price: 39.99,
-      description: 'In the mystical realm of Eldoria, an ancient prophecy whispers of a hidden Lost Kingdom. As a brave adventurer, you embark on a perilous journey to unravel the secrets of this legendary realm. Armed with a legendary artifact and accompanied by a loyal group of companions, you must navigate treacherous landscapes, battle fearsome creatures, and solve mind-bending puzzles.',
-      featured: false,
+      AuthorName:  "MythicRealms Interactive",
+      Genre: "adventure" ,
+      Title: "Eternal Legends: Lost Kingdom",
+      Price: 39.99,
+      Description: 'In the mystical realm of Eldoria, an ancient prophecy whispers of a hidden Lost Kingdom. As a brave adventurer, you embark on a perilous journey to unravel the secrets of this legendary realm. Armed with a legendary artifact and accompanied by a loyal group of companions, you must navigate treacherous landscapes, battle fearsome creatures, and solve mind-bending puzzles.',
+      Featured: false,
     },
      {
-      authorName: "MonkeyStrike Studios" ,
-      genre: "FPS",
-      title: "Ninja Havoc: Shadows of the Tyrant" ,
-      price: 54.99,
-      description: "A FPS where you fight ninjas to save  the world from a dictator monkey.",
-      featured: true,
+      AuthorName: "MonkeyStrike Studios" ,
+      Genre: "FPS",
+      Title: "Ninja Havoc: Shadows of the Tyrant" ,
+      Price: 54.99,
+      Description: "A FPS where you fight ninjas to save  the world from a dictator monkey.",
+      Featured: true,
     },
      {
-      authorName:  "SinisterByte Games",
-      genre: "horror",
-      title: "Devil's Dominion: Haunting the AI",
-      price: 29.99,
-      description: "A horror game where you hijack evil AIs as slowly as possible.",
-      featured: false,
+      AuthorName:  "SinisterByte Games",
+      Genre: "horror",
+      Title: "Devil's Dominion: Haunting the AI",
+      Price: 29.99,
+      Description: "A horror game where you hijack evil AIs as slowly as possible.",
+      Featured: false,
     },
      {
-      authorName:  "LunarFire Entertainment",
-      genre: "FPS",
-      title: "Moonstrike: Space Soldier",
-      price: 44.99,
-      description:  "An FPS where you defeat space people on the Moon.",
-      featured: false,
+      AuthorName:  "LunarFire Entertainment",
+      Genre: "FPS",
+      Title: "Moonstrike: Space Soldier",
+      Price: 44.99,
+      Description:  "An FPS where you defeat space people on the Moon.",
+      Featured: false,
     },
      {
-      authorName: 'Abyssal Secrets Studio' ,
-      genre: "adventure",
-      title: "GooQuest: Depths of the Abyss" ,
-      price: 34.99,
-      description: "An adventure game where you freeze oozes and solve puzzles in the darkest caves to reach the center of the earth.",
-      featured: false,
+      AuthorName: 'Abyssal Secrets Studio' ,
+      Genre: "adventure",
+      Title: "GooQuest: Depths of the Abyss" ,
+      Price: 34.99,
+      Description: "An adventure game where you freeze oozes and solve puzzles in the darkest caves to reach the center of the earth.",
+      Featured: false,
     },
      {
-      authorName: "BioTech Nightmares" ,
-      genre: "horror",
-      title: "Beastech: Unleashed Horrors" ,
-      price: 49.99,
-      description: "A horror game where you are a reporter trying to expose a lab that does experiments on bears and reptiles. Fusing them with reobotics and AI thechnology in a laboratory.",
-      featured: true,
+      AuthorName: "BioTech Nightmares" ,
+      Genre: "horror",
+      Title: "Beastech: Unleashed Horrors" ,
+      Price: 49.99,
+      Description: "A horror game where you are a reporter trying to expose a lab that does experiments on bears and reptiles. Fusing them with reobotics and AI thechnology in a laboratory.",
+      Featured: true,
     },
      {
-      authorName: "BioTech Nightmares",
-      genre: "horror",
-      title: "Beastech: G's Revenge" ,
-      price: 59.99,
-      description: "Beastech Part 2: After exposing Beastech labs they shut down but, left some experiments behind that have escaped and are reaking havic. It is up to you and your knew friend Gnome (half bear half robot ) or G for short,to stop them from taking over your city and spreading across the country.",
-      featured: false,
+      AuthorName: "BioTech Nightmares",
+      Genre: "horror",
+      Title: "Beastech: G's Revenge" ,
+      Price: 59.99,
+      Description: "Beastech Part 2: After exposing Beastech labs they shut down but, left some experiments behind that have escaped and are reaking havic. It is up to you and your knew friend Gnome (half bear half robot ) or G for short,to stop them from taking over your city and spreading across the country.",
+      Featured: false,
     },
      {
-      authorName: "WitchForge Games" ,
-      genre: "adventure",
-      title: "Cauldron's Call: Dungeon Delve",
-      price: 39.99,
-      description: "An adventure game where you explore dungeons with witches.",
-      featured: false,
+      AuthorName: "WitchForge Games" ,
+      Genre: "adventure",
+      Title: "Cauldron's Call: Dungeon Delve",
+      Price: 39.99,
+      Description: "An adventure game where you explore dungeons with witches.",
+      Featured: false,
     }
   ]
  const games = Promise.all(
@@ -280,38 +280,36 @@ async function createInitialGames(){
 
 /*******CREATE CARTS ********/
 async function createInitialCarts() {
-
+  try{
     console.log("Creating Initial Carts");
-    const cartsToCreate = [
-    {
+    await createCart({
       userId: 1,
-      purchaseStatus: false,
-    },
-    {
+      purchaseStatus: 'false'
+    });
+    await createCart({
       userId: 2,
-      purchaseStatus: true,
-    },
-    {
+      purchaseStatus: 'true'
+    });
+    await createCart({
       userId: 3,
-      purchaseStatus: true,
-    },
-    {
+      purchaseStatus: 'true'
+    });
+    await createCart({
       userId: 2,
-      purchaseStatus: false,
-    },
-  ]
-  const carts = Promise.all(
-    cartsToCreate.map((cart) => createCart(cart))
-  )
-    console.log("Carts Created:", carts)
+      purchaseStatus: 'false'
+    });
+    console.log("Carts Created:", orders)
     console.log("Carts have been created!")
-
+}catch (error){
+  console.error("Carts not created!");
+  throw error;
+}
 }
 
 /*******CREATE CART ITEMS ********/
 async function createInitialCartItems(){
   console.log("Starting the cart items...")
-    const [] = await getAllCartsWithoutItems();
+    // const [] = await getAllCartsWithoutItems();
     const [] = await getAllUsers();
 
     const cartItemsToCreate =[
@@ -319,43 +317,43 @@ async function createInitialCartItems(){
         cartId: 1,
         gameId: 1,
         quantity: 2,
-        priceAtPurchase:45.00
+        PriceAtPurchase:45.00
       },
       {
         cartId: 2,
         gameId: 4,
         quantity: 1 ,
-        priceAtPurchase:25.99
+        PriceAtPurchase:25.99
       },
       {
         cartId: 2,
         gameId: 6,
         quantity: 1,
-        priceAtPurchase:49.99
+        PriceAtPurchase:49.99
       },
       {
         cartId: 3,
         gameId: 7,
         quantity:1 ,
-        priceAtPurchase:59.99
+        PriceAtPurchase:59.99
       },
       {
         cartId: 1,
         gameId: 8,
         quantity:3 ,
-        priceAtPurchase:54.99
+        PriceAtPurchase:54.99
       },
       {
         cartId: 2,
         gameId: 12,
         quantity: 2,
-        priceAtPurchase:34.99
+        PriceAtPurchase:34.99
       },
       {
         cartId: 2,
         gameId: 14,
         quantity:2 ,
-        priceAtPurchase:59.99
+        PriceAtPurchase:59.99
       }
     ]
     const cartItems = await Promise.all(
@@ -434,12 +432,8 @@ const testDB = async () => {
     console.log("Result:", games);
 
     console.log("Calling getAllCarts");
-    const carts = await getAllCarts();
-    console.log("Result:", carts);
-
-    console.log("Calling getCartsByUser on ");
-    const postsWithHappy = await getPostsByTagName("#happy");
-    console.log("Result:", postsWithHappy);
+    const orders = await getAllCarts();
+    console.log("Result:", orders);
 
     console.log("Calling getAllCartItems");
     const cartItems = await getAllCartItems();

@@ -12,8 +12,10 @@ async function createCart({ userId, purchaseStatus }) {
         VALUES ($1, $2)
         RETURNING *;
         `, [ userId, purchaseStatus]);
-        
-        return order;
+
+          console.log(order)
+            return order;
+
     } catch (error) {
         throw error;
     }

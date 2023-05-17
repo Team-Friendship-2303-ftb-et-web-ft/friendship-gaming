@@ -20,7 +20,7 @@ async function createGame({ AuthorName, Genre, Name, Price, Description, Tags, F
 
     // Waiting for all tag-insertions to complete
     await Promise.all(promises);
-    console.log(game);
+    
     // Returning the newly created game
     return game;
   } catch (error) {
@@ -48,7 +48,7 @@ async function getAllGames() {
     const { rows: games } = await client.query(`
       SELECT * FROM Games;
     `);
-
+   
     return games;
   } catch (error) {
     console.error("Error getting all games", error);

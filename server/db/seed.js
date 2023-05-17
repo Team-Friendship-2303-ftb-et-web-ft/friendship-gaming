@@ -148,7 +148,20 @@ async function createInitialUsers() {
 /*******CREATE GAMES ********/
 async function createInitialGames(){
   console.log("Creating the Games...")
-  
+//   try {
+//     const game = await createGame({
+//       AuthorName:  "Lysandra Nightshade",
+//       Genre: "adventure" ,
+//       Title: "Enchanted Arsenal: The Battle for the Sacred Sword",
+//       Price: 45.00,
+//       Description: "A adventure game where you vanquish enchanted furniture to forge the sacred sword." ,
+//       Featured: true
+//     })
+//     console.log(game);
+//   } catch(error) {
+//     console.log('error creating initial games')
+//   } 
+// }
   const gamesToCreate = [
     {
       AuthorName:  "Lysandra Nightshade",
@@ -271,6 +284,7 @@ async function createInitialGames(){
       Featured: false,
     }
   ]
+
  const games = await Promise.all(
   gamesToCreate.map((game) => createGame(game))
 )
@@ -299,7 +313,6 @@ async function createInitialCarts() {
       userId: 2,
       purchaseStatus: 'false'
     });
-   
     console.log("Carts have been created!")
 }catch (error){
   console.error("Carts not created!");
@@ -309,9 +322,8 @@ async function createInitialCarts() {
 
 /*******CREATE CART ITEMS ********/
 async function createInitialCartItems(){
- try{ console.log("Starting the cart items...")
- 
 
+ try{ console.log("Starting the cart items...")
     await createCartItems({
     
         cartId: 1,
@@ -339,35 +351,36 @@ async function createInitialCartItems(){
   }
 }
 
-/******* Create Tags ********/
+// /******* Create Tags ********/
 
-async function createInitialTags(){
-  try{
-    console.log("Starting to create Tags...");
-    const[] = await createInitialTags([
-      //tags here
-    ]);
+// async function createInitialTags(){
+//   try{
+//     console.log("Starting to create Tags...");
+//     const[] = await createInitialTags([
+//       //tags here
+//     ]);
 
-    const [gameOne, gameFive, gameTen] = await getAllGames();
-    await addTagsToGame(gameOne.id, []);
-    await addTagsToGame(gameFive.id, []);
-    await addTagsToGame(gameTen.id, []);
+//     const [gameOne, gameFive, gameTen] = await getAllGames();
+//     await addTagsToGame(gameOne.id, []);
+//     await addTagsToGame(gameFive.id, []);
+//     await addTagsToGame(gameTen.id, []);
     
-    console.log("Finished Creating Tags!");
-  } catch (error) {
-    console.log("error creating tags!")
-    throw error;
-  }
-}
+//     console.log("Finished Creating Tags!");
+//   } catch (error) {
+//     console.log("error creating tags!")
+//     throw error;
+//   }
+// }
 
 const rebuildDB = async () => {
   try {
     await dropTables();
     await createTables();
     await createInitialUsers();
-    await createInitialCarts();
     await createInitialGames();
+    await createInitialCarts(); 
     await createInitialCartItems();
+
     // await createInitialTags();
   //  await createInitialAddresses();
    await testDB();
@@ -401,24 +414,23 @@ const testDB = async () => {
 
  console.log("Calling getUserById with 1");
     const albert = await getUserById(1);
-    console.log("Result:", albert);
+    console.log("getUserByID Result:", albert);
 
     console.log("Calling getAllGames");
     const games = await getAllGames();
-    console.log("Result:", games);
+    // console.log("Games Result:", games);
 
-    console.log("Calling getAllCarts");
-    const orders = await getAllCarts();
-    console.log("Result:", orders);
+    // console.log("Calling getAllCarts");
+    // const orders = await getAllCarts();
+    // console.log("Result:", orders);
 
     console.log("Calling getAllCartItems");
     const order = await getAllCartItems();
     console.log("Result:", order);
 
-
-    console.log("Calling getGamesByTagName with #scary");
-    const gamesWithScary = await getGamesByTagName("#scary");
-    console.log("Result:",gamesWithScary);
+    // console.log("Calling getGamesByTagName with #scary");
+    // const gamesWithScary = await getGamesByTagName("#scary");
+    // console.log("Result:",gamesWithScary);
 
 
   } catch (error) {

@@ -91,18 +91,13 @@ async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin
 }
 
 async function getUserInfoByUser({userID}) {
-  const { rows: [userInfo] } = await client.query(`
-    SELECT userInfo.*
-    FROM userInfo
-    WHERE userInfo."userID" = $1
-  `, [userID]);
 
-//   const { rows: [userInfo] } = await client.query(`
-//   SELECT users.*, userInfo.*
-//   FROM users
-//   JOIN userInfo ON users.id = userInfo."userID"
-//   WHERE users.id = $1
-// `, [userID]);
+  const { rows: [userInfo] } = await client.query(`
+  SELECT users.*, userInfo.*
+  FROM users
+  JOIN users ON users.id = userInfo."userID"
+  WHERE users.id = $1
+`, [userID]);
 
   if(!userInfo) {
     console.log('could not find userInfo')
@@ -166,7 +161,8 @@ module.exports = {
   getUserById,
   getUserByUsername,
   createUserInfo,
+  getUserInfoByUser,
   createAddress,
   getAddressByID,
-
+  getAddressByUser
 };

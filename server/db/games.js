@@ -1,13 +1,16 @@
 const client = require("./client");
 
+// The createGame function is used to create a new game entry in the database.
 async function createGame({ AuthorName, Genre, Name, Price, Description, Tags, Featured }) {
   try {
+    // This is inserting the game details into the 'Games' table and returning the newly created game.
     const { rows: [ game ] } = await client.query(`
       INSERT INTO Games(AuthorName, Genre, Name, Price, Description, Featured)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `, [AuthorName, Genre, Name, Price, Description, Featured]);
 
+    // For each tag in the 'Tags' array, it is inserting a new entry into the 'Game_Tags' table, linking the game to a tag.
     const promises = Tags.map(tag => {
       return client.query(`
         INSERT INTO Game_Tags(gameId, tagId)
@@ -15,8 +18,10 @@ async function createGame({ AuthorName, Genre, Name, Price, Description, Tags, F
       `, [game.GameID, tag]);
     });
 
+    // Waiting for all tag-insertions to complete
     await Promise.all(promises);
 
+    // Returning the newly created game
     return game;
   } catch (error) {
     console.error("Error creating game", error);

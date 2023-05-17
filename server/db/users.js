@@ -23,7 +23,6 @@ async function getAllUsers() {
   try {
     const { rows: [users] } = await client.query(`
       SELECT id, username FROM users
-      RETURNING id, username;
     `);
     return users;
   } catch (error) {
@@ -46,7 +45,7 @@ async function getUser({username, password}) {
       WHERE username = $1
       `, [username]);
 
-      if (!user.length) {
+      if (user.length == 0) {
         console.log('could not find user');
         return;
       }
@@ -65,7 +64,7 @@ async function getUserById(userID) {
       WHERE id=$1
     `, [userID]);
 
-    if (!user.length) {
+    if (user.length == 0) {
       console.log('could not find user');
       return;
     }
@@ -83,7 +82,7 @@ async function getUserByUsername(username) {
       WHERE username=$1
     `, [username]);
 
-    if (!user.length) {
+    if (user.length == 0) {
       console.log('could not find user');
       return;
     }
@@ -112,7 +111,7 @@ async function getUserInfoByUser({userID}) {
   WHERE users.id = $1
 `, [userID]);
 
-  if(!userInfo) {
+  if(user.length == 0) {
     console.log('could not find userInfo')
     return;
   }
@@ -141,7 +140,7 @@ async function getAddressByID(addressID) {
       WHERE id = $1
     `, [addressID]);
   
-    if(!address.length) {
+    if(address.length == 0) {
       console.log('could not find address');
       return
     };

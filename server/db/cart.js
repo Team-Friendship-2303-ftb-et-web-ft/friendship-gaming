@@ -6,8 +6,8 @@ async function createCart({ userId, purchaseStatus }) {
     try {
         const { rows: [ order ] } = await client.query(`
         INSERT INTO cart (
-            "userId"
-            purchaseStatus
+            "userId",
+            "purchaseStatus"
         )
         VALUES ($1, $2)
         RETURNING *;

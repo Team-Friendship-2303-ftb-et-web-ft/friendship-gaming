@@ -8,6 +8,7 @@ const {
   getCartByOrder,
   getCartByUserId,
   createCartItems,
+  getAllCartItems,
   getCartItemsByOrder,
   createGame,
   getGameById,

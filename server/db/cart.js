@@ -2,17 +2,16 @@ const client = require('./client');
 
 //----------Cart----------//
 
-async function createCart({ orderId, userId, purchaseStatus }) {
+async function createCart({ userId, purchaseStatus }) {
     try {
         const { rows: [ order ] } = await client.query(`
         INSERT INTO cart (
-            "orderId"
             "userId"
             purchaseStatus
         )
         VALUES ($1, $2, $3)
         RETURNING *;
-        `, [ orderId, userId, purchaseStatus]);
+        `, [ userId, purchaseStatus]);
 
             return order;
     } catch (error) {
@@ -53,18 +52,18 @@ async function getCartByUserId(userId) {
 
 //----------Cart Items----------//
 
-async function createCartItems({ orderId, gameId, Qty, priceAtPurchase }) {
+async function createCartItems({ cartId, gameId, quantity, priceAtPurchase }) {
     try {
         const { rows: [ order ] } = await client.query(`
-        INSERT INTO cart (
-            "orderId"
+        INSERT INTO cartItems (
+            "cartId"
             "gameId"
-            Qty
+            quantity
             priceAtPurchase
         )
         VALUES ($1, $2, $3, $4)
         RETURNING *;
-        `, [ orderId, gameId, Qty, priceAtPurchase]);
+        `, [ cartId, gameId, quantity, priceAtPurchase]);
 
             return order;
     } catch (error) {
@@ -84,5 +83,13 @@ async function getCartItemsByOrder(id) {
      } catch (error) {
        throw error;
      }
+    }
+
+    module.exports = {
+      createCart,
+      getCartByOrder,
+      getCartByUserId,
+      createCartItems,
+      getCartItemsByOrder
     }
 

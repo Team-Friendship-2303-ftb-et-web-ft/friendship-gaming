@@ -21,11 +21,10 @@ async function createUser({username, password}) {
 
 async function getAllUsers() {
   try {
-    const { rows: [users] } = await client.query(`
+    const { rows } = await client.query(`
       SELECT id, username FROM users
-      RETURNING id, username;
     `);
-    return users;
+    return rows;
   } catch (error) {
     console.error(error);
   }
@@ -58,17 +57,17 @@ async function getUser({username, password}) {
   }
 }
 
-async function getUserById(userID) {
+async function getUserById(userId) {
   try {
     const { rows: [user] } = await client.query(`
       SELECT id, username FROM users
       WHERE id=$1
-    `, [userID]);
+    `, [userId]);
 
-    if (!user.length) {
-      console.log('could not find user');
-      return;
-    }
+    // if (!user.length) {
+    //   console.log('could not find user');
+    //   return;
+    //}
 
     return user;
   } catch (error) {

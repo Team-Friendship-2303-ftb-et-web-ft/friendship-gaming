@@ -9,7 +9,7 @@ async function createCart({ userId, purchaseStatus }) {
             "userId"
             purchaseStatus
         )
-        VALUES ($1, $2, $3)
+        VALUES ($1, $2)
         RETURNING *;
         `, [ userId, purchaseStatus]);
 
@@ -71,6 +71,19 @@ async function createCartItems({ cartId, gameId, quantity, priceAtPurchase }) {
     }
 }
 
+async function getAllCartItems() {
+  try {
+    const { rows: order } = await client.query(`
+    SELECT * FROM activities
+    `);
+    
+    return order;
+    
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getCartItemsByOrder(id) {
     try {
       const { rows: [ order ] } = await client.query(`
@@ -90,6 +103,7 @@ async function getCartItemsByOrder(id) {
       getCartByOrder,
       getCartByUserId,
       createCartItems,
+      getAllCartItems,
       getCartItemsByOrder
     }
 

@@ -9,10 +9,10 @@ async function createCart({ userId, purchaseStatus }) {
             "userId"
             purchaseStatus
         )
-        VALUES ($1, $2, $3)
+        VALUES ($1, $2)
         RETURNING *;
         `, [ userId, purchaseStatus]);
-
+          console.log(order)
             return order;
     } catch (error) {
         throw error;

@@ -142,34 +142,6 @@ async function destroyGame(id) {
     }
   }
   
-  async function addTagToGame(gameId, tagId) {
-    try {
-      await client.query(`
-        INSERT INTO Game_Tags(gameId, tagId)
-        VALUES ($1, $2);
-      `, [gameId, tagId]);
-  
-      console.log(`Tag ${tagId} has been successfully added to game ${gameId}.`);
-    } catch (error) {
-      console.error(`Error adding tag to game: ${error}`);
-      throw error;
-    }
-  }
-  
-  async function removeTagFromGame(gameId, tagId) {
-    try {
-      await client.query(`
-        DELETE FROM Game_Tags
-        WHERE gameId=$1 AND tagId=$2;
-      `, [gameId, tagId]);
-  
-      console.log(`Tag ${tagId} has been successfully removed from game ${gameId}.`);
-    } catch (error) {
-      console.error(`Error removing tag from game: ${error}`);
-      throw error;
-    }
-  }
-  
   module.exports = {
     createGame,
     getGameById,
@@ -179,7 +151,5 @@ async function destroyGame(id) {
     getGamesByTag,
     updateGame,
     destroyGame,
-    addTagToGame,
-    removeTagFromGame
   };
   

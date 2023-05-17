@@ -12,8 +12,10 @@ async function createCart({ userId, purchaseStatus }) {
         VALUES ($1, $2)
         RETURNING *;
         `, [ userId, purchaseStatus]);
+
           console.log(order)
             return order;
+
     } catch (error) {
         throw error;
     }
@@ -71,6 +73,19 @@ async function createCartItems({ cartId, gameId, quantity, priceAtPurchase }) {
     }
 }
 
+async function getAllCartItems() {
+  try {
+    const { rows: order } = await client.query(`
+    SELECT * FROM activities
+    `);
+    
+    return order;
+    
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getCartItemsByOrder(id) {
     try {
       const { rows: [ order ] } = await client.query(`
@@ -90,6 +105,7 @@ async function getCartItemsByOrder(id) {
       getCartByOrder,
       getCartByUserId,
       createCartItems,
+      getAllCartItems,
       getCartItemsByOrder
     }
 

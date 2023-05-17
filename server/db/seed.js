@@ -1,12 +1,14 @@
 const {
   createUser,
   getUser,
+  getAllUsers,
   getUserById,
   getUserByUsername,
   createCart,
   getCartByOrder,
   getCartByUserId,
   createCartItems,
+  getAllCartItems,
   getCartItemsByOrder,
   createGame,
   getGameById,
@@ -309,6 +311,7 @@ async function createInitialCartItems(){
   console.log("Starting the cart items...")
     // const [] = await getAllCartsWithoutItems();
     const [] = await getAllUsers();
+
     const cartItemsToCreate =[
       {
         cartId: 1,
@@ -390,7 +393,7 @@ const rebuildDB = async () => {
     await createInitialGames();
     await createInitialCartItems();
     await createInitialTags();
-   // await createInitialAddresses();
+  //  await createInitialAddresses();
    await testDB();
   } catch (error) {
     console.error('Error during rebuildDB', error);

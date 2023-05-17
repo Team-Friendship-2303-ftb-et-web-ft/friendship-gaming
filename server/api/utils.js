@@ -1,4 +1,4 @@
-const requireUser = ((req, res, next) => {
+const requireAdmin = ((req, res, next) => {
     if (!req.user && req.user.isAdmin == false) {
         next({
            message: 'You must be logged in to perform this actions' 
@@ -8,5 +8,5 @@ const requireUser = ((req, res, next) => {
 });
 
 module.exports = {
-    requireUser
+    requireAdmin
 };

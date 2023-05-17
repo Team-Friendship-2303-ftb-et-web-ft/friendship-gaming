@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const { getUserByUsername, createUser, getUser } = require('../db/users');
-const { route } = require('./users');
 const { JWT_SECRET } = process.env;
 
 // GET: api/users
@@ -24,7 +23,7 @@ router.post('/register', async (req, res, next) => {
 
     const user = await createUser({username, password});
 
-    const token = jwt.sign({ id: user.id, username }, process.env.JWT_SECRET, { expiresIn: "1w" })
+    const token = jwt.sign({ id: user.id, username }, JWT_SECRET, { expiresIn: "1w" })
 
     res.send({message: 'You successfully registered', user, token})
   } catch (message) {
@@ -42,8 +41,8 @@ router.post('/login', async(req, res, next) => {
   try {
     const user = await getUser({username, password});
     if (user) {
-      const token = jwt.sign(user, proces.env.JWT_SECRET);
-      res.send({message: 'you have been logged in', token, user})
+      const token = jwt.sign(user, JWT_SECRET);
+      res.send({message: 'you have been logged in', user, token})
     } else {
       next({message: 'username or password is incorrect'})
     }

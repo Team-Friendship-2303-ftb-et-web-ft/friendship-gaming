@@ -12,11 +12,6 @@ async function createUser({username, password}) {
       RETURNING id, username;
       `, [username, hashedPassword]);
 
-      if (!user.length) {
-        console.log('could not find user');
-        return;
-      }
-
       return user;
   } catch (error) {
     console.error(error);
@@ -86,9 +81,92 @@ async function getUserByUsername(username) {
   }
 }
 
+/**********userInfo**********/
+async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin, addressId}) {
+  const { rows: [userInfo] } = await client.query(`
+    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, isAdmin, "addressId")
+    VALUES ($1, $2, $3, $4, $5, $6)
+  `, [userId, firstName, lastName, dateOfBirth, isAdmin, addressId]);
+  return userInfo;
+}
+
+async function getUserInfoByUser({userID}) {
+  const { rows: [userInfo] } = await client.query(`
+    SELECT userInfo.*
+    FROM userInfo
+    WHERE userInfo."userID" = $1
+  `, [userID]);
+
+//   const { rows: [userInfo] } = await client.query(`
+//   SELECT users.*, userInfo.*
+//   FROM users
+//   JOIN userInfo ON users.id = userInfo."userID"
+//   WHERE users.id = $1
+// `, [userID]);
+
+  if(!userInfo) {
+    console.log('could not find userInfo')
+    return;
+  }
+
+  return userInfo;
+}
+
+/*********addresses*********/
+async function createAddress({street_address, city, state, country, postal_code}) {
+  try {
+    const { rows: [address] } = await client.query(`
+      INSERT INTO addresses(street_address, city, state, country, postal_code)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *
+    `, [street_address, city, state, country, postal_code]);
+    return address;
+  } catch (error) {
+    console.error(error)
+  }
+};
+
+async function getAddressByID(addressID) {
+  try {
+    const { rows: [address] } = await client.query(`
+      SELECT * FROM addresses
+      WHERE id = $1
+    `, [addressID]);
+  
+    if(!address.length) {
+      console.log('could not find address');
+      return
+    };
+  
+    return address
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+async function getAddressByUser({username}) {
+  const user = await getUserByUsername(username);
+  const userID = user.id;
+  try {
+    const { rows: [address] } = await client.query(`
+      SELECT addresses.*, userInfo.*
+      FROM userInfo
+      JOIN addresses ON addresses.id = userInfo."addressId"
+      WHERE userInfo."userId"= $1
+    `, [userID]);
+    return address;
+  } catch(error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
   createUser,
   getUser,
   getUserById,
   getUserByUsername,
+  createUserInfo,
+  createAddress,
+  getAddressByID,
+
 };

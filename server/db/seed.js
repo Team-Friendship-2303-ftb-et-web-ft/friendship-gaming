@@ -98,7 +98,7 @@ const createTables = async () => {
             "cartId"  INTEGER REFERENCES cart(id),
             "gameId"  INTEGER REFERENCES games(id),
             quantity INTEGER,
-            "PriceAtPurchase" DECIMAL
+            "priceAtPurchase" DECIMAL
             );
             CREATE TABLE tags(
               id SERIAL PRIMARY KEY,
@@ -284,11 +284,7 @@ async function createInitialGames(){
       Featured: false,
     }
   ]
-  // console.log(gamesToCreate);
- 
 
-  //   console.log(gamesToCreate.map((game)=> createGame(game)))
-  
  const games = await Promise.all(
   gamesToCreate.map((game) => createGame(game))
 )
@@ -298,6 +294,7 @@ async function createInitialGames(){
 
 /*******CREATE CARTS ********/
 async function createInitialCarts() {
+
   try{
     console.log("Creating Initial Carts");
     await createCart({
@@ -316,7 +313,6 @@ async function createInitialCarts() {
       userId: 2,
       purchaseStatus: 'false'
     });
-
     console.log("Carts have been created!")
 }catch (error){
   console.error("Carts not created!");
@@ -326,59 +322,33 @@ async function createInitialCarts() {
 
 /*******CREATE CART ITEMS ********/
 async function createInitialCartItems(){
-  console.log("Starting the cart items...")
-    // const [] = await getAllCartsWithoutItems();
-    // const [] = await getAllUsers();
 
-    const cartItemsToCreate =[
-      {
+ try{ console.log("Starting the cart items...")
+    await createCartItems({
+    
         cartId: 1,
         gameId: 1,
         quantity: 2,
-        PriceAtPurchase:45.00
-      },
-      {
+        priceAtPurchase:45.00
+      });
+      await createCartItems({
         cartId: 2,
         gameId: 4,
         quantity: 1 ,
-        PriceAtPurchase:25.99
-      },
-      {
+        priceAtPurchase:25.99
+     });
+      await createCartItems({
         cartId: 2,
         gameId: 6,
         quantity: 1,
-        PriceAtPurchase:49.99
-      },
-      {
-        cartId: 3,
-        gameId: 7,
-        quantity:1 ,
-        PriceAtPurchase:59.99
-      },
-      {
-        cartId: 1,
-        gameId: 8,
-        quantity:3 ,
-        PriceAtPurchase:54.99
-      },
-      {
-        cartId: 2,
-        gameId: 12,
-        quantity: 2,
-        PriceAtPurchase:34.99
-      },
-      {
-        cartId: 2,
-        gameId: 14,
-        quantity:2 ,
-        PriceAtPurchase:59.99
-      }
-    ]
-    const cartItems = await Promise.all(
-      cartItemsToCreate.map(addCartItemToCart)
-    )
-    console.log("Cart items created:", cartItems)
+        priceAtPurchase:49.99
+      });
+   
     console.log("Finished creating Cart Items!")
+  } catch(error){
+    console.error("Cart Items not created!");
+    throw error;
+  }
 }
 
 // /******* Create Tags ********/
@@ -408,8 +378,9 @@ const rebuildDB = async () => {
     await createTables();
     await createInitialUsers();
     await createInitialGames();
-    await createInitialCarts();
-    // await createInitialCartItems();
+    await createInitialCarts(); 
+    await createInitialCartItems();
+
     // await createInitialTags();
   //  await createInitialAddresses();
    await testDB();
@@ -439,7 +410,7 @@ const testDB = async () => {
     // const updateUserResult = await updateUser(users[0].id, {
     //   name: "Newname Sogood"
     // });
-    // console.log("updateUser Result:", updateUserResult);
+    // console.log("Result:", updateUserResult);
 
  console.log("Calling getUserById with 1");
     const albert = await getUserById(1);
@@ -453,10 +424,9 @@ const testDB = async () => {
     // const orders = await getAllCarts();
     // console.log("Result:", orders);
 
-    // console.log("Calling getAllCartItems");
-    // const cartItems = await getAllCartItems();
-    // console.log("Result:", cartItems);
-
+    console.log("Calling getAllCartItems");
+    const order = await getAllCartItems();
+    console.log("Result:", order);
 
     // console.log("Calling getGamesByTagName with #scary");
     // const gamesWithScary = await getGamesByTagName("#scary");

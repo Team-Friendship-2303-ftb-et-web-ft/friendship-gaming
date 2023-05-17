@@ -58,15 +58,15 @@ async function createCartItems({ cartId, gameId, quantity, priceAtPurchase }) {
     try {
         const { rows: [ order ] } = await client.query(`
         INSERT INTO cartItems (
-            "cartId"
-            "gameId"
-            quantity
-            priceAtPurchase
+            "cartId",
+            "gameId",
+            quantity,
+            "priceAtPurchase"
         )
         VALUES ($1, $2, $3, $4)
         RETURNING *;
         `, [ cartId, gameId, quantity, priceAtPurchase]);
-
+          console.log(order);
             return order;
     } catch (error) {
         throw error;

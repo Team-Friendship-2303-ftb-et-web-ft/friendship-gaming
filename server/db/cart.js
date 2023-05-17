@@ -9,11 +9,11 @@ async function createCart({ userId, purchaseStatus }) {
             "userId"
             purchaseStatus
         )
-        VALUES ($1, $2, $3)
+        VALUES ($1, $2)
         RETURNING *;
         `, [ userId, purchaseStatus]);
-
-            return order;
+        
+        return order;
     } catch (error) {
         throw error;
     }

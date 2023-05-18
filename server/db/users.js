@@ -59,16 +59,9 @@ async function getAllUsers() {
 
 async function getUser({ username, password }) {
   try {
-    console.log(`Getting user with username ${username}`);
-    const user = await getUserByUsername(username);
-
-    if (!user) {
-      console.log(`No user found with username ${username}`);
-      return null;
-    }
-
-    console.log(`Comparing passwords`);
-    const passwordsMatch = await bcrypt.compare(password, user.password);
+    const user = await getUserByUsername({username});
+    const hashedPassword = user.password;
+    const passwordsMatch = await bcrypt.compare(password, hashedPassword);
 
     if (!passwordsMatch) {
       console.log(`Passwords do not match for user ${username}`);
@@ -109,7 +102,7 @@ async function getUserByUsername({username}) {
   try {
     const { rows: [user] } = await client.query(`
       SELECT * FROM users
-      WHERE username=$1;
+      WHERE username=$1
     `, [username]);
 
     // if (user.length == 0) {
@@ -123,15 +116,26 @@ async function getUserByUsername({username}) {
   }
 }
 
+async function deleteUser(id) {
+  try {
+    await client.query(`
+      DELETE FROM users
+      WHERE users.id=$1
+    `, [id]);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 /**********userInfo**********/
 //addressId violates foreign key constraint (the values in a column (or a group of columns) must match the values appearing in some row of another table)
 //resource: https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK
 async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin}) {
   const { rows: [userInfo] } = await client.query(`
-    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, "isAdmin")
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *
-  `, [userId, firstName, lastName, dateOfBirth, isAdmin]);
+
+    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, "isAdmin", "addressId")
+    VALUES ($1, $2, $3, $4, $5, $6)
+  `, [userId, firstName, lastName, dateOfBirth, isAdmin, addressId]);
   return userInfo;
 }
 
@@ -150,6 +154,25 @@ async function getUserInfoByUser(userId) {
   }
 
   return userInfo;
+}
+
+async function updateUserInfo({id, ...fields}) {
+  try {
+    const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 2}`).join(', ');
+    console.log(setString)
+    console.log(...Object.values(fields))
+    const { rows } = await client.query(`
+      UPDATE userInfo
+      SET ${setString}
+      WHERE id=$1
+      RETURNING *
+    `, [id, ...Object.values(fields)]);
+
+    console.log(rows);
+    return rows;
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 /*********addresses*********/
@@ -173,7 +196,7 @@ async function getAddressById(addressId) {
       WHERE id = $1
     `, [addressId]);
   
-    if(address.length == 0) {
+    if(address.length === 0) {
       console.log('could not find address');
       return
     };
@@ -196,15 +219,21 @@ async function getAddressByUsername({username}) {
   }
 }
 
+
+
 module.exports = {
   createUser,
   getUser,
   getAllUsers,
   getUserById,
   getUserByUsername,
+  deleteUser,
   createUserInfo,
   getUserInfoByUser,
+  updateUserInfo,
   createAddress,
   getAddressById,
+  getAddressByUser,
   getAddressByUsername
+
 };

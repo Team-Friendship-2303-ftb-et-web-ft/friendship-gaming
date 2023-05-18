@@ -4,8 +4,12 @@ const {
   getAllUsers,
   getUserById,
   getUserByUsername,
+  deleteUserInfo,
+  deleteUserAddress,
+  deleteUser,
   createUserInfo,
   getUserInfoByUser,
+  updateUserInfo,
   createCart,
   getCartByOrder,
   getCartByUserId,
@@ -25,6 +29,10 @@ const {
   createTag,
   createAddress,
   getAddressById,
+  getAddressByUsername,
+  getAddressByUser,
+  getAllTags,
+  createUserInfo,
   getAddressByUsername
 } = require('./index.js');
 const 
@@ -146,24 +154,79 @@ async function createInitialUsers() {
       throw error;
   }
 }
+/*******CREATE INITIAL ADDRESSES ********/
+async function createInitialAddresses(){
+  console.log("creating initial addresses....")
+  const addressesToCreate = [
+    {
+      street_address: "789 Oak Road",
+      city: "Willowbrook",
+      state: "Texas",
+      country: "United States",
+     postal_code: 23456,
+    },
+    {
+      street_address: '456 Elm Avenue',
+      city: 'Springdale',
+      state: 'California',
+      country: 'United States',
+      postal_code: 67890,
+    },
+    {
+      street_address: '123 Main Street',
+      city: 'Pleasantville',
+      state: 'New York',
+      country: 'United States',
+      postal_code: 12345,
+    }
+  ]
+  const addresses = await Promise.all(
+    addressesToCreate.map((address) => createAddress(address))
+  )
+    console.log("Addresses Created:", addresses)
+    console.log("Addresses have been created!")
+  }
+
+  /*******CREATE INITIAL USERINFO ********/
+async function createInitialUserInfo(){
+  console.log("creating initial userInfo....")
+  const userInfoToCreate = [
+    {
+      userId: 3,
+      firstName: 'Gloria',
+      lastName: 'Gallagher',
+      dateOfBirth: '1985-12-10',
+      isAdmin: false,
+      addressId: 3
+    },
+    {
+      userId: 1,
+      firstName: 'Albert',
+      lastName: 'Einstein',
+      dateOfBirth: '1879-03-14',
+      isAdmin: false,
+      addressId: 1
+    },
+    {
+      userId: 2,
+      firstName: 'Sandra',
+      lastName: 'Smith',
+      dateOfBirth: '1990-07-20',
+      isAdmin: false,
+      addressId: 2
+    }
+  ]
+  const usersInfo = await Promise.all(
+    userInfoToCreate.map((userInfo) => createUserInfo(userInfo))
+  )
+    console.log("UserInfo Created:", usersInfo)
+    console.log("UserInfo has been created!")
+  }
 
 /*******CREATE GAMES ********/
 async function createInitialGames(){
   console.log("Creating the Games...")
-//   try {
-//     const game = await createGame({
-//       authorName:  "Lysandra Nightshade",
-//       genre: "adventure" ,
-//       title: "Enchanted Arsenal: The Battle for the Sacred Sword",
-//       price: 45.00,
-//       description: "A adventure game where you vanquish enchanted furniture to forge the sacred sword." ,
-//       featured: true
-//     })
-//     console.log(game);
-//   } catch(error) {
-//     console.log('error creating initial games')
-//   } 
-// }
+
   const gamesToCreate = [
     {
       authorName:  "Lysandra Nightshade",
@@ -353,38 +416,41 @@ async function createInitialCartItems(){
   }
 }
 
-// /******* Create Tags ********/
+/******* Create Tags ********/
 
-// async function createInitialTags(){
-//   try{
-//     console.log("Starting to create Tags...");
-//     const[] = await createInitialTags([
-//       //tags here
-//     ]);
+async function createInitialTags(){
+  try{
+    console.log("Starting to create Tags...");
+    const [scary, adventure, AI] = await createTag([
+      '#scary',
+      '#adventure',
+      '#AI'
+    ]);
 
-//     const [gameOne, gameFive, gameTen] = await getAllGames();
-//     await addTagsToGame(gameOne.id, []);
-//     await addTagsToGame(gameFive.id, []);
-//     await addTagsToGame(gameTen.id, []);
+    const [gameOne, gameTwo, gameThree] = await getAllGames();
+    await addTagToGame(gameOne.id, [adventure]);
+    await addTagToGame(gameTwo.id, [adventure, scary]);
+    await addTagToGame(gameThree.id, [scary, adventure, AI]);
     
-//     console.log("Finished Creating Tags!");
-//   } catch (error) {
-//     console.log("error creating tags!")
-//     throw error;
-//   }
-// }
+    console.log("Finished Creating Tags!");
+  } catch (error) {
+    console.log("error creating tags!")
+    throw error;
+  }
+}
 
 const rebuildDB = async () => {
   try {
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await createInitialAddresses();
+    await createInitialUserInfo();
     await createInitialGames();
     await createInitialCarts(); 
     await createInitialCartItems();
-
-    // await createInitialTags();
-  //  await createInitialAddresses();
+    await createInitialTags();
+    
    await testDB();
   } catch (error) {
     console.error('Error during rebuildDB', error);
@@ -404,6 +470,9 @@ const testDB = async () => {
   try {
     console.log("Testing, Testing 1,2...?")
 
+
+    //as they pass I am commenting them out to keep the terminal kinda clear
+
     console.log("Calling getAllUsers");
       const users = await getAllUsers();
       console.log("getAllUsers Result:", users);
@@ -412,6 +481,7 @@ const testDB = async () => {
       const user = await getUser({username: 'albert', password: 'bertie99'})
       console.log("getUser Result:", user)
 
+      //why is it creating an object with lowercase key names
     console.log("Calling createUserInfo");
       const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
       console.log("createUserInfo Result:", userInfo)
@@ -419,6 +489,10 @@ const testDB = async () => {
     console.log("Calling getUserInfoByUser");
       const userInfoByUser = await getUserInfoByUser(1);
       console.log("getUserInfoByUser Result:", userInfoByUser);
+
+    console.log("Calling updateUserInfo");
+      const updatedUserInfo = await updateUserInfo({id: 1, lastname: 'albertie'});
+      console.log("updateUserInfo Result:", updatedUserInfo);
 
     console.log("Calling createAddress");
       const address = await createAddress({street_address: '42 Wallaby Way', city: 'Sydney', state: 'New South Wales', country: 'Australia', postal_code: 2059});
@@ -431,12 +505,6 @@ const testDB = async () => {
     console.log("Calling getAddressByUsername");
       const addressByUser = await getAddressByUsername({username: 'albert'});
       console.log("getAddressByUsername Result:", addressByUser);
-    
-    // console.log("Calling updateUser on users[0]")
-    // const updateUserResult = await updateUser(users[0].id, {
-      //   name: "Newname Sogood"
-      // });
-      // console.log("Result:", updateUserResult);
       
     console.log("Calling getUserById with 1");
       const albert = await getUserById(1);
@@ -445,22 +513,51 @@ const testDB = async () => {
     console.log("Calling getUserByUsername");
       const userByUsername = await getUserByUsername({username: 'albert'});
       console.log("getUserByUsername Result:", userByUsername);
+//  console.log("Calling getUserById with 1");
+//     const albert = await getUserById(1);
+//     console.log("getUserByID Result:", albert);
 
-    
-    const games = await getAllGames();
+//  console.log("Calling user by username");
+//     const user = await getUserByUsername('glamgal');
+//     console.log("getUserByUsername Result:", user);
+
+
+    console.log("Calling deleteUserAddress");
+      await deleteUserAddress(1);
+      console.log("deleteUserAddress Result:", getAllUsers());
+
+    console.log("Calling deleteUserInfo");
+      await deleteUserInfo(1);
+      console.log("deleteUserInfo Result:", getAllUsers());
+
+    //need to delete userInfo for that user first
+    console.log("Calling deleteUser");
+      await deleteUser(1);
+      console.log("deleteUser Result:", getAllUsers());
+
     console.log("Calling getAllGames");
+    const games = await getAllGames();
+
+    // console.log("Calling getAllGames");
+    // const games = await getAllGames();
+
     // console.log("Games Result:", games);
 
     // console.log("Calling getAllCarts");
     // const orders = await getAllCarts();
     // console.log("Result:", orders);
 
-    console.log("Calling getAllCartItems");
-    const order = await getAllCartItems();
-    console.log("Result:", order);
+    // console.log("Calling getAllCartItems");
+    // const order = await getAllCartItems();
+    // console.log("Result:", order);
+
+    console.log("Calling getAddressById with 1");
+    const address = await getAddressById(1);
+    console.log("getAddressById Result:", address);
+
 
     // console.log("Calling getGamesByTagName with #scary");
-    // const gamesWithScary = await getGamesByTagName("#scary");
+    // const gamesWithScary = await getGamesByTag("#scary");
     // console.log("Result:",gamesWithScary);
 
 

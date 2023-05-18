@@ -4,6 +4,8 @@ const {
   getAllUsers,
   getUserById,
   getUserByUsername,
+  createUserInfo,
+  getUserInfoByUser,
   createCart,
   getCartByOrder,
   getCartByUserId,
@@ -25,7 +27,8 @@ const {
   getAddressById,
   getAddressByUser,
   getAllTags,
-  createUserInfo
+  createUserInfo,
+  getAddressByUsername
 } = require('./index.js');
 const 
   client
@@ -462,14 +465,50 @@ const testDB = async () => {
   try {
     console.log("Testing, Testing 1,2...?")
 
+
     //as they pass I am commenting them out to keep the terminal kinda clear
 
+    console.log("Calling getAllUsers");
+      const users = await getAllUsers();
+      console.log("getAllUsers Result:", users);
 
+    console.log("Calling getUser");
+      const user = await getUser({username: 'albert', password: 'bertie99'})
+      console.log("getUser Result:", user)
 
+    console.log("Calling createUserInfo");
+      const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
+      console.log("createUserInfo Result:", userInfo)
 
-    // const users = await getAllUsers();
-    // conslog("Result:", users);ole.
+    console.log("Calling getUserInfoByUser");
+      const userInfoByUser = await getUserInfoByUser(1);
+      console.log("getUserInfoByUser Result:", userInfoByUser);
 
+    console.log("Calling createAddress");
+      const address = await createAddress({street_address: '42 Wallaby Way', city: 'Sydney', state: 'New South Wales', country: 'Australia', postal_code: 2059});
+      console.log("createAddress Result:", address);
+
+    console.log("Calling getAddressById");
+      const addressById = await getAddressById(1);
+      console.log("getAddressById Result:", addressById);
+    
+    console.log("Calling getAddressByUsername");
+      const addressByUser = await getAddressByUsername({username: 'albert'});
+      console.log("getAddressByUsername Result:", addressByUser);
+    
+    // console.log("Calling updateUser on users[0]")
+    // const updateUserResult = await updateUser(users[0].id, {
+      //   name: "Newname Sogood"
+      // });
+      // console.log("Result:", updateUserResult);
+      
+    console.log("Calling getUserById with 1");
+      const albert = await getUserById(1);
+      console.log("getUserById Result:", albert);
+
+    console.log("Calling getUserByUsername");
+      const userByUsername = await getUserByUsername({username: 'albert'});
+      console.log("getUserByUsername Result:", userByUsername);
 //  console.log("Calling getUserById with 1");
 //     const albert = await getUserById(1);
 //     console.log("getUserByID Result:", albert);

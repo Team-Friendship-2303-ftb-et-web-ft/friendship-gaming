@@ -75,17 +75,17 @@ async function getUserById(userId) {
   }
 }
 
-async function getUserByUsername(username) {
+async function getUserByUsername({username}) {
   try {
     const { rows: [user] } = await client.query(`
-      SELECT * FROM users
+      SELECT id, username FROM users
       WHERE username=$1
     `, [username]);
 
-    if (user.length == 0) {
-      console.log('could not find user');
-      return;
-    }
+    // if (user.length == 0) {
+    //   console.log('could not find user');
+    //   return;
+    // }
 
     return user;
   } catch (error) {
@@ -94,24 +94,27 @@ async function getUserByUsername(username) {
 }
 
 /**********userInfo**********/
-async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin, addressId}) {
+//addressId violates foreign key constraint (the values in a column (or a group of columns) must match the values appearing in some row of another table)
+//resource: https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK
+async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin}) {
   const { rows: [userInfo] } = await client.query(`
+
     INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, "isAdmin", "addressId")
     VALUES ($1, $2, $3, $4, $5, $6)
   `, [userId, firstName, lastName, dateOfBirth, isAdmin, addressId]);
   return userInfo;
 }
 
-async function getUserInfoByUser({userID}) {
+async function getUserInfoByUser(userId) {
 
   const { rows: [userInfo] } = await client.query(`
-  SELECT users.*, userInfo.*
+  SELECT users.id, userInfo.*
   FROM users
-  JOIN users ON users.id = userInfo."userID"
+  JOIN userInfo ON users.id = userInfo."userId"
   WHERE users.id = $1
-`, [userID]);
+`, [userId]);
 
-  if(user.length == 0) {
+  if(userInfo.length == 0) {
     console.log('could not find userInfo')
     return;
   }
@@ -151,16 +154,12 @@ async function getAddressById(addressId) {
   }
 }
 
-async function getAddressByUser({username}) {
-  const user = await getUserByUsername(username);
-  const userID = user.id;
+async function getAddressByUsername({username}) {
+  const user = await getUserByUsername({username});
+  console.log(user);
+  const userId = user.id;
   try {
-    const { rows: [address] } = await client.query(`
-      SELECT addresses.*, userInfo.*
-      FROM userInfo
-      JOIN addresses ON addresses.id = userInfo."addressId"
-      WHERE userInfo."userId"= $1
-    `, [userID]);
+    const address = await getAddressById(userId)
     return address;
   } catch(error) {
     console.error(error)
@@ -177,5 +176,7 @@ module.exports = {
   getUserInfoByUser,
   createAddress,
   getAddressById,
-  getAddressByUser
+  getAddressByUser,
+  getAddressByUsername
+
 };

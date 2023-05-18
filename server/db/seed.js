@@ -4,8 +4,12 @@ const {
   getAllUsers,
   getUserById,
   getUserByUsername,
+  deleteUserInfo,
+  deleteUserAddress,
+  deleteUser,
   createUserInfo,
   getUserInfoByUser,
+  updateUserInfo,
   createCart,
   getCartByOrder,
   getCartByUserId,
@@ -25,7 +29,7 @@ const {
   createTag,
   createAddress,
   getAddressById,
-  getAddressByUsername
+  getAddressByUsername,
 } = require('./index.js');
 const 
   client
@@ -412,6 +416,7 @@ const testDB = async () => {
       const user = await getUser({username: 'albert', password: 'bertie99'})
       console.log("getUser Result:", user)
 
+      //why is it creating an object with lowercase key names
     console.log("Calling createUserInfo");
       const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
       console.log("createUserInfo Result:", userInfo)
@@ -419,6 +424,10 @@ const testDB = async () => {
     console.log("Calling getUserInfoByUser");
       const userInfoByUser = await getUserInfoByUser(1);
       console.log("getUserInfoByUser Result:", userInfoByUser);
+
+    console.log("Calling updateUserInfo");
+      const updatedUserInfo = await updateUserInfo({id: 1, lastname: 'albertie'});
+      console.log("updateUserInfo Result:", updatedUserInfo);
 
     console.log("Calling createAddress");
       const address = await createAddress({street_address: '42 Wallaby Way', city: 'Sydney', state: 'New South Wales', country: 'Australia', postal_code: 2059});
@@ -431,12 +440,6 @@ const testDB = async () => {
     console.log("Calling getAddressByUsername");
       const addressByUser = await getAddressByUsername({username: 'albert'});
       console.log("getAddressByUsername Result:", addressByUser);
-    
-    // console.log("Calling updateUser on users[0]")
-    // const updateUserResult = await updateUser(users[0].id, {
-      //   name: "Newname Sogood"
-      // });
-      // console.log("Result:", updateUserResult);
       
     console.log("Calling getUserById with 1");
       const albert = await getUserById(1);
@@ -445,6 +448,19 @@ const testDB = async () => {
     console.log("Calling getUserByUsername");
       const userByUsername = await getUserByUsername({username: 'albert'});
       console.log("getUserByUsername Result:", userByUsername);
+
+    console.log("Calling deleteUserAddress");
+      await deleteUserAddress(1);
+      console.log("deleteUserAddress Result:", getAllUsers());
+
+    console.log("Calling deleteUserInfo");
+      await deleteUserInfo(1);
+      console.log("deleteUserInfo Result:", getAllUsers());
+
+    //need to delete userInfo for that user first
+    console.log("Calling deleteUser");
+      await deleteUser(1);
+      console.log("deleteUser Result:", getAllUsers());
 
     console.log("Calling getAllGames");
     const games = await getAllGames();

@@ -269,7 +269,7 @@ async function createInitialGames(){
       featured: false,
     }
   ]
- const games = Promise.all(
+ const games = await Promise.all(
   gamesToCreate.map((game) => createGame(game))
 )
   console.log("Games Created:", games)

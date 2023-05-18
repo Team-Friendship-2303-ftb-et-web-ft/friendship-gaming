@@ -5,8 +5,6 @@ const {
   getUserById,
   getUserByUsername,
   deleteUser,
-  deleteUserInfo,
-  deleteUserAddress,
   createUserInfo,
   getUserInfoByUser,
   updateUserInfo,

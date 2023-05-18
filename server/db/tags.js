@@ -21,7 +21,7 @@ async function createTag(name) {
     
     // Generate placeholders for the query.
     const placeholders = games.map((_, index) => `$${index + 1}`).join(', ');
-    const gameIds = games.map((game) => game.gameId);
+    const gameIds = games.map((game) => game.id);
   
     // Fetch the tags for these games.
     const { rows: tags } = await client.query(`
@@ -30,17 +30,20 @@ async function createTag(name) {
       JOIN game_tags ON game_tags."tagId" = tags.id
       WHERE game_tags."gameId" IN (${placeholders});
     `, gameIds);
-  
-    // Attach the tags to the respective games.
+    console.log("this is from attachtagstogames", tags)
+    
+ 
     for (const game of gamesToReturn) {
       const tagsForThisGame = tags.filter(
-        (tag) => tag.gameId === game.gameId
+        (tag) => tag.gameId === game.id 
       );
       game.tags = tagsForThisGame;
     }
-  
+    
+
     return gamesToReturn;
   }
+  
   
 
 async function addTagToGame(gameId, tagId) {

@@ -23,10 +23,11 @@ async function getGameById(id) {
   try {
     const { rows: [ game ] } = await client.query(`
       SELECT * FROM games
-      WHERE "gameId"=$1;
+      WHERE id=$1;
     `, [id]);
 
-    return game;
+    const games = await attachTagsToGames([game]);
+    return games[0];
   } catch (error) {
     console.error(`Error getting game by id: ${id}`, error);
     throw error;

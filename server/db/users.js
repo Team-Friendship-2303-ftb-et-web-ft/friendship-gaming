@@ -12,7 +12,7 @@ async function createUser({username, password}) {
       RETURNING id, username;
       `, [username, hashedPassword]);
     console.log(user)
-      return user;
+    return user;
 
   } catch (error) {
     console.error(error);
@@ -30,48 +30,32 @@ async function getAllUsers() {
   }
 }
 
-// async function getUser({username, password}) {
-//   try {
-//     const user = await getUserByUsername(username);
-//     const hashedPassword = user.password;
-//     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
-
-//     if (!passwordsMatch) {
-//       console.log('passwords do not match');
-//       return; 
-//     } else {
-//       const { rows: [user] } = await client.query(`
-//       SELECT id, username FROM users
-//       WHERE username = $1
-//       `, [username]);
-
-//       if (user.length == 0) {
-//         console.log('could not find user');
-//         return;
-//       }
-
-//       return user;
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
 async function getUser({ username, password }) {
   try {
-    const user = await getUserByUsername({username});
+    const user = await getUserByUsername(username);
+    console.log('user',user);
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
 
-    if (!passwordsMatch) {
+    // if (!passwordsMatch) {
+    //   console.log(`Passwords do not match for user ${username}`);
+    //   return null;
+    // } else {
+    //   console.log(`Passwords match for user ${username}`);
+    //   delete user.password;
+    //   return {
+    //     id: user.id,
+    //     username: user.username
+    //   };
+    // }
+
+    if (user && passwordsMatch) {
+      console.log(`Passwords match for user ${username}`);
+      delete user.password;
+      return user
+    } else {
       console.log(`Passwords do not match for user ${username}`);
       return null;
-    } else {
-      console.log(`Passwords match for user ${username}`);
-      return {
-        id: user.id,
-        username: user.username
-      };
     }
   } catch (error) {
     console.error(`Error in getUser: ${error}`);
@@ -98,17 +82,12 @@ async function getUserById(userId) {
   }
 }
 
-async function getUserByUsername({username}) {
+async function getUserByUsername(username) {
   try {
     const { rows: [user] } = await client.query(`
       SELECT * FROM users
       WHERE username=$1
     `, [username]);
-
-    // if (user.length == 0) {
-    //   console.log('could not find user');
-    //   return;
-    // }
 
     return user;
   } catch (error) {
@@ -119,6 +98,14 @@ async function getUserByUsername({username}) {
 async function deleteUser(id) {
   try {
     await client.query(`
+      ALTER TABLE userInfo
+      DROP COLUMN "userId" CASCADE
+    `);
+    await client.query(`
+    ALTER TABLE cart
+    DROP COLUMN "userId" CASCADE
+  `);
+    await client.query(`
       DELETE FROM users
       WHERE users.id=$1
     `, [id]);
@@ -128,8 +115,6 @@ async function deleteUser(id) {
 }
 
 /**********userInfo**********/
-//addressId violates foreign key constraint (the values in a column (or a group of columns) must match the values appearing in some row of another table)
-//resource: https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK
 async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin, addressId}) {
   const { rows: [userInfo] } = await client.query(`
     INSERT INTO userInfo("userId", "firstName", "lastName", "dateOfBirth", "isAdmin", "addressId")
@@ -148,19 +133,13 @@ async function getUserInfoByUser(userId) {
   WHERE users.id = $1
 `, [userId]);
 
-  if(userInfo.length == 0) {
-    console.log('could not find userInfo')
-    return;
-  }
-
   return userInfo;
 }
 
 async function updateUserInfo({id, ...fields}) {
   try {
     const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 2}`).join(', ');
-    console.log(setString)
-    console.log(...Object.values(fields))
+    
     const { rows } = await client.query(`
       UPDATE userInfo
       SET ${setString}
@@ -168,7 +147,6 @@ async function updateUserInfo({id, ...fields}) {
       RETURNING *
     `, [id, ...Object.values(fields)]);
 
-    console.log(rows);
     return rows;
   } catch (error) {
     console.error(error)
@@ -208,8 +186,9 @@ async function getAddressById(addressId) {
 }
 
 async function getAddressByUsername({username}) {
-  const user = await getUserByUsername({username});
-  console.log(user);
+  console.log('username1', username);
+  const user = await getUserByUsername(username);
+  // console.log(user);
   const userId = user.id;
   try {
     const address = await getAddressById(userId)
@@ -218,8 +197,6 @@ async function getAddressByUsername({username}) {
     console.error(error)
   }
 }
-
-
 
 module.exports = {
   createUser,
@@ -234,6 +211,4 @@ module.exports = {
   createAddress,
   getAddressById,
   getAddressByUsername
-  
-
 };

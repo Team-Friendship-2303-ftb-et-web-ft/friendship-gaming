@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-// const {requireUser, requireAdmin} = require('./utils');
 const { getUserByUsername, createUser, getUser, getUserById } = require('../db/users');
 const { requireUser } = require('./utils');
 const { JWT_SECRET } = process.env;
@@ -43,7 +42,6 @@ router.post('/login', async(req, res, next) => {
     const user = await getUser({username, password});
     if (user) {
       const token = jwt.sign(user, process.env.JWT_SECRET);
-      console.log('token');
       res.send({message: 'you have been logged in', user, token})
     } else {
       next({message: 'username or password is incorrect'})
@@ -62,7 +60,7 @@ router.get('/me', async(req, res, next) => {
       throw new Error ('You must be logged in to perform this action');
     } else if (auth.startsWith(prefix)) {
       const token = auth.slice(prefix.length);
-      const {id} = jwt.verify(token, JWT_SECRET);
+      const {id} = jwt.verify(token, process.env.JWT_SECRET);
 
       if(id) {
         req.user = await getUserById(id);

@@ -78,9 +78,9 @@ const createTables = async () => {
         CREATE TABLE userInfo (
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
-          firstName varchar(255) NOT NULL,
-          lastName varchar(255) NOT NULL,
-          dateOfBirth DATE,
+          "firstName" varchar(255) NOT NULL,
+          "lastName" varchar(255) NOT NULL,
+          "dateOfBirth" DATE,
           "isAdmin" BOOLEAN DEFAULT false,
           "addressId" INTEGER REFERENCES addresses(id)
         );
@@ -558,4 +558,4 @@ const testDB = async () => {
   }
 }
 
-// testDB()
+testDB()

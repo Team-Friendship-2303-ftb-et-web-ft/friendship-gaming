@@ -130,11 +130,11 @@ async function deleteUser(id) {
 /**********userInfo**********/
 //addressId violates foreign key constraint (the values in a column (or a group of columns) must match the values appearing in some row of another table)
 //resource: https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK
-async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin}) {
+async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin, addressId}) {
   const { rows: [userInfo] } = await client.query(`
-
-    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, "isAdmin", "addressId")
+    INSERT INTO userInfo("userId", "firstName", "lastName", "dateOfBirth", "isAdmin", "addressId")
     VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *
   `, [userId, firstName, lastName, dateOfBirth, isAdmin, addressId]);
   return userInfo;
 }

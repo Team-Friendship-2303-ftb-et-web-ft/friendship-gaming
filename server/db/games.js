@@ -1,5 +1,5 @@
 const client = require("./client");
-
+const { attachTagsToGames } = require("./tags")
 // The creategame function is used to create a new game entry in the database.
 
 async function createGame({ authorName, genre, title, price, description, featured }) {
@@ -39,7 +39,7 @@ async function getAllGames() {
       SELECT * FROM games;
     `);
    
-    return games;
+    return await attachTagsToGames(games);
   } catch (error) {
     console.error("Error getting all games", error);
     throw error;
@@ -53,7 +53,7 @@ async function getGamesByAuthor(authorName) {
       WHERE "authorName"=$1;
     `, [authorName]);
 
-    return games;
+    return await attachTagsToGames(games);
   } catch (error) {
     console.error("Error getting games by author", error);
     throw error;
@@ -67,7 +67,7 @@ async function getGamesByGenre(genre) {
       WHERE genre=$1;
     `, [genre]);
 
-    return games;
+    return await attachTagsToGames(games);
   } catch (error) {
     console.error("Error getting games by genre", error);
     throw error;
@@ -82,7 +82,7 @@ async function getGamesByTag(tagId) {
       WHERE game_Tags.tagId=$1;
     `, [tagId]);
 
-    return games;
+    return await attachTagsToGames(games);
   } catch (error) {
     console.error("Error getting games by tag", error);
     throw error;

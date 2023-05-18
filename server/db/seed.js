@@ -4,8 +4,6 @@ const {
   getAllUsers,
   getUserById,
   getUserByUsername,
-  deleteUserInfo,
-  deleteUserAddress,
   deleteUser,
   createUserInfo,
   getUserInfoByUser,
@@ -29,7 +27,6 @@ const {
   createTag,
   createAddress,
   getAddressById,
-  getAddressByUsername,
   getAllTags,
   getAddressByUsername
 } = require('./index.js');
@@ -532,10 +529,10 @@ const testDB = async () => {
     // console.log("Calling getAllGames");
     // const games = await getAllGames();
 
-    // console.log("Calling getAllGames");
-    // const games = await getAllGames();
+    console.log("Calling getAllGames");
+    const games = await getAllGames();
 
-    // console.log("Games Result:", games);
+    console.log("Games Result:", games);
 
     // console.log("Calling getAllCarts");
     // const orders = await getAllCarts();
@@ -561,3 +558,4 @@ const testDB = async () => {
   }
 }
 
+// testDB()

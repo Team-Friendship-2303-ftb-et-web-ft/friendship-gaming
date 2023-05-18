@@ -14,7 +14,35 @@ async function createTag(name) {
       throw error;
     }
   }
+ 
+  async function attachTagsToGames(games) {
+    // Avoid mutation of the original games array.
+    const gamesToReturn = [...games];
+    
+    // Generate placeholders for the query.
+    const placeholders = games.map((_, index) => `$${index + 1}`).join(', ');
+    const gameIds = games.map((game) => game.gameId);
   
+    // Fetch the tags for these games.
+    const { rows: tags } = await client.query(`
+      SELECT tags.*, game_tags."gameId"
+      FROM tags
+      JOIN game_tags ON game_tags."tagId" = tags.id
+      WHERE game_tags."gameId" IN (${placeholders});
+    `, gameIds);
+  
+    // Attach the tags to the respective games.
+    for (const game of gamesToReturn) {
+      const tagsForThisGame = tags.filter(
+        (tag) => tag.gameId === game.gameId
+      );
+      game.tags = tagsForThisGame;
+    }
+  
+    return gamesToReturn;
+  }
+  
+
 async function addTagToGame(gameId, tagId) {
     try {
       await client.query(`
@@ -53,5 +81,6 @@ async function addTagToGame(gameId, tagId) {
     createTag,
     addTagToGame,
     removeTagFromGame,
-    getAllTags
+    getAllTags,
+    attachTagsToGames
   };

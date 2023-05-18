@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { getUserByUsername, createUser, getUser } = require('../db/users');
+const { getUserByUsername, createUser, getUser, getUserById } = require('../db/users');
 const { JWT_SECRET } = process.env;
 
 // GET: api/users
@@ -49,6 +49,27 @@ router.post('/login', async(req, res, next) => {
   } catch (message) {
     res.send(message);
   }
-})
+});
+
+
+// router.get('/me', async(req, res, next) => {
+//   const prefix = 'Bearer ';
+//   const auth = req.header('Authorization');
+//   try {
+//     if(!auth) {
+//       throw new Error ('You must be logged in to perform this action');
+//     } else if (auth.startsWith(prefix)) {
+//       const token = auth.slice(prefix.length);
+//       const {id} = jwt.verify(token, JWT_SECRET);
+
+//       if(id) {
+//         req.user = await getUserById(id);
+//         res.send(req.user);
+//       }
+//     }
+//   } catch (message) {
+//     res.send(message);
+//   }
+// });
 
 module.exports = router;

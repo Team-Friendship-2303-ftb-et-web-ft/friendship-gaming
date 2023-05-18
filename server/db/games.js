@@ -1,33 +1,11 @@
 const client = require("./client");
 
-// async function createGame({ authorName, genre, title, price, description, tags, featured }) {
-//   try {
-//     const { rows: [ game ] } = await client.query(`
-//       INSERT INTO games(author_title, genre, title, price, description, featured)
-//       VALUES ($1, $2, $3, $4, $5, $6)
-//       RETURNING *;
-//     `, [authorName, genre, title, price, description, featured]);
-
-//     const promises = tags.map(tag => {
-//       return client.query(`
-//         INSERT INTO game_tags(game_id, tag_id)
-//         VALUES ($1, $2);
-//       `, [game.gameid, tag]);
-//     });
-
-//     await Promise.all(promises);
-//     console.log(game);
-//     return game;
-//   } catch (error) {
-//     console.error("Error creating game", error);
-//     throw error;
-//   }
-// }
+// The creategame function is used to create a new game entry in the database.
 
 async function createGame({ authorName, genre, title, price, description, featured }) {
   try {
     const { rows: [ game ] } = await client.query(`
-      INSERT INTO games(author_title, genre, title, price, description, featured)
+      INSERT INTO games(authorName, genre, title, price, description, featured)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `, [authorName, genre, title, price, description, featured]);
@@ -45,7 +23,7 @@ async function getGameById(id) {
   try {
     const { rows: [ game ] } = await client.query(`
       SELECT * FROM games
-      WHERE gameid=$1;
+      WHERE "gameId"=$1;
     `, [id]);
 
     return game;
@@ -60,7 +38,7 @@ async function getAllGames() {
     const { rows: games } = await client.query(`
       SELECT * FROM games;
     `);
-
+   
     return games;
   } catch (error) {
     console.error("Error getting all games", error);
@@ -72,7 +50,7 @@ async function getGamesByAuthor(authorName) {
   try {
     const { rows: games } = await client.query(`
       SELECT * FROM games
-      WHERE author_title=$1;
+      WHERE authorName=$1;
     `, [authorName]);
 
     return games;
@@ -100,8 +78,8 @@ async function getGamesByTag(tagId) {
   try {
     const { rows: games } = await client.query(`
       SELECT games.* FROM games
-      JOIN game_tags ON games.gameid = game_tags.game_id
-      WHERE game_tags.tag_id=$1;
+      JOIN game_Tags ON games."gameId" = game_Tags.gameId
+      WHERE game_Tags.tagId=$1;
     `, [tagId]);
 
     return games;
@@ -117,14 +95,14 @@ async function updateGame({ id, ...fields }) {
     .join(", ");
 
   try {
-    const { rows: [ updatedGame ] } = await client.query(`
+    const { rows: [ updatedgame ] } = await client.query(`
       UPDATE games
       SET ${setString}
-      WHERE gameid=$${Object.keys(fields).length + 1}
+      WHERE "gameId"=$${Object.keys(fields).length + 1}
       RETURNING *;
     `, [...Object.values(fields), id]);
 
-    return updatedGame;
+    return updatedgame;
   } catch (error) {
     console.error("Error updating game", error);
     throw error;
@@ -132,35 +110,36 @@ async function updateGame({ id, ...fields }) {
 }
 
 async function destroyGame(id) {
-  try {
-    // Delete game tags from the game_tags table
-    await client.query(`
-      DELETE FROM game_tags
-      WHERE game_id=$1;
-    `, [id]);
-
-    // Delete the game from the games table
-    const { rows: [deletedGame] } = await client.query(`
-      DELETE FROM games
-      WHERE gameid=$1
-      RETURNING *;
-    `, [id]);
-
-    // Return the deleted game
-    return deletedGame;
-  } catch (error) {
-    console.error("Error deleting game", error);
-    throw error;
+    try {
+    d
+      await client.query(`
+        DELETE FROM game_Tags
+        WHERE "gameId"=$1;
+      `, [id]);
+  
+      // Delete the game from the games table
+      const { rows: [deletedgame] } = await client.query(`
+        DELETE FROM games
+        WHERE "gameId"=$1
+        RETURNING *;
+      `, [id]);
+  
+      // Return the deleted game
+      return deletedgame;
+    } catch (error) {
+      console.error("Error deleting game", error);
+      throw error;
+    }
   }
-}
-
-module.exports = {
-  createGame,
-  getGameById,
-  getAllGames,
-  getGamesByAuthor,
-  getGamesByGenre,
-  getGamesByTag,
-  updateGame,
-  destroyGame,
-};
+  
+  module.exports = {
+    createGame,
+    getGameById,
+    getAllGames,
+    getGamesByAuthor,
+    getGamesByGenre,
+    getGamesByTag,
+    updateGame,
+    destroyGame,
+  };
+  

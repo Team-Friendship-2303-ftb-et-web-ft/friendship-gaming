@@ -6,14 +6,16 @@ async function createCart({ userId, purchaseStatus }) {
     try {
         const { rows: [ order ] } = await client.query(`
         INSERT INTO cart (
-            "userId"
-            purchaseStatus
+            "userId",
+            "purchaseStatus"
         )
-        VALUES ($1, $2, $3)
+        VALUES ($1, $2)
         RETURNING *;
         `, [ userId, purchaseStatus]);
 
+          console.log(order)
             return order;
+
     } catch (error) {
         throw error;
     }
@@ -56,19 +58,32 @@ async function createCartItems({ cartId, gameId, quantity, priceAtPurchase }) {
     try {
         const { rows: [ order ] } = await client.query(`
         INSERT INTO cartItems (
-            "cartId"
-            "gameId"
-            quantity
-            priceAtPurchase
+            "cartId",
+            "gameId",
+            quantity,
+            "priceAtPurchase"
         )
         VALUES ($1, $2, $3, $4)
         RETURNING *;
         `, [ cartId, gameId, quantity, priceAtPurchase]);
-
+          console.log(order);
             return order;
     } catch (error) {
         throw error;
     }
+}
+
+async function getAllCartItems() {
+  try {
+    const { rows: order } = await client.query(`
+    SELECT * FROM cartItems
+    `);
+    
+    return order;
+    
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getCartItemsByOrder(id) {
@@ -90,6 +105,7 @@ async function getCartItemsByOrder(id) {
       getCartByOrder,
       getCartByUserId,
       createCartItems,
+      getAllCartItems,
       getCartItemsByOrder
     }
 

@@ -1,32 +1,36 @@
 const {
   createUser,
   getUser,
+  getAllUsers,
   getUserById,
   getUserByUsername,
+  createUserInfo,
+  getUserInfoByUser,
   createCart,
   getCartByOrder,
   getCartByUserId,
   createCartItems,
+  getAllCartItems,
   getCartItemsByOrder,
   createGame,
   getGameById,
   getAllGames,
   getGamesByAuthor,
-  getGamesByGenre,
+  getGamesBygenre,
   getGamesByTag,
   updateGame,
   destroyGame,
   addTagToGame,
   removeTagFromGame,
   createTag,
-    createAddress,
-    getAddressByID,
-    getAddressByUser
+  createAddress,
+  getAddressById,
+  getAddressByUsername
 } = require('./index.js');
 const 
   client
  = require('./client');
-
+ const bcrypt = require('bcrypt');
 /*******DROP TABLES ********/
 
 const dropTables = async () => {
@@ -89,14 +93,14 @@ const createTables = async () => {
         CREATE TABLE cart(
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
-          purchaseStatus BOOLEAN DEFAULT false
+          "purchaseStatus" BOOLEAN DEFAULT false
           );
         CREATE TABLE cartItems(
             id SERIAL PRIMARY KEY,
             "cartId"  INTEGER REFERENCES cart(id),
             "gameId"  INTEGER REFERENCES games(id),
             quantity INTEGER,
-            priceAtPurchase DECIMAL
+            "priceAtPurchase" DECIMAL
             );
             CREATE TABLE tags(
               id SERIAL PRIMARY KEY,
@@ -146,7 +150,20 @@ async function createInitialUsers() {
 /*******CREATE GAMES ********/
 async function createInitialGames(){
   console.log("Creating the Games...")
-  
+//   try {
+//     const game = await createGame({
+//       authorName:  "Lysandra Nightshade",
+//       genre: "adventure" ,
+//       title: "Enchanted Arsenal: The Battle for the Sacred Sword",
+//       price: 45.00,
+//       description: "A adventure game where you vanquish enchanted furniture to forge the sacred sword." ,
+//       featured: true
+//     })
+//     console.log(game);
+//   } catch(error) {
+//     console.log('error creating initial games')
+//   } 
+// }
   const gamesToCreate = [
     {
       authorName:  "Lysandra Nightshade",
@@ -269,6 +286,7 @@ async function createInitialGames(){
       featured: false,
     }
   ]
+
  const games = await Promise.all(
   gamesToCreate.map((game) => createGame(game))
 )
@@ -279,120 +297,94 @@ async function createInitialGames(){
 /*******CREATE CARTS ********/
 async function createInitialCarts() {
 
+  try{
     console.log("Creating Initial Carts");
-    const cartsToCreate = [
-    {
+    await createCart({
       userId: 1,
-      purchaseStatus: false,
-    },
-    {
+      purchaseStatus: 'false'
+    });
+    await createCart({
       userId: 2,
-      purchaseStatus: true,
-    },
-    {
+      purchaseStatus: 'true'
+    });
+    await createCart({
       userId: 3,
-      purchaseStatus: true,
-    },
-    {
+      purchaseStatus: 'true'
+    });
+    await createCart({
       userId: 2,
-      purchaseStatus: false,
-    },
-  ]
-  const carts = Promise.all(
-    cartsToCreate.map((cart) => createCart(cart))
-  )
-    console.log("Carts Created:", carts)
+      purchaseStatus: 'false'
+    });
     console.log("Carts have been created!")
-
+}catch (error){
+  console.error("Carts not created!");
+  throw error;
+}
 }
 
 /*******CREATE CART ITEMS ********/
 async function createInitialCartItems(){
-  console.log("Starting the cart items...")
-    const [] = await getAllCartsWithoutItems();
-    const [] = await getAllUsers();
-    const cartItemsToCreate =[
-      {
+
+ try{ console.log("Starting the cart items...")
+    await createCartItems({
+    
         cartId: 1,
         gameId: 1,
         quantity: 2,
         priceAtPurchase:45.00
-      },
-      {
+      });
+      await createCartItems({
         cartId: 2,
         gameId: 4,
         quantity: 1 ,
         priceAtPurchase:25.99
-      },
-      {
+     });
+      await createCartItems({
         cartId: 2,
         gameId: 6,
         quantity: 1,
         priceAtPurchase:49.99
-      },
-      {
-        cartId: 3,
-        gameId: 7,
-        quantity:1 ,
-        priceAtPurchase:59.99
-      },
-      {
-        cartId: 1,
-        gameId: 8,
-        quantity:3 ,
-        priceAtPurchase:54.99
-      },
-      {
-        cartId: 2,
-        gameId: 12,
-        quantity: 2,
-        priceAtPurchase:34.99
-      },
-      {
-        cartId: 2,
-        gameId: 14,
-        quantity:2 ,
-        priceAtPurchase:59.99
-      }
-    ]
-    const cartItems = await Promise.all(
-      cartItemsToCreate.map(addCartItemToCart)
-    )
-    console.log("Cart items created:", cartItems)
+      });
+   
     console.log("Finished creating Cart Items!")
-}
-
-/******* Create Tags ********/
-
-async function createInitialTags(){
-  try{
-    console.log("Starting to create Tags...");
-    const[] = await createInitialTags([
-      //tags here
-    ]);
-
-    const [gameOne, gameFive, gameTen] = await getAllGames();
-    await addTagsToGame(gameOne.id, []);
-    await addTagsToGame(gameFive.id, []);
-    await addTagsToGame(gameTen.id, []);
-    
-    console.log("Finished Creating Tags!");
-  } catch (error) {
-    console.log("error creating tags!")
+  } catch(error){
+    console.error("Cart Items not created!");
     throw error;
   }
 }
+
+// /******* Create Tags ********/
+
+// async function createInitialTags(){
+//   try{
+//     console.log("Starting to create Tags...");
+//     const[] = await createInitialTags([
+//       //tags here
+//     ]);
+
+//     const [gameOne, gameFive, gameTen] = await getAllGames();
+//     await addTagsToGame(gameOne.id, []);
+//     await addTagsToGame(gameFive.id, []);
+//     await addTagsToGame(gameTen.id, []);
+    
+//     console.log("Finished Creating Tags!");
+//   } catch (error) {
+//     console.log("error creating tags!")
+//     throw error;
+//   }
+// }
 
 const rebuildDB = async () => {
   try {
     await dropTables();
     await createTables();
     await createInitialUsers();
-    await createInitialCarts();
     await createInitialGames();
+    await createInitialCarts(); 
     await createInitialCartItems();
-    await createInitialTags();
-   // await createInitialAddresses();
+
+    // await createInitialTags();
+  //  await createInitialAddresses();
    await testDB();
   } catch (error) {
     console.error('Error during rebuildDB', error);
@@ -412,40 +404,64 @@ const testDB = async () => {
   try {
     console.log("Testing, Testing 1,2...?")
 
+    console.log("Calling getAllUsers");
+      const users = await getAllUsers();
+      console.log("getAllUsers Result:", users);
+
+    console.log("Calling getUser");
+      const user = await getUser({username: 'albert', password: 'bertie99'})
+      console.log("getUser Result:", user)
+
+    console.log("Calling createUserInfo");
+      const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
+      console.log("createUserInfo Result:", userInfo)
+
+    console.log("Calling getUserInfoByUser");
+      const userInfoByUser = await getUserInfoByUser(1);
+      console.log("getUserInfoByUser Result:", userInfoByUser);
+
+    console.log("Calling createAddress");
+      const address = await createAddress({street_address: '42 Wallaby Way', city: 'Sydney', state: 'New South Wales', country: 'Australia', postal_code: 2059});
+      console.log("createAddress Result:", address);
+
+    console.log("Calling getAddressById");
+      const addressById = await getAddressById(1);
+      console.log("getAddressById Result:", addressById);
     
-    const users = await getAllUsers();
-    console.log("Result:", users);
+    console.log("Calling getAddressByUsername");
+      const addressByUser = await getAddressByUsername({username: 'albert'});
+      console.log("getAddressByUsername Result:", addressByUser);
+    
+    // console.log("Calling updateUser on users[0]")
+    // const updateUserResult = await updateUser(users[0].id, {
+      //   name: "Newname Sogood"
+      // });
+      // console.log("Result:", updateUserResult);
+      
+    console.log("Calling getUserById with 1");
+      const albert = await getUserById(1);
+      console.log("getUserById Result:", albert);
 
-    console.log("Calling updateUser on users[0]")
-    const updateUserResult = await updateUser(users[0].id, {
-      name: "Newname Sogood"
-    });
-    console.log("Result:", updateUserResult);
+    console.log("Calling getUserByUsername");
+      const userByUsername = await getUserByUsername({username: 'albert'});
+      console.log("getUserByUsername Result:", userByUsername);
 
- console.log("Calling getUserById with 1");
-    const albert = await getUserById(1);
-    console.log("Result:", albert);
-
-    console.log("Calling getAllGames");
+    
     const games = await getAllGames();
-    console.log("Result:", games);
+    console.log("Calling getAllGames");
+    // console.log("Games Result:", games);
 
-    console.log("Calling getAllCarts");
-    const carts = await getAllCarts();
-    console.log("Result:", carts);
-
-    console.log("Calling getCartsByUser on ");
-    const postsWithHappy = await getPostsByTagName("#happy");
-    console.log("Result:", postsWithHappy);
+    // console.log("Calling getAllCarts");
+    // const orders = await getAllCarts();
+    // console.log("Result:", orders);
 
     console.log("Calling getAllCartItems");
-    const cartItems = await getAllCartItems();
-    console.log("Result:", cartItems);
+    const order = await getAllCartItems();
+    console.log("Result:", order);
 
-
-    console.log("Calling getGamesByTagName with #scary");
-    const gamesWithScary = await getGamesByTagName("#scary");
-    console.log("Result:",gamesWithScary);
+    // console.log("Calling getGamesByTagName with #scary");
+    // const gamesWithScary = await getGamesByTagName("#scary");
+    // console.log("Result:",gamesWithScary);
 
 
   } catch (error) {

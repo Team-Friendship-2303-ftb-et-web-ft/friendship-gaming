@@ -19,62 +19,103 @@ async function createUser({username, password}) {
   }
 }
 
-async function getUser({username, password}) {
+async function getAllUsers() {
   try {
-    const user = await getUserByUsername(username);
-    const hashedPassword = user.password;
-    const passwordsMatch = await bcrypt.compare(password, hashedPassword);
-
-    if (!passwordsMatch) {
-      console.log('passwords do not match');
-      return; 
-    } else {
-      const { rows: [user] } = await client.query(`
+    const { rows } = await client.query(`
       SELECT id, username FROM users
-      WHERE username = $1
-      `, [username]);
-
-      if (!user.length) {
-        console.log('could not find user');
-        return;
-      }
-
-      return user;
-    }
+    `);
+    return rows;
   } catch (error) {
     console.error(error);
   }
 }
 
-async function getUserById(userID) {
+// async function getUser({username, password}) {
+//   try {
+//     const user = await getUserByUsername(username);
+//     const hashedPassword = user.password;
+//     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
+
+//     if (!passwordsMatch) {
+//       console.log('passwords do not match');
+//       return; 
+//     } else {
+//       const { rows: [user] } = await client.query(`
+//       SELECT id, username FROM users
+//       WHERE username = $1
+//       `, [username]);
+
+//       if (user.length == 0) {
+//         console.log('could not find user');
+//         return;
+//       }
+
+//       return user;
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+async function getUser({ username, password }) {
+  try {
+    console.log(`Getting user with username ${username}`);
+    const user = await getUserByUsername(username);
+
+    if (!user) {
+      console.log(`No user found with username ${username}`);
+      return null;
+    }
+
+    console.log(`Comparing passwords`);
+    const passwordsMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordsMatch) {
+      console.log(`Passwords do not match for user ${username}`);
+      return null;
+    } else {
+      console.log(`Passwords match for user ${username}`);
+      return {
+        id: user.id,
+        username: user.username
+      };
+    }
+  } catch (error) {
+    console.error(`Error in getUser: ${error}`);
+    throw error;
+  }
+}
+
+
+async function getUserById(userId) {
   try {
     const { rows: [user] } = await client.query(`
       SELECT id, username FROM users
       WHERE id=$1
-    `, [userID]);
+    `, [userId]);
 
-    if (!user.length) {
+    if (user.length == 0) {
       console.log('could not find user');
       return;
     }
-
+    
     return user;
   } catch (error) {
     console.error(error);
   }
 }
 
-async function getUserByUsername(username) {
+async function getUserByUsername({username}) {
   try {
     const { rows: [user] } = await client.query(`
       SELECT * FROM users
-      WHERE username=$1
+      WHERE username=$1;
     `, [username]);
 
-    if (!user.length) {
-      console.log('could not find user');
-      return;
-    }
+    // if (user.length == 0) {
+    //   console.log('could not find user');
+    //   return;
+    // }
 
     return user;
   } catch (error) {
@@ -83,24 +124,27 @@ async function getUserByUsername(username) {
 }
 
 /**********userInfo**********/
-async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin, addressId}) {
+//addressId violates foreign key constraint (the values in a column (or a group of columns) must match the values appearing in some row of another table)
+//resource: https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK
+async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin}) {
   const { rows: [userInfo] } = await client.query(`
-    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, isAdmin, "addressId")
-    VALUES ($1, $2, $3, $4, $5, $6)
-  `, [userId, firstName, lastName, dateOfBirth, isAdmin, addressId]);
+    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, "isAdmin")
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *
+  `, [userId, firstName, lastName, dateOfBirth, isAdmin]);
   return userInfo;
 }
 
-async function getUserInfoByUser({userID}) {
+async function getUserInfoByUser(userId) {
 
   const { rows: [userInfo] } = await client.query(`
-  SELECT users.*, userInfo.*
+  SELECT users.id, userInfo.*
   FROM users
-  JOIN users ON users.id = userInfo."userID"
+  JOIN userInfo ON users.id = userInfo."userId"
   WHERE users.id = $1
-`, [userID]);
+`, [userId]);
 
-  if(!userInfo) {
+  if(userInfo.length == 0) {
     console.log('could not find userInfo')
     return;
   }
@@ -122,14 +166,14 @@ async function createAddress({street_address, city, state, country, postal_code}
   }
 };
 
-async function getAddressByID(addressID) {
+async function getAddressById(addressId) {
   try {
     const { rows: [address] } = await client.query(`
       SELECT * FROM addresses
       WHERE id = $1
-    `, [addressID]);
+    `, [addressId]);
   
-    if(!address.length) {
+    if(address.length == 0) {
       console.log('could not find address');
       return
     };
@@ -140,16 +184,12 @@ async function getAddressByID(addressID) {
   }
 }
 
-async function getAddressByUser({username}) {
-  const user = await getUserByUsername(username);
-  const userID = user.id;
+async function getAddressByUsername({username}) {
+  const user = await getUserByUsername({username});
+  console.log(user);
+  const userId = user.id;
   try {
-    const { rows: [address] } = await client.query(`
-      SELECT addresses.*, userInfo.*
-      FROM userInfo
-      JOIN addresses ON addresses.id = userInfo."addressId"
-      WHERE userInfo."userId"= $1
-    `, [userID]);
+    const address = await getAddressById(userId)
     return address;
   } catch(error) {
     console.error(error)
@@ -159,11 +199,12 @@ async function getAddressByUser({username}) {
 module.exports = {
   createUser,
   getUser,
+  getAllUsers,
   getUserById,
   getUserByUsername,
   createUserInfo,
   getUserInfoByUser,
   createAddress,
-  getAddressByID,
-  getAddressByUser
+  getAddressById,
+  getAddressByUsername
 };

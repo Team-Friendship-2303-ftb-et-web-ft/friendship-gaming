@@ -32,7 +32,7 @@ async function getAllUsers() {
 
 async function getUser({username, password}) {
   try {
-    const user = await getUserByUsername(username);
+    const user = await getUserByUsername({username});
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
 
@@ -78,7 +78,7 @@ async function getUserById(userId) {
 async function getUserByUsername({username}) {
   try {
     const { rows: [user] } = await client.query(`
-      SELECT id, username FROM users
+      SELECT * FROM users
       WHERE username=$1
     `, [username]);
 
@@ -88,6 +88,17 @@ async function getUserByUsername({username}) {
     // }
 
     return user;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function deleteUser(id) {
+  try {
+    await client.query(`
+      DELETE FROM users
+      WHERE users.id=$1
+    `, [id]);
   } catch (error) {
     console.error(error);
   }
@@ -120,6 +131,25 @@ async function getUserInfoByUser(userId) {
   }
 
   return userInfo;
+}
+
+async function updateUserInfo({id, ...fields}) {
+  try {
+    const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 2}`).join(', ');
+    console.log(setString)
+    console.log(...Object.values(fields))
+    const { rows } = await client.query(`
+      UPDATE userInfo
+      SET ${setString}
+      WHERE id=$1
+      RETURNING *
+    `, [id, ...Object.values(fields)]);
+
+    console.log(rows);
+    return rows;
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 /*********addresses*********/
@@ -166,14 +196,18 @@ async function getAddressByUsername({username}) {
   }
 }
 
+
+
 module.exports = {
   createUser,
   getUser,
   getAllUsers,
   getUserById,
   getUserByUsername,
+  deleteUser,
   createUserInfo,
   getUserInfoByUser,
+  updateUserInfo,
   createAddress,
   getAddressById,
   getAddressByUser,

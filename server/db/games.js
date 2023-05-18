@@ -1,11 +1,11 @@
 const client = require("./client");
-
+const { attachTagsToGames } = require("./tags")
 // The creategame function is used to create a new game entry in the database.
 
 async function createGame({ authorName, genre, title, price, description, featured }) {
   try {
     const { rows: [ game ] } = await client.query(`
-      INSERT INTO games(authorName, genre, title, price, description, featured)
+      INSERT INTO games("authorName", genre, title, price, description, featured)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `, [authorName, genre, title, price, description, featured]);
@@ -23,10 +23,11 @@ async function getGameById(id) {
   try {
     const { rows: [ game ] } = await client.query(`
       SELECT * FROM games
-      WHERE "gameId"=$1;
+      WHERE id=$1;
     `, [id]);
 
-    return game;
+    const games = await attachTagsToGames([game]);
+    return games[0];
   } catch (error) {
     console.error(`Error getting game by id: ${id}`, error);
     throw error;
@@ -39,7 +40,7 @@ async function getAllGames() {
       SELECT * FROM games;
     `);
    
-    return games;
+    return await attachTagsToGames(games);
   } catch (error) {
     console.error("Error getting all games", error);
     throw error;
@@ -50,10 +51,10 @@ async function getGamesByAuthor(authorName) {
   try {
     const { rows: games } = await client.query(`
       SELECT * FROM games
-      WHERE authorName=$1;
+      WHERE "authorName"=$1;
     `, [authorName]);
 
-    return games;
+    return await attachTagsToGames(games);
   } catch (error) {
     console.error("Error getting games by author", error);
     throw error;
@@ -67,7 +68,7 @@ async function getGamesByGenre(genre) {
       WHERE genre=$1;
     `, [genre]);
 
-    return games;
+    return await attachTagsToGames(games);
   } catch (error) {
     console.error("Error getting games by genre", error);
     throw error;
@@ -82,7 +83,7 @@ async function getGamesByTag(tagId) {
       WHERE game_Tags.tagId=$1;
     `, [tagId]);
 
-    return games;
+    return await attachTagsToGames(games);
   } catch (error) {
     console.error("Error getting games by tag", error);
     throw error;

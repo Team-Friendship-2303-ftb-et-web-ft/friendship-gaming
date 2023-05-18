@@ -86,7 +86,7 @@ const createTables = async () => {
         );
         CREATE TABLE games(
           id SERIAL PRIMARY KEY,
-          authorName varchar(255) NOT NULL,
+          "authorName" varchar(255) NOT NULL,
           genre varchar(255) NOT NULL,
           title varchar(255) NOT NULL,
           price DECIMAL NOT NULL,
@@ -413,26 +413,31 @@ async function createInitialCartItems(){
 
 /******* Create Tags ********/
 
-async function createInitialTags(){
-  try{
+async function createInitialTags() {
+  try {
     console.log("Starting to create Tags...");
-    const [scary, adventure, AI] = await createTag([
-      '#scary',
-      '#adventure',
-      '#AI'
-    ]);
 
-    const [gameOne, gameTwo, gameThree] = await getAllGames();
-    await addTagToGame(gameOne.id, [adventure]);
-    await addTagToGame(gameTwo.id, [adventure, scary]);
-    await addTagToGame(gameThree.id, [scary, adventure, AI]);
-    
+    const scary = await createTag('#scary');
+    const adventure = await createTag('#adventure');
+    const AI = await createTag('#AI');
+
+    let [gameOne, gameTwo, gameThree] = await getAllGames();
+
+    await addTagToGame(gameOne.id, adventure.id);
+    await addTagToGame(gameTwo.id, adventure.id);
+    await addTagToGame(gameTwo.id, scary.id);
+    await addTagToGame(gameThree.id, scary.id);
+    await addTagToGame(gameThree.id, adventure.id);
+    await addTagToGame(gameThree.id, AI.id);
+    gameOne = await getGameById(gameOne.id);
+    console.log("this is game one with tags", gameOne)
     console.log("Finished Creating Tags!");
   } catch (error) {
-    console.log("error creating tags!")
+    console.log("Error creating tags!");
     throw error;
   }
 }
+
 
 const rebuildDB = async () => {
   try {
@@ -558,3 +563,4 @@ const testDB = async () => {
   }
 }
 
+// testDB()

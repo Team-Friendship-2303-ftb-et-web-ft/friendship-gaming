@@ -4,8 +4,6 @@ const {
   getAllUsers,
   getUserById,
   getUserByUsername,
-  deleteUserInfo,
-  deleteUserAddress,
   deleteUser,
   createUserInfo,
   getUserInfoByUser,
@@ -29,7 +27,6 @@ const {
   createTag,
   createAddress,
   getAddressById,
-  getAddressByUsername,
   getAllTags,
   getAddressByUsername
 } = require('./index.js');

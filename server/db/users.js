@@ -30,33 +30,6 @@ async function getAllUsers() {
   }
 }
 
-// async function getUser({username, password}) {
-//   try {
-//     const user = await getUserByUsername(username);
-//     const hashedPassword = user.password;
-//     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
-
-//     if (!passwordsMatch) {
-//       console.log('passwords do not match');
-//       return; 
-//     } else {
-//       const { rows: [user] } = await client.query(`
-//       SELECT id, username FROM users
-//       WHERE username = $1
-//       `, [username]);
-
-//       if (user.length == 0) {
-//         console.log('could not find user');
-//         return;
-//       }
-
-//       return user;
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
 async function getUser({ username, password }) {
   try {
     const user = await getUserByUsername(username);
@@ -166,8 +139,7 @@ async function getUserInfoByUser(userId) {
 async function updateUserInfo({id, ...fields}) {
   try {
     const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 2}`).join(', ');
-    // console.log(setString)
-    // console.log(...Object.values(fields))
+    
     const { rows } = await client.query(`
       UPDATE userInfo
       SET ${setString}
@@ -175,7 +147,6 @@ async function updateUserInfo({id, ...fields}) {
       RETURNING *
     `, [id, ...Object.values(fields)]);
 
-    console.log(rows);
     return rows;
   } catch (error) {
     console.error(error)
@@ -227,8 +198,6 @@ async function getAddressByUsername({username}) {
   }
 }
 
-
-
 module.exports = {
   createUser,
   getUser,
@@ -242,6 +211,4 @@ module.exports = {
   createAddress,
   getAddressById,
   getAddressByUsername
-  
-
 };

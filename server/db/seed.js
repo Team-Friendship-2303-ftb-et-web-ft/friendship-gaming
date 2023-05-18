@@ -475,61 +475,50 @@ const testDB = async () => {
 
     //as they pass I am commenting them out to keep the terminal kinda clear
 
-    console.log("Calling getAllUsers");
-      const users = await getAllUsers();
-      console.log("getAllUsers Result:", users);
+    // console.log("Calling getAllUsers");
+    //   const users = await getAllUsers();
+    //   console.log("getAllUsers Result:", users);
 
-    console.log("Calling getUser");
-      const gotuser = await getUser({username: 'albert', password: 'bertie99'})
-      console.log("getUser Result:", gotuser)
+    // console.log("Calling getUser");
+    //   const gotuser = await getUser({username: 'albert', password: 'bertie99'})
+    //   console.log("getUser Result:", gotuser)
 
-      // why is it creating an object with lowercase key names
-    console.log("Calling createUserInfo");
-      const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
-      console.log("createUserInfo Result:", userInfo)
+    //   // why is it creating an object with lowercase key names
+    // console.log("Calling createUserInfo");
+    //   const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
+    //   console.log("createUserInfo Result:", userInfo)
 
-    console.log("Calling getUserInfoByUser");
-      const userInfoByUser = await getUserInfoByUser(1);
-      console.log("getUserInfoByUser Result:", userInfoByUser);
+    // console.log("Calling getUserInfoByUser");
+    //   const userInfoByUser = await getUserInfoByUser(1);
+    //   console.log("getUserInfoByUser Result:", userInfoByUser);
 
-    console.log("Calling updateUserInfo");
-      const updatedUserInfo = await updateUserInfo({id: 1, lastName: 'albertie'});
-      console.log("updateUserInfo Result:", updatedUserInfo);
+    // console.log("Calling updateUserInfo");
+    //   const updatedUserInfo = await updateUserInfo({id: 1, lastName: 'albertie'});
+    //   console.log("updateUserInfo Result:", updatedUserInfo);
 
-    console.log("Calling getAddressById");
-      const addressById = await getAddressById(1);
-      console.log("getAddressById Result:", addressById);
+    // console.log("Calling getAddressById");
+    //   const addressById = await getAddressById(1);
+    //   console.log("getAddressById Result:", addressById);
     
-    console.log("Calling getAddressByUsername");
-      const addressByUser = await getAddressByUsername({username: 'albert'});
-      console.log("getAddressByUsername Result:", addressByUser);
+    // console.log("Calling getAddressByUsername");
+    //   const addressByUser = await getAddressByUsername({username: 'albert'});
+    //   console.log("getAddressByUsername Result:", addressByUser);
       
-    console.log("Calling getUserById with 1");
-      const Aalbert = await getUserById(1);
-      console.log("getUserById Result:", Aalbert);
+    // console.log("Calling getUserById with 1");
+    //   const Aalbert = await getUserById(1);
+    //   console.log("getUserById Result:", Aalbert);
 
- console.log("Calling getUserById with 1");
-    const albert = await getUserById(1);
-    console.log("getUserByID Result:", albert);
+    // console.log("Calling getUserById with 1");
+    //   const albert = await getUserById(1);
+    //   console.log("getUserByID Result:", albert);
 
- console.log("Calling user by username");
-    const user = await getUserByUsername('albert');
-    console.log("getUserByUsername Result:", user);
+    // console.log("Calling user by username");
+    //   const user = await getUserByUsername('albert');
+    //   console.log("getUserByUsername Result:", user);
 
-    
-    //     console.log("Calling deleteUserAddress");
-    //       await deleteUserAddress(1);
-    //       console.log("deleteUserAddress Result:", await getAddressByUsername('albert'));
-
-    // console.log("Calling deleteUserInfo");
-    //   await deleteUserInfo(1);
-    //   console.log("deleteUserInfo Result:", await getUserInfoByUser(1));
-
-
-    //need to delete userInfo for that user first
-    console.log("Calling deleteUser");
-      await deleteUser(1);
-      console.log("deleteUser Result:", await getAllUsers());
+    // console.log("Calling deleteUser");
+    //   await deleteUser(1);
+    //   console.log("deleteUser Result:", await getAllUsers());
 
     // console.log("Calling getAllGames");
     // const games = await getAllGames();

@@ -42,7 +42,8 @@ router.post('/login', async(req, res, next) => {
   try {
     const user = await getUser({username, password});
     if (user) {
-      const token = jwt.sign(user, JWT_SECRET);
+      const token = jwt.sign(user, process.env.JWT_SECRET);
+      console.log('token');
       res.send({message: 'you have been logged in', user, token})
     } else {
       next({message: 'username or password is incorrect'})

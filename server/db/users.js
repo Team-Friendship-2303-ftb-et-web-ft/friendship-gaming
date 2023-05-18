@@ -33,7 +33,7 @@ async function getAllUsers() {
 async function getUser({ username, password }) {
   try {
     const user = await getUserByUsername(username);
-    console.log('user',user);
+    // console.log('user',user);
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
 
@@ -52,6 +52,7 @@ async function getUser({ username, password }) {
     if (user && passwordsMatch) {
       console.log(`Passwords match for user ${username}`);
       delete user.password;
+      console.log(user)
       return user
     } else {
       console.log(`Passwords do not match for user ${username}`);

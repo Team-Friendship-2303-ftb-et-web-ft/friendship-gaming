@@ -233,7 +233,7 @@ module.exports = {
   updateUserInfo,
   createAddress,
   getAddressById,
-  getAddressByUser,
   getAddressByUsername
+  
 
 };

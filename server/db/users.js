@@ -98,10 +98,10 @@ async function getUserByUsername({username}) {
 //resource: https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK
 async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin}) {
   const { rows: [userInfo] } = await client.query(`
-    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, "isAdmin")
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *
-  `, [userId, firstName, lastName, dateOfBirth, isAdmin]);
+
+    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, "isAdmin", "addressId")
+    VALUES ($1, $2, $3, $4, $5, $6)
+  `, [userId, firstName, lastName, dateOfBirth, isAdmin, addressId]);
   return userInfo;
 }
 
@@ -143,7 +143,7 @@ async function getAddressById(addressId) {
       WHERE id = $1
     `, [addressId]);
   
-    if(address.length == 0) {
+    if(address.length === 0) {
       console.log('could not find address');
       return
     };
@@ -176,5 +176,7 @@ module.exports = {
   getUserInfoByUser,
   createAddress,
   getAddressById,
+  getAddressByUser,
   getAddressByUsername
+
 };

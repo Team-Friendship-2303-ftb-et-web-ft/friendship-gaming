@@ -96,7 +96,7 @@ async function getUserByUsername(username) {
 /**********userInfo**********/
 async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin, addressId}) {
   const { rows: [userInfo] } = await client.query(`
-    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, isAdmin, "addressId")
+    INSERT INTO userInfo("userId", firstName, lastName, dateOfBirth, "isAdmin", "addressId")
     VALUES ($1, $2, $3, $4, $5, $6)
   `, [userId, firstName, lastName, dateOfBirth, isAdmin, addressId]);
   return userInfo;
@@ -133,14 +133,14 @@ async function createAddress({street_address, city, state, country, postal_code}
   }
 };
 
-async function getAddressByID(addressID) {
+async function getAddressById(addressId) {
   try {
     const { rows: [address] } = await client.query(`
       SELECT * FROM addresses
       WHERE id = $1
-    `, [addressID]);
+    `, [addressId]);
   
-    if(address.length == 0) {
+    if(address.length === 0) {
       console.log('could not find address');
       return
     };
@@ -176,6 +176,6 @@ module.exports = {
   createUserInfo,
   getUserInfoByUser,
   createAddress,
-  getAddressByID,
+  getAddressById,
   getAddressByUser
 };

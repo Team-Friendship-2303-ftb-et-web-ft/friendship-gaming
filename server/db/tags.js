@@ -42,9 +42,16 @@ async function addTagToGame(gameId, tagId) {
       throw error;
     }
   }
-
+  const getAllTags = async () => {
+    const { rows } = await client.query(
+      `SELECT *
+       FROM tags;`
+    );
+    return rows;
+  }
   module.exports = {
     createTag,
     addTagToGame,
-    removeTagFromGame
+    removeTagFromGame,
+    getAllTags
   };

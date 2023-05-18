@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { getUserByUsername, createUser, getUser, getUserById } = require('../db/users');
-const { requireUser } = require('./utils');
+const { getUserByUsername, createUser, getUser, getUserById, createUserInfo, getUserInfoByUser } = require('../db/users');
+const { requireAdmin, requireUser } = require('./utils');
 const { JWT_SECRET } = process.env;
 
 // GET: api/users
@@ -35,14 +35,17 @@ router.post('/login', async(req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    next({message: 'please supply borth a username and password'})
+    next({message: 'please supply both a username and password'})
   }
 
   try {
     const user = await getUser({username, password});
+    await createUserInfo({userId: user.id, firstName: 'anna', lastName: 'gibes', dateOfBirth: '01/27/1999', isAdmin: true, addressId: null})
+    const userInfo = await getUserInfoByUser(user.id)
+    console.log(userInfo)
     if (user) {
       const token = jwt.sign(user, process.env.JWT_SECRET);
-      res.send({message: 'you have been logged in', user, token})
+      res.send({message: 'you have been logged in', user, token, userInfo})
     } else {
       next({message: 'username or password is incorrect'})
     }
@@ -52,22 +55,18 @@ router.post('/login', async(req, res, next) => {
 });
 
 
-router.get('/me', async(req, res, next) => {
-  const prefix = 'Bearer ';
-  const auth = req.header('Authorization');
+router.get('/me', requireUser, async(req, res, next) => {
   try {
-    if(!auth) {
-      throw new Error ('You must be logged in to perform this action');
-    } else if (auth.startsWith(prefix)) {
-      const token = auth.slice(prefix.length);
-      const {id} = jwt.verify(token, process.env.JWT_SECRET);
-
-      if(id) {
-        req.user = await getUserById(id);
-        res.send(req.user);
-      }
-    }
+        res.send({message:'at /me'});
   } catch (message) {
+    res.send(message);
+  }
+});
+
+router.get('/admin', requireAdmin, async(req,res,next) => {
+  try {
+      res.send({message: "logged in as admin"})
+  } catch (message){
     res.send(message);
   }
 });

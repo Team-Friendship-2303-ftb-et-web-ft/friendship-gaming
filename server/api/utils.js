@@ -1,5 +1,5 @@
-const requireAdmin = ((req, res, next) => {
-    if (!req.user && req.user.isAdmin == false) {
+const requireAdmin = (async (req, res, next) => {
+    if (!req.user) {
         next({
            message: 'You must be logged in as admin to perform this actions' 
         });

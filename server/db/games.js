@@ -1,30 +1,16 @@
 const client = require("./client");
 
-// The createGame function is used to create a new game entry in the database.
+// The creategame function is used to create a new game entry in the database.
 
-async function createGame({ AuthorName, Genre, Title, Price, Description, Tags, Featured }) {
+async function createGame({ authorName, genre, title, price, description, featured }) {
   try {
-    // This is inserting the game details into the 'Games' table and returning the newly created game.
     const { rows: [ game ] } = await client.query(`
-      INSERT INTO Games(AuthorName, Genre, Title, Price, Description, Featured)
+      INSERT INTO games(authorName, genre, title, price, description, featured)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
-    `, [AuthorName, Genre, Title, Price, Description, Featured]);
+    `, [authorName, genre, title, price, description, featured]);
 
-    // For each tag in the 'Tags' array, it is inserting a new entry into the 'Game_Tags' table, linking the game to a tag.
-
-    // const promises = Tags.map(tag => {
-    //   return client.query(`
-    //     INSERT INTO game_tags(gameId, tagId)
-    //     VALUES ($1, $2);
-    //   `, [game.gameID, tag]);
-    // });
-
-
-    // // Waiting for all tag-insertions to complete
-    // await Promise.all(promises);
-    
-    // Returning the newly created game
+    console.log(game);
     return game;
   } catch (error) {
     console.error("Error creating game", error);
@@ -32,11 +18,12 @@ async function createGame({ AuthorName, Genre, Title, Price, Description, Tags, 
   }
 }
 
+
 async function getGameById(id) {
   try {
     const { rows: [ game ] } = await client.query(`
-      SELECT * FROM Games
-      WHERE GameID=$1;
+      SELECT * FROM games
+      WHERE "gameId"=$1;
     `, [id]);
 
     return game;
@@ -49,7 +36,7 @@ async function getGameById(id) {
 async function getAllGames() {
   try {
     const { rows: games } = await client.query(`
-      SELECT * FROM Games;
+      SELECT * FROM games;
     `);
    
     return games;
@@ -59,12 +46,12 @@ async function getAllGames() {
   }
 }
 
-async function getGamesByAuthor(AuthorName) {
+async function getGamesByAuthor(authorName) {
   try {
     const { rows: games } = await client.query(`
-      SELECT * FROM Games
-      WHERE AuthorName=$1;
-    `, [AuthorName]);
+      SELECT * FROM games
+      WHERE authorName=$1;
+    `, [authorName]);
 
     return games;
   } catch (error) {
@@ -73,12 +60,12 @@ async function getGamesByAuthor(AuthorName) {
   }
 }
 
-async function getGamesByGenre(Genre) {
+async function getGamesByGenre(genre) {
   try {
     const { rows: games } = await client.query(`
-      SELECT * FROM Games
-      WHERE Genre=$1;
-    `, [Genre]);
+      SELECT * FROM games
+      WHERE genre=$1;
+    `, [genre]);
 
     return games;
   } catch (error) {
@@ -90,9 +77,9 @@ async function getGamesByGenre(Genre) {
 async function getGamesByTag(tagId) {
   try {
     const { rows: games } = await client.query(`
-      SELECT Games.* FROM Games
-      JOIN Game_Tags ON Games.GameID = Game_Tags.gameId
-      WHERE Game_Tags.tagId=$1;
+      SELECT games.* FROM games
+      JOIN game_Tags ON games."gameId" = game_Tags.gameId
+      WHERE game_Tags.tagId=$1;
     `, [tagId]);
 
     return games;
@@ -108,14 +95,14 @@ async function updateGame({ id, ...fields }) {
     .join(", ");
 
   try {
-    const { rows: [ updatedGame ] } = await client.query(`
-      UPDATE Games
+    const { rows: [ updatedgame ] } = await client.query(`
+      UPDATE games
       SET ${setString}
-      WHERE GameID=$${Object.keys(fields).length + 1}
+      WHERE "gameId"=$${Object.keys(fields).length + 1}
       RETURNING *;
     `, [...Object.values(fields), id]);
 
-    return updatedGame;
+    return updatedgame;
   } catch (error) {
     console.error("Error updating game", error);
     throw error;
@@ -126,19 +113,19 @@ async function destroyGame(id) {
     try {
     d
       await client.query(`
-        DELETE FROM Game_Tags
+        DELETE FROM game_Tags
         WHERE "gameId"=$1;
       `, [id]);
   
-      // Delete the game from the Games table
-      const { rows: [deletedGame] } = await client.query(`
-        DELETE FROM Games
-        WHERE GameID=$1
+      // Delete the game from the games table
+      const { rows: [deletedgame] } = await client.query(`
+        DELETE FROM games
+        WHERE "gameId"=$1
         RETURNING *;
       `, [id]);
   
       // Return the deleted game
-      return deletedGame;
+      return deletedgame;
     } catch (error) {
       console.error("Error deleting game", error);
       throw error;

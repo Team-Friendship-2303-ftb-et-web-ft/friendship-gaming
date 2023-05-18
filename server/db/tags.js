@@ -3,7 +3,7 @@ const client = require("./client")
 async function createTag(name) {
     try {
       const { rows: [ tag ] } = await client.query(`
-        INSERT INTO Tags(name)
+        INSERT INTO tags(name)
         VALUES ($1)
         RETURNING *;
       `, [name]);
@@ -18,7 +18,7 @@ async function createTag(name) {
 async function addTagToGame(gameId, tagId) {
     try {
       await client.query(`
-        INSERT INTO Game_Tags(gameId, tagId)
+        INSERT INTO game_tags("gameId", "tagId")
         VALUES ($1, $2);
       `, [gameId, tagId]);
   
@@ -32,8 +32,8 @@ async function addTagToGame(gameId, tagId) {
   async function removeTagFromGame(gameId, tagId) {
     try {
       await client.query(`
-        DELETE FROM Game_Tags
-        WHERE gameId=$1 AND tagId=$2;
+        DELETE FROM game_tags
+        WHERE "gameId"=$1 AND "tagId"=$2;
       `, [gameId, tagId]);
   
       console.log(`Tag ${tagId} has been successfully removed from game ${gameId}.`);

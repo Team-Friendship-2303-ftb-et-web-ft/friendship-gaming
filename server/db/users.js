@@ -30,32 +30,55 @@ async function getAllUsers() {
   }
 }
 
-async function getUser({username, password}) {
+// async function getUser({username, password}) {
+//   try {
+//     const user = await getUserByUsername(username);
+//     const hashedPassword = user.password;
+//     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
+
+//     if (!passwordsMatch) {
+//       console.log('passwords do not match');
+//       return; 
+//     } else {
+//       const { rows: [user] } = await client.query(`
+//       SELECT id, username FROM users
+//       WHERE username = $1
+//       `, [username]);
+
+//       if (user.length == 0) {
+//         console.log('could not find user');
+//         return;
+//       }
+
+//       return user;
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+async function getUser({ username, password }) {
   try {
     const user = await getUserByUsername({username});
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
 
     if (!passwordsMatch) {
-      console.log('passwords do not match');
-      return; 
+      console.log(`Passwords do not match for user ${username}`);
+      return null;
     } else {
-      const { rows: [user] } = await client.query(`
-      SELECT id, username FROM users
-      WHERE username = $1
-      `, [username]);
-
-      if (user.length == 0) {
-        console.log('could not find user');
-        return;
-      }
-
-      return user;
+      console.log(`Passwords match for user ${username}`);
+      return {
+        id: user.id,
+        username: user.username
+      };
     }
   } catch (error) {
-    console.error(error);
+    console.error(`Error in getUser: ${error}`);
+    throw error;
   }
 }
+
 
 async function getUserById(userId) {
   try {

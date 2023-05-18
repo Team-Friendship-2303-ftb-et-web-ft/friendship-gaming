@@ -5,7 +5,7 @@ const client = require("./client");
 async function createGame({ authorName, genre, title, price, description, featured }) {
   try {
     const { rows: [ game ] } = await client.query(`
-      INSERT INTO games(authorName, genre, title, price, description, featured)
+      INSERT INTO games("authorName", genre, title, price, description, featured)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `, [authorName, genre, title, price, description, featured]);
@@ -50,7 +50,7 @@ async function getGamesByAuthor(authorName) {
   try {
     const { rows: games } = await client.query(`
       SELECT * FROM games
-      WHERE authorName=$1;
+      WHERE "authorName"=$1;
     `, [authorName]);
 
     return games;

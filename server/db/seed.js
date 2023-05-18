@@ -29,10 +29,8 @@ const {
   createTag,
   createAddress,
   getAddressById,
-  getAddressByUsername,
   getAddressByUser,
   getAllTags,
-  createUserInfo,
   getAddressByUsername
 } = require('./index.js');
 const 
@@ -91,7 +89,7 @@ const createTables = async () => {
         );
         CREATE TABLE games(
           id SERIAL PRIMARY KEY,
-          authorName varchar(255) NOT NULL,
+          "authorName" varchar(255) NOT NULL,
           genre varchar(255) NOT NULL,
           title varchar(255) NOT NULL,
           price DECIMAL NOT NULL,

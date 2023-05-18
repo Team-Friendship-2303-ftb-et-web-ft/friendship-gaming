@@ -76,7 +76,7 @@ async function createCartItems({ cartId, gameId, quantity, priceAtPurchase }) {
 async function getAllCartItems() {
   try {
     const { rows: order } = await client.query(`
-    SELECT * FROM activities
+    SELECT * FROM cartItems
     `);
     
     return order;

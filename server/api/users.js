@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
+// const {requireUser, requireAdmin} = require('./utils');
 const { getUserByUsername, createUser, getUser, getUserById } = require('../db/users');
+const { requireUser } = require('./utils');
 const { JWT_SECRET } = process.env;
 
 // GET: api/users
@@ -22,10 +24,9 @@ router.post('/register', async (req, res, next) => {
     }
 
     const user = await createUser({username, password});
+    const token = jwt.sign({ id: user.id, username}, process.env.JWT_SECRET, { expiresIn: "1w" })
 
-    const token = jwt.sign({ id: user.id, username }, JWT_SECRET, { expiresIn: "1w" })
-
-    res.send({message: 'You successfully registered', user, token})
+    res.send({message: 'You successfully registered', user: user, token: token})
   } catch (message) {
     res.send(message)
   }
@@ -52,24 +53,24 @@ router.post('/login', async(req, res, next) => {
 });
 
 
-// router.get('/me', async(req, res, next) => {
-//   const prefix = 'Bearer ';
-//   const auth = req.header('Authorization');
-//   try {
-//     if(!auth) {
-//       throw new Error ('You must be logged in to perform this action');
-//     } else if (auth.startsWith(prefix)) {
-//       const token = auth.slice(prefix.length);
-//       const {id} = jwt.verify(token, JWT_SECRET);
+router.get('/me', async(req, res, next) => {
+  const prefix = 'Bearer ';
+  const auth = req.header('Authorization');
+  try {
+    if(!auth) {
+      throw new Error ('You must be logged in to perform this action');
+    } else if (auth.startsWith(prefix)) {
+      const token = auth.slice(prefix.length);
+      const {id} = jwt.verify(token, JWT_SECRET);
 
-//       if(id) {
-//         req.user = await getUserById(id);
-//         res.send(req.user);
-//       }
-//     }
-//   } catch (message) {
-//     res.send(message);
-//   }
-// });
+      if(id) {
+        req.user = await getUserById(id);
+        res.send(req.user);
+      }
+    }
+  } catch (message) {
+    res.send(message);
+  }
+});
 
 module.exports = router;

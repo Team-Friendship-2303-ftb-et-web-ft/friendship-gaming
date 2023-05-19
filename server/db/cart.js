@@ -11,7 +11,7 @@ async function createCart({ userId, purchaseStatus }) {
         )
         VALUES ($1, $2)
         RETURNING *;
-        `, [ userId, purchaseStatus]);
+        `, [ userId, purchaseStatus ]);
 
           console.log(order)
             return order;
@@ -39,8 +39,8 @@ async function getCartByUserId(userId) {
     try {
         const { rows: [ order ] } = await client.query(`
         SELECT * FROM cart
-           WHERE id = ${ id }
-          `);
+           WHERE id = $1
+          `, [ userId ]);
           
            return order;
         
@@ -65,7 +65,7 @@ async function createCartItems({ cartId, gameId, quantity, priceAtPurchase }) {
         )
         VALUES ($1, $2, $3, $4)
         RETURNING *;
-        `, [ cartId, gameId, quantity, priceAtPurchase]);
+        `, [ cartId, gameId, quantity, priceAtPurchase ]);
           console.log(order);
             return order;
     } catch (error) {
@@ -100,12 +100,29 @@ async function getCartItemsByOrder(id) {
      }
     }
 
+async function attachCartItemsToCart(id) {
+  try {
+      const { rows: [ orderItems ] } = await client.query(`
+        SELECT * FROM cartItems
+        JOIN cart ON cart.id = cartItems."cartId"
+        WHERE cart.id = $1
+      `, [ id ]);
+      console.log('This is orderItems', orderItems);
+
+        return orderItems;
+
+  } catch (error) {
+      throw error;
+  }
+}
+
     module.exports = {
       createCart,
       getCartByOrder,
       getCartByUserId,
       createCartItems,
       getAllCartItems,
-      getCartItemsByOrder
+      getCartItemsByOrder,
+      attachCartItemsToCart
     }
 

@@ -2,13 +2,13 @@ const client = require("./client");
 const { attachTagsToGames } = require("./tags")
 // The creategame function is used to create a new game entry in the database.
 
-async function createGame({ authorName, genre, title, price, description, featured }) {
+async function createGame({ authorName, genre, title, price, description, featured, inventoryqty }) {
   try {
     const { rows: [ game ] } = await client.query(`
-      INSERT INTO games("authorName", genre, title, price, description, featured)
-      VALUES ($1, $2, $3, $4, $5, $6)
+      INSERT INTO games("authorName", genre, title, price, description, featured, inventoryqty)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING *;
-    `, [authorName, genre, title, price, description, featured]);
+    `, [authorName, genre, title, price, description, featured, inventoryqty]);
 
     console.log(game);
     return game;
@@ -133,6 +133,37 @@ async function destroyGame(id) {
     }
   }
   
+  async function purchaseGame(gameId, quantityPurchased) {
+    try {
+      // Begin transaction
+      await client.query('BEGIN');
+  
+      // Check if enough inventoryqty in stock
+      const { rows: [ game ] } = await client.query(`
+        SELECT inventoryqty FROM games WHERE id = $1;
+      `, [gameId]);
+  
+      if (game.inventoryqty < quantityPurchased) {
+        throw new Error("Not enough inventoryqty in stock");
+      }
+  
+      // Update game inventoryqty
+      await client.query(`
+        UPDATE games
+        SET inventoryqty = inventoryqty - $1
+        WHERE id = $2;
+      `, [quantityPurchased, gameId]);
+  
+      // Commit transaction
+      await client.query('COMMIT');
+    } catch (error) {
+      await client.query('ROLLBACK');
+      console.error(`Error purchasing game with ID ${gameId}`, error);
+      throw error;
+    }
+  }
+  
+
   module.exports = {
     createGame,
     getGameById,
@@ -142,5 +173,6 @@ async function destroyGame(id) {
     getGamesByTag,
     updateGame,
     destroyGame,
+    purchaseGame
   };
   

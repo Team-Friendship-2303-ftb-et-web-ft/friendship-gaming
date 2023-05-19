@@ -28,7 +28,8 @@ const {
   createAddress,
   getAddressById,
   getAllTags,
-  getAddressByUsername
+  getAddressByUsername,
+  purchaseGame
 } = require('./index.js');
 const 
   client
@@ -91,7 +92,8 @@ const createTables = async () => {
           title varchar(255) NOT NULL,
           price DECIMAL NOT NULL,
           description  varchar(500) NOT NULL,
-          featured BOOLEAN DEFAULT false
+          featured BOOLEAN DEFAULT false,
+          inventoryqty INTEGER NOT NULL
         );
         CREATE TABLE cart(
           id SERIAL PRIMARY KEY,
@@ -230,6 +232,7 @@ async function createInitialGames(){
       price: 45.00,
       description: "A adventure game where you vanquish enchanted furniture to forge the sacred sword." ,
       featured: true ,
+      inventoryqty: 1000,
     },
      {
       authorName: "Nebula Interactive"  ,
@@ -238,6 +241,7 @@ async function createInitialGames(){
       price: 59.99,
       description:  "An FPS game where you hijack mutant zombies in Russia." ,
       featured: true,
+      inventoryqty: 1000,
     },
      {
       authorName: "Blackout Studios" ,
@@ -246,6 +250,7 @@ async function createInitialGames(){
       price: 59.99,
       description: "An horror game where you retrieve holy artifacts with vampires in the lava kingdom.",
       featured: true ,
+      inventoryqty: 1000,
     },
      {
       authorName:  "Nexus Interactive",
@@ -254,6 +259,7 @@ async function createInitialGames(){
       price: 25.99,
       description:"A adventure game where you build unknown worlds with robots.",
       featured: false,
+      inventoryqty: 1000,
     },
      {
       authorName: "Phantasmic Games" ,
@@ -262,6 +268,7 @@ async function createInitialGames(){
       price: 45.00,
       description: "An adventure horror game where you save extra-dimensional entities because, I mean, why the hell not.",
       featured: false,
+      inventoryqty: 1000,
     },
      {
       authorName: "AquaSphere Games" ,
@@ -270,6 +277,7 @@ async function createInitialGames(){
       price: 49.99,
       description:  "A god game where you build underwater cities by gaining god points.",
       featured: false,
+      inventoryqty: 1000,
     },
      {
       authorName: "MutantMatch Studios" ,
@@ -278,6 +286,7 @@ async function createInitialGames(){
       price: 59.99,
       description: "A shooting game where you encounter mutants with unpredictable powers.",
       featured: false,
+      inventoryqty: 1000,
     },
      {
       authorName:  "MythicRealms Interactive",
@@ -286,6 +295,7 @@ async function createInitialGames(){
       price: 39.99,
       description: 'In the mystical realm of Eldoria, an ancient prophecy whispers of a hidden Lost Kingdom. As a brave adventurer, you embark on a perilous journey to unravel the secrets of this legendary realm. Armed with a legendary artifact and accompanied by a loyal group of companions, you must navigate treacherous landscapes, battle fearsome creatures, and solve mind-bending puzzles.',
       featured: false,
+      inventoryqty: 1000,
     },
      {
       authorName: "MonkeyStrike Studios" ,
@@ -294,6 +304,7 @@ async function createInitialGames(){
       price: 54.99,
       description: "A FPS where you fight ninjas to save  the world from a dictator monkey.",
       featured: true,
+      inventoryqty: 1000,
     },
      {
       authorName:  "SinisterByte Games",
@@ -302,6 +313,7 @@ async function createInitialGames(){
       price: 29.99,
       description: "A horror game where you hijack evil AIs as slowly as possible.",
       featured: false,
+      inventoryqty: 1000,
     },
      {
       authorName:  "LunarFire Entertainment",
@@ -310,6 +322,7 @@ async function createInitialGames(){
       price: 44.99,
       description:  "An FPS where you defeat space people on the Moon.",
       featured: false,
+      inventoryqty: 1000,
     },
      {
       authorName: 'Abyssal Secrets Studio' ,
@@ -318,6 +331,7 @@ async function createInitialGames(){
       price: 34.99,
       description: "An adventure game where you freeze oozes and solve puzzles in the darkest caves to reach the center of the earth.",
       featured: false,
+      inventoryqty: 1000,
     },
      {
       authorName: "BioTech Nightmares" ,
@@ -326,6 +340,7 @@ async function createInitialGames(){
       price: 49.99,
       description: "A horror game where you are a reporter trying to expose a lab that does experiments on bears and reptiles. Fusing them with reobotics and AI thechnology in a laboratory.",
       featured: true,
+      inventoryqty: 1000,
     },
      {
       authorName: "BioTech Nightmares",
@@ -334,6 +349,7 @@ async function createInitialGames(){
       price: 59.99,
       description: "Beastech Part 2: After exposing Beastech labs they shut down but, left some experiments behind that have escaped and are reaking havic. It is up to you and your knew friend Gnome (half bear half robot ) or G for short,to stop them from taking over your city and spreading across the country.",
       featured: false,
+      inventoryqty: 1000,
     },
      {
       authorName: "WitchForge Games" ,
@@ -342,6 +358,7 @@ async function createInitialGames(){
       price: 39.99,
       description: "An adventure game where you explore dungeons with witches.",
       featured: false,
+      inventoryqty: 1000,
     }
   ]
 
@@ -349,6 +366,7 @@ async function createInitialGames(){
   gamesToCreate.map((game) => createGame(game))
 )
   console.log("Games Created:", games)
+
   console.log("Games have been created!")
 }
 
@@ -429,8 +447,9 @@ async function createInitialTags() {
     await addTagToGame(gameThree.id, scary.id);
     await addTagToGame(gameThree.id, adventure.id);
     await addTagToGame(gameThree.id, AI.id);
-    gameOne = await getGameById(gameOne.id);
-    console.log("this is game one with tags", gameOne)
+    await purchaseGame(gameTwo.id, 8)
+    gameTwo = await getGameById(gameTwo.id);
+    console.log("this is game one with tags", gameTwo)
     console.log("Finished Creating Tags!");
   } catch (error) {
     console.log("Error creating tags!");

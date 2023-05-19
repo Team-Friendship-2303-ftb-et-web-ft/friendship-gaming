@@ -28,7 +28,8 @@ const {
   createAddress,
   getAddressById,
   getAllTags,
-  getAddressByUsername
+  getAddressByUsername,
+  attachCartItemsToCart
 } = require('./index.js');
 const 
   client
@@ -506,9 +507,10 @@ const testDB = async () => {
     //   const albert = await getUserById(1);
     //   console.log("getUserById Result:", albert);
 
-    // console.log("Calling getUserByUsername");
-    //   const userByUsername = await getUserByUsername({username: 'albert'});
-    //   console.log("getUserByUsername Result:", userByUsername);
+//     console.log("Calling getUserByUsername");
+//       const userByUsername = await getUserByUsername({username: 'albert'});
+//       console.log("getUserByUsername Result:", userByUsername);
+      
 //  console.log("Calling getUserById with 1");
 //     const albert = await getUserById(1);
 //     console.log("getUserByID Result:", albert);
@@ -556,6 +558,21 @@ const testDB = async () => {
     // const gamesWithScary = await getGamesByTag("#scary");
     // console.log("Result:",gamesWithScary);
 
+    // console.log("Calling getCartByOrder");
+    // const orderById = await getCartByOrder(1);
+    // console.log("Result:", orderById);
+
+    // console.log("Calling getCartByUser");
+    // const orderByUser = await getCartByUserId(1);
+    // console.log("Result:", orderByUser);
+
+    // console.log("Calling getCartItemsByUser");
+    // const cartItemsByOrder = await getCartItemsByOrder(1);
+    // console.log("Result:", cartItemsByOrder);
+
+    // console.log("Calling attachCartItemsToCart");
+    // const cartItemsToCart = await attachCartItemsToCart(1);
+    // console.log("Result:", cartItemsToCart);
 
   } catch (error) {
     console.error("It broke....no work...test fail");

@@ -62,4 +62,11 @@ router.use(async(req, res, next) => {
 
 router.use('/users', require('./users'));
 
+const cartRouter = require('./cart');
+router.use('/cart', cartRouter);
+
+const cartItemsRouter = require('./cartItems', require('./cartItems'));
+router.use('/cartItems', cartItemsRouter);
+
+
 module.exports = router;

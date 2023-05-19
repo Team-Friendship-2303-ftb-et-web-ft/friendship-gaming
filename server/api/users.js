@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { getUserByUsername, createUser, getUser, getUserById, createUserInfo, getUserInfoByUser } = require('../db/users');
+const { getUserByUsername, createUser, getUser, getUserById, createUserInfo, getUserInfoByUser, getAddressById, getAllUsers } = require('../db/users');
 const { requireAdmin, requireUser } = require('./utils');
+const { getAllGames } = require('../db');
 const { JWT_SECRET } = process.env;
 
 // GET: api/users
@@ -43,6 +44,7 @@ router.post('/login', async(req, res, next) => {
   try {
     const user = await getUser({username, password});
 
+    //move to register
     //will need to add these input values to req.body or add a separate page for collecting userInfo + addresses (but it needs to be created immediately after registration - unless we modify requireAdmin so it doesn't break if userInfo.isAdmin doesn't exist)
     await createUserInfo({userId: user.id, firstName: 'anna', lastName: 'gibes', dateOfBirth: '01/27/1999', isAdmin: true, addressId: null})
     const userInfo = await getUserInfoByUser(user.id)
@@ -59,18 +61,39 @@ router.post('/login', async(req, res, next) => {
 });
 
 //User Profile
+
 router.get('/me', requireUser, async(req, res, next) => {
+  const {id} = req.user;
+  
   try {
-        res.send({message:'at /me'});
+    const userInfo = await getUserInfoByUser(id)
+    const userAddress = await getAddressById(userInfo.addressId)
+    
+    res.send({message:'at /me', userInfo, userAddress});
   } catch (message) {
     res.send(message);
   }
 });
 
+//Admin Profile
+// getUserByUsername,
+// deleteUser,
+// updateUserInfo,
+// createAddress,
+// getAddressById,
+// getAddressByUsername
+// getAllUsers,
 //Admin Controls
 router.get('/admin', requireAdmin, async(req,res,next) => {
   try {
-      res.send({message: "logged in as admin"})
+    const userInfo = await getUserInfoByUser(req.user.id)
+    const userAddress = await getAddressById(userInfo.addressId)
+    const allUsers = await getAllUsers();
+    const allGames = await getAllGames();
+    // req.users = allUsers;
+    // console.log(req.users);
+
+    res.send({message: "logged in as admin", userInfo, userAddress, allUsers, allGames})
   } catch (message){
     res.send(message);
   }

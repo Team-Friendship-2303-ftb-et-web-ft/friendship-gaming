@@ -2,7 +2,7 @@ const express = require('express');
 const cartItemsRouter = express.Router();
 const { getAllCartItems } = require('../db');
 
-//get/ci
+//GET api/cartItems
 
 //get/ci/userid
 

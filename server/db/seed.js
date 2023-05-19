@@ -29,7 +29,10 @@ const {
   getAddressById,
   getAllTags,
   getAddressByUsername,
-  purchaseGame
+  purchaseGame,
+  attachCartItemsToCart,
+  deleteCartItems,
+  updatePurchaseStatus
 } = require('./index.js');
 const 
   client
@@ -377,19 +380,19 @@ async function createInitialCarts() {
     console.log("Creating Initial Carts");
     await createCart({
       userId: 1,
-      purchaseStatus: 'false'
+      purchaseStatus: false
     });
     await createCart({
       userId: 2,
-      purchaseStatus: 'true'
+      purchaseStatus: true
     });
     await createCart({
       userId: 3,
-      purchaseStatus: 'true'
+      purchaseStatus: true
     });
     await createCart({
       userId: 2,
-      purchaseStatus: 'false'
+      purchaseStatus: false
     });
     console.log("Carts have been created!")
 }catch (error){
@@ -497,10 +500,10 @@ const testDB = async () => {
     //   console.log("getAllUsers Result:", users);
 
     // console.log("Calling getUser");
-    //   const user = await getUser({username: 'albert', password: 'bertie99'})
-    //   console.log("getUser Result:", user)
+    //   const gotuser = await getUser({username: 'albert', password: 'bertie99'})
+    //   console.log("getUser Result:", gotuser)
 
-      //why is it creating an object with lowercase key names
+    //   // why is it creating an object with lowercase key names
     // console.log("Calling createUserInfo");
     //   const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
     //   console.log("createUserInfo Result:", userInfo)
@@ -510,7 +513,7 @@ const testDB = async () => {
     //   console.log("getUserInfoByUser Result:", userInfoByUser);
 
     // console.log("Calling updateUserInfo");
-    //   const updatedUserInfo = await updateUserInfo({id: 1, lastname: 'albertie'});
+    //   const updatedUserInfo = await updateUserInfo({id: 1, lastName: 'albertie'});
     //   console.log("updateUserInfo Result:", updatedUserInfo);
 
     // console.log("Calling getAddressById");
@@ -522,12 +525,14 @@ const testDB = async () => {
     //   console.log("getAddressByUsername Result:", addressByUser);
       
     // console.log("Calling getUserById with 1");
+
     //   const albert = await getUserById(1);
     //   console.log("getUserById Result:", albert);
 
-    // console.log("Calling getUserByUsername");
-    //   const userByUsername = await getUserByUsername({username: 'albert'});
-    //   console.log("getUserByUsername Result:", userByUsername);
+//     console.log("Calling getUserByUsername");
+//       const userByUsername = await getUserByUsername({username: 'albert'});
+//       console.log("getUserByUsername Result:", userByUsername);
+      
 //  console.log("Calling getUserById with 1");
 //     const albert = await getUserById(1);
 //     console.log("getUserByID Result:", albert);
@@ -536,19 +541,21 @@ const testDB = async () => {
 //     const user = await getUserByUsername('glamgal');
 //     console.log("getUserByUsername Result:", user);
 
+    //   const Aalbert = await getUserById(1);
+    //   console.log("getUserById Result:", Aalbert);
 
-    // console.log("Calling deleteUserAddress");
-    //   await deleteUserAddress(1);
-    //   console.log("deleteUserAddress Result:", getAllUsers());
 
-    // console.log("Calling deleteUserInfo");
-    //   await deleteUserInfo(1);
-    //   console.log("deleteUserInfo Result:", getAllUsers());
+    // console.log("Calling getUserById with 1");
+    //   const albert = await getUserById(1);
+    //   console.log("getUserByID Result:", albert);
 
-    // //need to delete userInfo for that user first
+    // console.log("Calling user by username");
+    //   const user = await getUserByUsername('albert');
+    //   console.log("getUserByUsername Result:", user);
+
     // console.log("Calling deleteUser");
     //   await deleteUser(1);
-    //   console.log("deleteUser Result:", getAllUsers());
+    //   console.log("deleteUser Result:", await getAllUsers());
 
     // console.log("Calling getAllGames");
     // const games = await getAllGames();
@@ -575,6 +582,29 @@ const testDB = async () => {
     // const gamesWithScary = await getGamesByTag("#scary");
     // console.log("Result:",gamesWithScary);
 
+    // console.log("Calling getCartByOrder");
+    // const orderById = await getCartByOrder(1);
+    // console.log("Result:", orderById);
+
+    // console.log("Calling getCartByUser");
+    // const orderByUser = await getCartByUserId(1);
+    // console.log("Result:", orderByUser);
+
+    // console.log("Calling getCartItemsByUser");
+    // const cartItemsByOrder = await getCartItemsByOrder(1);
+    // console.log("Result:", cartItemsByOrder);
+
+    // console.log("Calling attachCartItemsToCart");
+    // const cartItemsToCart = await attachCartItemsToCart(1);
+    // console.log("Result:", cartItemsToCart);
+
+    // console.log("Calling deleteCartItems");
+    // const deleteOrderItems = await deleteCartItems(1);
+    // console.log("Result:", await getAllCartItems());
+
+      // console.log("Calling updateCart");
+      // const updatedCart = await updatePurchaseStatus({id: 1, purchaseStatus: true});
+      // console.log("updateUserInfo Result:", updatedCart);
 
   } catch (error) {
     console.error("It broke....no work...test fail");

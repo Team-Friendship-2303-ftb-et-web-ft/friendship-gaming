@@ -1,14 +1,52 @@
-// const { getCartByOrder } = require('../db');
+const express = require('express');
+const cartRouter = express.Router();
+const { getAllCarts, getCartByOrder, getCartByUserId, createCart } = require('../db');
 
-// const router = require('express').Router();
+//GET/API/CARTS
+cartRouter.get('/',  async (req, res)=>{
+    const carts = await getAllCarts();
 
-// // GET /api/cart/:cartId
-// router.get('cartId', async (req, req, next) => {
-//     try {
-//         const cartById = await getCartByOrder();
+    res.send({
+        carts 
+    });
+});
 
-//         res.send(cartById)
-//     } catch (error) {
-//         next (error);
-//     }
-// })
+//GET/API/CART/USER/:USERID
+cartRouter.get('/user/:userId', async (req, res, next) => {
+    try{
+        
+    const userCart = await getCartByUserId();
+    res.send({
+        carts
+    })
+} catch (error){
+    next(error)
+}
+})
+//GET/API/CART/ORDER/:ORDERID
+cartRouter.get('/:orderId', async (req,res)=>{
+    const carts = await getCartByOrder();
+
+    res.send({
+        carts
+    })
+})
+//POST/API/CART
+cartRouter.post('/', async (req,res,next) => {
+    const { userId, purchaseStatus } = req.body;
+    const cartData = {
+        userId: req.user.id
+};
+try{
+    const cart = await createCart(cartData);
+    res.send({
+        cart
+    });
+} catch (error){
+    next(error);
+}
+});
+module.exports = cartRouter;
+
+
+

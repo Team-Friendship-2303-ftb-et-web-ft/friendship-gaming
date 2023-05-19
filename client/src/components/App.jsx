@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import ReactDOM from "react-dom";
 import { Home, Admin, Cart, Checkout, Error, Games, Header, Login, 
   Profile, Register, SearchBar, SingleGame} from "./index";
 import reactLogo from '../assets/react.svg'

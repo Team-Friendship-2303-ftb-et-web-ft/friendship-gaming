@@ -33,6 +33,10 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
+// router.patch('/')
+// await createUserInfo({userId: user.id, firstName: 'anna', lastName: 'gibes', dateOfBirth: '01/27/1999', isAdmin: true, addressId: null})
+// const userInfo = await getUserInfoByUser(user.id)
+
 //Login
 router.post('/login', async(req, res, next) => {
   const { username, password } = req.body;
@@ -40,15 +44,11 @@ router.post('/login', async(req, res, next) => {
   if (!username || !password) {
     next({message: 'please supply both a username and password'})
   }
-
+  
   try {
     const user = await getUser({username, password});
-
-    //move to register
-    //will need to add these input values to req.body or add a separate page for collecting userInfo + addresses (but it needs to be created immediately after registration - unless we modify requireAdmin so it doesn't break if userInfo.isAdmin doesn't exist)
-    await createUserInfo({userId: user.id, firstName: 'anna', lastName: 'gibes', dateOfBirth: '01/27/1999', isAdmin: true, addressId: null})
     const userInfo = await getUserInfoByUser(user.id)
-
+    
     if (user) {
       const token = jwt.sign(user, process.env.JWT_SECRET);
       res.send({message: 'you have been logged in', user, token, userInfo})
@@ -61,7 +61,6 @@ router.post('/login', async(req, res, next) => {
 });
 
 //User Profile
-
 router.get('/me', requireUser, async(req, res, next) => {
   const {id} = req.user;
   
@@ -84,7 +83,7 @@ router.get('/me', requireUser, async(req, res, next) => {
 // getAddressByUsername
 // getAllUsers,
 //Admin Controls
-router.get('/admin', requireAdmin, async(req,res,next) => {
+router.get('/admin', requireAdmin, async(req, res, next) => {
   try {
     const userInfo = await getUserInfoByUser(req.user.id)
     const userAddress = await getAddressById(userInfo.addressId)

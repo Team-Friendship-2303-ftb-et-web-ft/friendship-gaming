@@ -40,46 +40,26 @@ async function getCartByUserId(userId) {
     try {
         const { rows: [ order ] } = await client.query(`
         SELECT * FROM cart
-           WHERE id = $1
+           WHERE id = $1 AND "purchaseStatus" = false
           `, [ userId ]);
-          
+          /**************** QUESTION: ??????? ****************/
+
            return order;
         
          } catch (error) {
            throw error;
          }
         }
-      
-// async function updatePurchaseStatus(id) {
-//   // const cart = await getCartByOrder(id);
-//   const isTrueOrFalse = true || false;
 
-//   try {
-//       const { rows: [ order ] } = await client.query(`
-//         UPDATE cart
-//         SET "purchaseStatus" = ${isTrueOrFalse}
-//         WHERE cart.id = $1
-//         RETURNING *
-//       `, [ bool ])
-//   } catch (error) {
-//       throw error;
-//   }
-// }
-
-async function updatePurchaseStatus({ id, ...fields }) {
-  // console.log('This is id & fields', { id, ...fields})
+async function updatePurchaseStatus({ id }) {
   try {
-    const keys = Object.keys(fields);
-    const setString = keys.map((key, index) => `"${key}"=$${index + 1}`)
-      .join(', ');
    
       const { rows: [ order ] } = await client.query(`
       UPDATE cart
-      SET ${ setString }
+      SET "purchaseStatus" = true
       WHERE id=${id}
       RETURNING *;
-    `, Object.values(fields)
-    );
+    `);
 
       return order;
 
@@ -87,9 +67,6 @@ async function updatePurchaseStatus({ id, ...fields }) {
       throw error;
   }
 }
-    
-
-
 
 //----------Cart Items----------//
 
@@ -141,12 +118,12 @@ async function getCartItemsByOrder(id) {
 
 async function attachCartItemsToCart(id) {
   try {
-      const { rows: [ orderItems ] } = await client.query(`
+      const { rows:  orderItems  } = await client.query(`
         SELECT * FROM cartItems
         JOIN cart ON cart.id = cartItems."cartId"
         WHERE cart.id = $1
       `, [ id ]);
-      console.log('This is orderItems', orderItems);
+      // console.log('This is orderItems', orderItems);
 
         return orderItems;
 
@@ -155,11 +132,15 @@ async function attachCartItemsToCart(id) {
   }
 }
 
+async function updateCartItemQty(id) {
+
+}
+
 async function deleteCartItems(id) {
   try {
     await client.query(`
       ALTER TABLE cartItems
-      DROP COLUMN "cartId" CASCADE
+      DROP COLUMN IF EXISTS "cartId" CASCADE
     `)
     await client.query(`
       DELETE FROM cartItems

@@ -495,39 +495,39 @@ const testDB = async () => {
 
     //as they pass I am commenting them out to keep the terminal kinda clear
 
-    // console.log("Calling getAllUsers");
-    //   const users = await getAllUsers();
-    //   console.log("getAllUsers Result:", users);
+//     console.log("Calling getAllUsers");
+//       const users = await getAllUsers();
+//       console.log("getAllUsers Result:", users);
 
-    // console.log("Calling getUser");
-    //   const gotuser = await getUser({username: 'albert', password: 'bertie99'})
-    //   console.log("getUser Result:", gotuser)
+//     console.log("Calling getUser");
+//       const gotuser = await getUser({username: 'albert', password: 'bertie99'})
+//       console.log("getUser Result:", gotuser)
 
-    //   // why is it creating an object with lowercase key names
-    // console.log("Calling createUserInfo");
-    //   const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
-    //   console.log("createUserInfo Result:", userInfo)
+//       // why is it creating an object with lowercase key names
+//     console.log("Calling createUserInfo");
+//       const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
+//       console.log("createUserInfo Result:", userInfo)
 
-    // console.log("Calling getUserInfoByUser");
-    //   const userInfoByUser = await getUserInfoByUser(1);
-    //   console.log("getUserInfoByUser Result:", userInfoByUser);
+//     console.log("Calling getUserInfoByUser");
+//       const userInfoByUser = await getUserInfoByUser(1);
+//       console.log("getUserInfoByUser Result:", userInfoByUser);
 
-    // console.log("Calling updateUserInfo");
-    //   const updatedUserInfo = await updateUserInfo({id: 1, lastName: 'albertie'});
-    //   console.log("updateUserInfo Result:", updatedUserInfo);
+//     console.log("Calling updateUserInfo");
+//       const updatedUserInfo = await updateUserInfo({id: 1, lastName: 'albertie'});
+//       console.log("updateUserInfo Result:", updatedUserInfo);
 
-    // console.log("Calling getAddressById");
-    //   const addressById = await getAddressById(1);
-    //   console.log("getAddressById Result:", addressById);
+//     console.log("Calling getAddressById");
+//       const addressById = await getAddressById(1);
+//       console.log("getAddressById Result:", addressById);
     
-    // console.log("Calling getAddressByUsername");
-    //   const addressByUser = await getAddressByUsername({username: 'albert'});
-    //   console.log("getAddressByUsername Result:", addressByUser);
+//     console.log("Calling getAddressByUsername");
+//       const addressByUser = await getAddressByUsername({username: 'albert'});
+//       console.log("getAddressByUsername Result:", addressByUser);
       
-    // console.log("Calling getUserById with 1");
+//     console.log("Calling getUserById with 1");
 
-    //   const albert = await getUserById(1);
-    //   console.log("getUserById Result:", albert);
+//       const albert = await getUserById(1);
+//       console.log("getUserById Result:", albert);
 
 //     console.log("Calling getUserByUsername");
 //       const userByUsername = await getUserByUsername({username: 'albert'});
@@ -541,70 +541,70 @@ const testDB = async () => {
 //     const user = await getUserByUsername('glamgal');
 //     console.log("getUserByUsername Result:", user);
 
-    //   const Aalbert = await getUserById(1);
-    //   console.log("getUserById Result:", Aalbert);
+//       const Aalbert = await getUserById(1);
+//       console.log("getUserById Result:", Aalbert);
 
 
-    // console.log("Calling getUserById with 1");
-    //   const albert = await getUserById(1);
-    //   console.log("getUserByID Result:", albert);
+//     console.log("Calling getUserById with 1");
+//       const albert = await getUserById(1);
+//       console.log("getUserByID Result:", albert);
 
-    // console.log("Calling user by username");
-    //   const user = await getUserByUsername('albert');
-    //   console.log("getUserByUsername Result:", user);
+//     console.log("Calling user by username");
+//       const user = await getUserByUsername('albert');
+//       console.log("getUserByUsername Result:", user);
 
-    // console.log("Calling deleteUser");
-    //   await deleteUser(1);
-    //   console.log("deleteUser Result:", await getAllUsers());
+//     console.log("Calling deleteUser");
+//       await deleteUser(1);
+//       console.log("deleteUser Result:", await getAllUsers());
 
-    // console.log("Calling getAllGames");
-    // const games = await getAllGames();
+//     console.log("Calling getAllGames");
+//     const games = await getAllGames();
 
-    // console.log("Calling getAllGames");
-    // const games = await getAllGames();
+//     console.log("Calling getAllGames");
+//     const games = await getAllGames();
 
-    // console.log("Games Result:", games);
+//     console.log("Games Result:", games);
 
-    // console.log("Calling getAllCarts");
-    // const orders = await getAllCarts();
-    // console.log("Result:", orders);
+//     console.log("Calling getAllCarts");
+//     const orders = await getAllCarts();
+//     console.log("Result:", orders);
 
-    // console.log("Calling getAllCartItems");
-    // const order = await getAllCartItems();
-    // console.log("Result:", order);
+//     console.log("Calling getAllCartItems");
+//     const order = await getAllCartItems();
+//     console.log("Result:", order);
 
-    // console.log("Calling getAddressById with 1");
-    // const address = await getAddressById(1);
-    // console.log("getAddressById Result:", address);
+//     console.log("Calling getAddressById with 1");
+//     const address = await getAddressById(1);
+//     console.log("getAddressById Result:", address);
 
 
-    // console.log("Calling getGamesByTagName with #scary");
-    // const gamesWithScary = await getGamesByTag("#scary");
-    // console.log("Result:",gamesWithScary);
+//     console.log("Calling getGamesByTagName with #scary");
+//     const gamesWithScary = await getGamesByTag("#scary");
+//     console.log("Result:",gamesWithScary);
 
-    // console.log("Calling getCartByOrder");
-    // const orderById = await getCartByOrder(1);
-    // console.log("Result:", orderById);
+    console.log("Calling getCartByOrder");
+    const orderById = await getCartByOrder(1);
+    console.log("Result:", orderById);
 
-    // console.log("Calling getCartByUser");
-    // const orderByUser = await getCartByUserId(1);
-    // console.log("Result:", orderByUser);
+    console.log("Calling getCartByUser");
+    const orderByUser = await getCartByUserId(1);
+    console.log("Result:", orderByUser);
 
-    // console.log("Calling getCartItemsByUser");
-    // const cartItemsByOrder = await getCartItemsByOrder(1);
-    // console.log("Result:", cartItemsByOrder);
+    console.log("Calling getCartItemsByUser");
+    const cartItemsByOrder = await getCartItemsByOrder(1);
+    console.log("Result:", cartItemsByOrder);
 
-    // console.log("Calling attachCartItemsToCart");
-    // const cartItemsToCart = await attachCartItemsToCart(1);
-    // console.log("Result:", cartItemsToCart);
+    console.log("Calling attachCartItemsToCart");
+    const cartItemsToCart = await attachCartItemsToCart(2);
+    console.log("Result:", cartItemsToCart);
 
-    // console.log("Calling deleteCartItems");
-    // const deleteOrderItems = await deleteCartItems(1);
-    // console.log("Result:", await getAllCartItems());
+    console.log("Calling deleteCartItems");
+    const deleteOrderItems = await deleteCartItems(1);
+    console.log("Result:", await getAllCartItems());
 
-      // console.log("Calling updateCart");
-      // const updatedCart = await updatePurchaseStatus({id: 1, purchaseStatus: true});
-      // console.log("updateUserInfo Result:", updatedCart);
+      console.log("Calling updateCart");
+      const updatedCart = await updatePurchaseStatus({id: 1, purchaseStatus: true});
+      console.log("updateUserInfo Result:", updatedCart);
 
   } catch (error) {
     console.error("It broke....no work...test fail");

@@ -3,8 +3,7 @@ const tagsRouter = express.Router();
 const { createTag, addTagToGame, removeTagFromGame } = require('../db');
 
 // POST /api/tags 
-//creates a new tag
-tagsRouter.post('/', async (req, res, next) => {
+tagsRouter.post('/', requireAdmin, async (req, res, next) => {
   try {
     const { name } = req.body;
     const tag = await createTag(name);
@@ -16,8 +15,7 @@ tagsRouter.post('/', async (req, res, next) => {
 });
 
 // POST /api/tags/:tagId/games/:gameId 
-// Associates a tag with a game. 'tagId' and 'gameId' are URL parameters.
-tagsRouter.post('/:tagId/games/:gameId', async (req, res, next) => {
+tagsRouter.post('/:tagId/games/:gameId', requireAdmin, async (req, res, next) => {
   try {
     const { tagId, gameId } = req.params;
     await addTagToGame(gameId, tagId);
@@ -29,8 +27,7 @@ tagsRouter.post('/:tagId/games/:gameId', async (req, res, next) => {
 });
 
 // DELETE /api/tags/:tagId/games/:gameId
-//removes tags association with game
-tagsRouter.delete('/:tagId/games/:gameId', async (req, res, next) => {
+tagsRouter.delete('/:tagId/games/:gameId', requireAdmin, async (req, res, next) => {
   try {
     const { tagId, gameId } = req.params;
     await removeTagFromGame(gameId, tagId);

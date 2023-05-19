@@ -1,6 +1,6 @@
 const express = require('express');
 const gamesRouter = express.Router();
-const { createGame, getGameById, getAllGames, getGamesByAuthor, getGamesByGenre, getGamesByTag, updateGame, destroyGame } = require('../db');
+const { createGame, getGameById, getAllGames, getGamesByAuthor, getGamesByGenre, getGamesByTag, updateGame, destroyGame, purchaseGame } = require('../db');
 
 // GET /api/games
 gamesRouter.get('/', async (req, res, next) => {
@@ -50,7 +50,7 @@ gamesRouter.get('/tag/:tagId', async (req, res, next) => {
   });
 
 // POST /api/games
-gamesRouter.post('/', async (req, res, next) => {
+gamesRouter.post('/', requireAdmin, async (req, res, next) => {
   try {
     const game = await createGame(req.body);
     res.status(201).json(game);
@@ -60,7 +60,7 @@ gamesRouter.post('/', async (req, res, next) => {
 });
 
 // PATCH /api/games/:gameId
-gamesRouter.patch('/:gameId', async (req, res, next) => {
+gamesRouter.patch('/:gameId', requireAdmin, async (req, res, next) => {
   try {
     const { gameId } = req.params;
     const game = await getGameById(gameId);
@@ -78,7 +78,7 @@ gamesRouter.patch('/:gameId', async (req, res, next) => {
 });
 
 // DELETE /api/games/:gameId
-gamesRouter.delete('/:gameId', async (req, res, next) => {
+gamesRouter.delete('/:gameId', requireAdmin, async (req, res, next) => {
   try {
     const { gameId } = req.params;
     const game = await getGameById(gameId);
@@ -94,5 +94,21 @@ gamesRouter.delete('/:gameId', async (req, res, next) => {
     next(error);
   }
 });
+
+
+// PATCH /api/games/:gameId/purchase
+gamesRouter.patch('/:gameId/purchase', requireUser, async (req, res, next) => {
+  try {
+    const { gameId } = req.params;
+    const { quantityPurchased } = req.body;
+
+    await purchaseGame(gameId, quantityPurchased);
+
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 module.exports = gamesRouter;

@@ -43,6 +43,4 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
     );
 };
 
-
-
 export default Header;

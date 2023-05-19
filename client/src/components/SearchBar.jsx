@@ -36,3 +36,6 @@ return (
     </div>
   );
 };
+
+export default SearchBar;
+

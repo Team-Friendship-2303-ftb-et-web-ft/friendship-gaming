@@ -42,9 +42,11 @@ router.post('/login', async(req, res, next) => {
 
   try {
     const user = await getUser({username, password});
+
+    //will need to add these input values to req.body or add a separate page for collecting userInfo + addresses (but it needs to be created immediately after registration - unless we modify requireAdmin so it doesn't break if userInfo.isAdmin doesn't exist)
     await createUserInfo({userId: user.id, firstName: 'anna', lastName: 'gibes', dateOfBirth: '01/27/1999', isAdmin: true, addressId: null})
     const userInfo = await getUserInfoByUser(user.id)
-    console.log(userInfo)
+
     if (user) {
       const token = jwt.sign(user, process.env.JWT_SECRET);
       res.send({message: 'you have been logged in', user, token, userInfo})
@@ -65,7 +67,7 @@ router.get('/me', requireUser, async(req, res, next) => {
   }
 });
 
-//Admin Profile
+//Admin Controls
 router.get('/admin', requireAdmin, async(req,res,next) => {
   try {
       res.send({message: "logged in as admin"})

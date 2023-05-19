@@ -1,5 +1,5 @@
 const requireAdmin = (async (req, res, next) => {
-    if (!req.user) {
+    if (!req.user && req.userInfo == false) {
         next({
            message: 'You must be logged in as admin to perform this actions' 
         });

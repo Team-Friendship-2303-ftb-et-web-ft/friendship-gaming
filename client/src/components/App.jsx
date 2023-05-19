@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import ReactDOM from "react-dom";
 import reactLogo from '../assets/react.svg'
 import './App.css'
 

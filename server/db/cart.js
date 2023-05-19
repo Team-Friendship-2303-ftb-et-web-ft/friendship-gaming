@@ -116,6 +116,22 @@ async function attachCartItemsToCart(id) {
   }
 }
 
+async function deleteCartItems(id) {
+  try {
+    await client.query(`
+      ALTER TABLE cartItems
+      DROP COLUMN "cartId" CASCADE
+    `)
+    await client.query(`
+      DELETE FROM cartItems
+      WHERE cartItems.id=$1
+    `, [id]);
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
     module.exports = {
       createCart,
       getCartByOrder,
@@ -123,6 +139,7 @@ async function attachCartItemsToCart(id) {
       createCartItems,
       getAllCartItems,
       getCartItemsByOrder,
-      attachCartItemsToCart
+      attachCartItemsToCart,
+      deleteCartItems
     }
 

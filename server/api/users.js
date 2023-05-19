@@ -13,6 +13,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+//Register
 router.post('/register', async (req, res, next) => {
   const { username, password } = req.body;
   try {
@@ -31,6 +32,7 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
+//Login
 router.post('/login', async(req, res, next) => {
   const { username, password } = req.body;
 
@@ -54,7 +56,7 @@ router.post('/login', async(req, res, next) => {
   }
 });
 
-
+//User Profile
 router.get('/me', requireUser, async(req, res, next) => {
   try {
         res.send({message:'at /me'});
@@ -63,6 +65,7 @@ router.get('/me', requireUser, async(req, res, next) => {
   }
 });
 
+//Admin Profile
 router.get('/admin', requireAdmin, async(req,res,next) => {
   try {
       res.send({message: "logged in as admin"})

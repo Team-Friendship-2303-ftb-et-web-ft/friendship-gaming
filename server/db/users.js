@@ -11,7 +11,6 @@ async function createUser({username, password}) {
       ON CONFLICT (username) DO NOTHING
       RETURNING id, username;
       `, [username, hashedPassword]);
-    // console.log(user)
     return user;
 
   } catch (error) {
@@ -33,7 +32,6 @@ async function getAllUsers() {
 async function getUser({ username, password }) {
   try {
     const user = await getUserByUsername(username);
-    // console.log('user',user);
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
 
@@ -103,8 +101,8 @@ async function deleteUser(id) {
       DROP COLUMN "userId" CASCADE
     `);
     await client.query(`
-    ALTER TABLE cart
-    DROP COLUMN "userId" CASCADE
+      ALTER TABLE cart
+      DROP COLUMN "userId" CASCADE
   `);
     await client.query(`
       DELETE FROM users
@@ -187,9 +185,7 @@ async function getAddressById(addressId) {
 }
 
 async function getAddressByUsername({username}) {
-  console.log('username1', username);
   const user = await getUserByUsername(username);
-  // console.log(user);
   const userId = user.id;
   try {
     const address = await getAddressById(userId)

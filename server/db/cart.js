@@ -1,3 +1,4 @@
+const cartRouter = require('../api/cart');
 const client = require('./client');
 
 //----------Cart----------//
@@ -47,7 +48,45 @@ async function getCartByUserId(userId) {
          } catch (error) {
            throw error;
          }
-        }   
+        }
+      
+// async function updatePurchaseStatus(id) {
+//   // const cart = await getCartByOrder(id);
+//   const isTrueOrFalse = true || false;
+
+//   try {
+//       const { rows: [ order ] } = await client.query(`
+//         UPDATE cart
+//         SET "purchaseStatus" = ${isTrueOrFalse}
+//         WHERE cart.id = $1
+//         RETURNING *
+//       `, [ bool ])
+//   } catch (error) {
+//       throw error;
+//   }
+// }
+
+async function updatePurchaseStatus({ id, ...fields }) {
+  // console.log('This is id & fields', { id, ...fields})
+  try {
+    const keys = Object.keys(fields);
+    const setString = keys.map((key, index) => `"${key}"=$${index + 1}`)
+      .join(', ');
+   
+      const { rows: [ order ] } = await client.query(`
+      UPDATE cart
+      SET ${ setString }
+      WHERE id=${id}
+      RETURNING *;
+    `, Object.values(fields)
+    );
+
+      return order;
+
+  } catch (error) {
+      throw error;
+  }
+}
     
 
 
@@ -136,6 +175,7 @@ async function deleteCartItems(id) {
       createCart,
       getCartByOrder,
       getCartByUserId,
+      updatePurchaseStatus,
       createCartItems,
       getAllCartItems,
       getCartItemsByOrder,

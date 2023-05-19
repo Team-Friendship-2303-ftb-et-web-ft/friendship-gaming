@@ -30,7 +30,8 @@ const {
   getAllTags,
   getAddressByUsername,
   attachCartItemsToCart,
-  deleteCartItems
+  deleteCartItems,
+  updatePurchaseStatus
 } = require('./index.js');
 const 
   client
@@ -361,19 +362,19 @@ async function createInitialCarts() {
     console.log("Creating Initial Carts");
     await createCart({
       userId: 1,
-      purchaseStatus: 'false'
+      purchaseStatus: false
     });
     await createCart({
       userId: 2,
-      purchaseStatus: 'true'
+      purchaseStatus: true
     });
     await createCart({
       userId: 3,
-      purchaseStatus: 'true'
+      purchaseStatus: true
     });
     await createCart({
       userId: 2,
-      purchaseStatus: 'false'
+      purchaseStatus: false
     });
     console.log("Carts have been created!")
 }catch (error){
@@ -574,13 +575,17 @@ const testDB = async () => {
     // const cartItemsByOrder = await getCartItemsByOrder(1);
     // console.log("Result:", cartItemsByOrder);
 
-    console.log("Calling attachCartItemsToCart");
-    const cartItemsToCart = await attachCartItemsToCart(1);
-    console.log("Result:", cartItemsToCart);
+    // console.log("Calling attachCartItemsToCart");
+    // const cartItemsToCart = await attachCartItemsToCart(1);
+    // console.log("Result:", cartItemsToCart);
 
-    console.log("Calling deleteCartItems");
-    const deleteOrderItems = await deleteCartItems(1);
-    console.log("Result:", await getAllCartItems());
+    // console.log("Calling deleteCartItems");
+    // const deleteOrderItems = await deleteCartItems(1);
+    // console.log("Result:", await getAllCartItems());
+
+      // console.log("Calling updateCart");
+      // const updatedCart = await updatePurchaseStatus({id: 1, purchaseStatus: true});
+      // console.log("updateUserInfo Result:", updatedCart);
 
   } catch (error) {
     console.error("It broke....no work...test fail");

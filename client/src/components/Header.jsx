@@ -1,6 +1,8 @@
 import React from "react";
+import SearchBar from "./SearchBar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../api";
+import './Header.css';
 
 const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
     const navigate = useNavigate();
@@ -10,12 +12,21 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
             <div>
                 "Logo image here"
             </div>
+            <div className="navSearch">
+            <SearchBar  />
+            </div>
             <nav id="navBar">
-                <navLink to="/Home" id="navButton">
-                    Home
-                </navLink>
+            <button className="nav"
+                onClick={() => {
+                    navigate('/')
+                    }}><p>
+                    <span className="bg"></span>
+                    <span className="base"></span>
+                    <span className="text">Home</span>
+                    </p>
+                    </button>
                 {isLoggedIn ?
-                <button
+                <button className="nav"
                     onClick={() => {
                         setIsLoggedIn(false);
                         setCurrentUser('');
@@ -24,17 +35,36 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
                             localStorage.removeItem('token');
                             navigate('/Home');  
                                 }}
-                                > Logout </button> 
+                                > <p>
+                                <span className="bg"></span>
+                                <span className="base"></span>
+                                <span className="text">Log Out</span>
+                                </p>
+                                </button> 
                             :
-                            <button
+                            <button className="nav"
                                 onClick={() => {
                                     navigate('/Login');
                                 }}
-                            > Log In </button>
+                            > <p>
+                            <span className="bg"></span>
+                            <span className="base"></span>
+                            <span className="text">Log In</span>
+                            </p> 
+                            </button>
                          }
-                <navLink to="/Cart" id="navButton">
-                    Cart
-                </navLink>
+                         <button className="nav"
+                         onClick={() => {
+                            navigate('/Cart')
+                         }}>
+                            <p>
+                    <span className="bg"></span>
+                    <span className="base"></span>
+                    <span className="text">Cart</span>
+                    </p>
+                         </button>
+                         
+
             </nav>
         </section>
 

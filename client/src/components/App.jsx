@@ -32,7 +32,7 @@ function App() {
     }
     };
       fetchUser()
-  }, {token});
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const fetchGames = async () => {

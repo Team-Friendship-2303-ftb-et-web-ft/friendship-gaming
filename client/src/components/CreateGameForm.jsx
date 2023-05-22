@@ -11,7 +11,7 @@ const CreateGameForm = ({ token }) => {
 
   const createGame = async (gameData) => {
     try {
-      const response = await fetch(`${BASE}/games`, {
+      const response = await fetch(`api/games`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

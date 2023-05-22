@@ -33,7 +33,7 @@ function App() {
     }
     };
       fetchUser()
-  }, {token});
+  }, [isLoggedIn]);
 
   return (
     <> 

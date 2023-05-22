@@ -16,10 +16,11 @@ const Admin = ({gamesList}) => {
     
     const handleCreateGame = () => {
         navigate('/CreateGame');
-    }
+    };
+
     const handleUpdateGame = () => {
         navigate('/UpdateGame');
-    }
+    };
     
     return (
         <>
@@ -39,21 +40,21 @@ const Admin = ({gamesList}) => {
             
             return (
                 <div key={game.id} id="allGames">
-                        <p>{game.id}</p>
-                        <p>{game.authorName}</p>
-                        <p>{game.genre}</p>
-                        <p>{game.title}</p>
+                        <p className="title">Title: {game.title}</p>
+                        <p>Author: {game.authorName}</p>
+                        <p>Genre: {game.genre}</p>
 
                         {game.tags.length ? 
-                        <p>{tagArr.join(' ')}</p> :
-                        <p>No Game Tags Yet!</p>
+                        <p>Tags: {tagArr.join(' ')}</p> :
+                        <p>Tags: N/A</p>
                         } 
 
-                        <p>{game.price}</p>
-                        <p>{game.inventory}</p>
-                        <p>{game.featured}</p>
-                        <p>{game.description}</p>
+                        <p>Price: {game.price}</p>
+                        <p>Inventory: {game.inventory}</p>
+                        <p>Featured: {game.featured}</p>
+                        <p>Description: {game.description}</p>
                         <button onClick={handleUpdateGame}>Update</button>
+                        <button onClick={() => {console.log('add delete function here')}}>Delete</button>
                     </div>
                 )
         })

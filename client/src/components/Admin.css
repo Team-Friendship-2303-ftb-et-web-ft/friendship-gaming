@@ -1,6 +1,16 @@
-div {
-    color:white;
+div#allGames {
+    color:black;
+    background-color: #E3E3EF;
+    padding: 10px;
+    margin: 10px;
+}
 
+p.title {
+    font-size: 1.6em;
+}
+
+p {
+    font-size: 18px;
 }
 
 button {

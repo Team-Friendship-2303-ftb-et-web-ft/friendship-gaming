@@ -53,8 +53,18 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
                             <span className="base"></span>
                             <span className="text">Log In</span>
                             </p> 
+                            </button>}
+                            <button className="nav"
+                                onClick={() => {
+                                    navigate('/Login');
+                                }}
+                            > <p>
+                            <span className="bg"></span>
+                            <span className="base"></span>
+                            <span className="text">Log In</span>
+                            </p> 
                             </button>
-                         }
+            
                          <button className="nav"
                          onClick={() => {
                             navigate('/Cart')

@@ -6,9 +6,27 @@ const SearchBar = (props) => {
   const [searchForGame, setSearchForGame] = useState('');
   const searchAllGames = (gamesArray, searchTerm) => {
     const result = gamesArray.filter((games) =>
+
     games.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    
+    const resultTags = gamesArray.filter((games) =>
+    
+    games.tags.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const resultGenre = gamesArray.filter((games) =>
+    
+    games.genre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    if(result){
     return result;
+  } else if(resultTags){
+    return resultTags;
+  } else if(resultGenre){
+    return resultGenre
+  } else{
+    return
+  }
 };
 
 return (

@@ -53,7 +53,23 @@ export const loginUser = async (userObject) => {
     }  
 };
 //GET ME
+export const getMe = async (token) => {
 
+    try {
+      const response = await fetch(`${BASE}/users/me`, {
+          method: 'GET',
+          headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  }
 //GET ALL GAMES
 
 //CREATE GAME

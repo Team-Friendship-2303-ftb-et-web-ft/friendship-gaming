@@ -70,11 +70,58 @@ export const getMe = async (token) => {
       console.error(err);
     }
   }
-//GET ALL GAMES
+// GET ALL GAMES
+export const getAllGames = async () => {
+  try {
+    const response = await fetch(`${BASE}/games`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const games = await response.json();
+    console.log(games);
+    return games;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
-//CREATE GAME
+// CREATE GAME
+export const createGame = async (gameData) => {
+  try {
+    const response = await fetch(`${BASE}/games`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(gameData)
+    });
+    const newGame = await response.json();
+    console.log(newGame);
+    return newGame;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 // GET GAME BY ID
+export const getGameById = async (gameId) => {
+  try {
+    const response = await fetch(`${BASE}/games/${gameId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const game = await response.json();
+    console.log(game);
+    return game;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 //CREATE CART
 

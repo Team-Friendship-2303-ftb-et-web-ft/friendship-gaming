@@ -5,13 +5,13 @@ export const registerUser = async (userObject) => {
         const response = await fetch(`api/users/register`, {
             method: 'POST',
             headers: {
-                'Content=Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(userObject),
         });
         const result = await response.json();
         console.log(result);
-        if (result.user) {
+        if (result) {
             const {message, userObject, token} = result;
             localStorage.setItem('token', token);
             return {message, userObject, token};

@@ -2,6 +2,7 @@ const express = require('express');
 const gamesRouter = express.Router();
 const { createGame, getGameById, getAllGames, getGamesByAuthor, getGamesByGenre, getGamesByTag, updateGame, destroyGame, purchaseGame } = require('../db');
 const { requireAdmin, requireUser } = require('./utils');
+
 // GET /api/games
 gamesRouter.get('/', async (req, res, next) => {
   try {

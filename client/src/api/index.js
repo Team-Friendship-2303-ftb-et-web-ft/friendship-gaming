@@ -51,6 +51,7 @@ export const loginUser = async (userObject) => {
         console.error(error);
     }  
 };
+
 //GET ME
 export const getMe = async (token) => {
 
@@ -63,7 +64,7 @@ export const getMe = async (token) => {
         },
       });
       const result = await response.json();
-      console.log(result);
+      console.log('result',result);
       return result
     } catch (err) {
       console.error(err);

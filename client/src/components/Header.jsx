@@ -3,7 +3,6 @@ import SearchBar from "./SearchBar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../api";
 import './Header.css';
-//import {logo} from './images'
 
 const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
     const navigate = useNavigate();
@@ -11,9 +10,9 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
         <>
         <section className="header">
             <div>
-            {/* <a href="http://localhost:5173/" target="_blank">
-          <img src={logo} className="logo" alt=" logo" />
-        </a>  */}         
+            <a href="http://localhost:5173/" target="_blank">
+          <img src="./images/logo.png" className="logo" alt=" logo" />
+        </a>     
         </div> 
             <div className="navSearch">
             <SearchBar  />
@@ -54,8 +53,18 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
                             <span className="base"></span>
                             <span className="text">Log In</span>
                             </p> 
+                            </button>}
+                            <button className="nav"
+                                onClick={() => {
+                                    navigate('/Login');
+                                }}
+                            > <p>
+                            <span className="bg"></span>
+                            <span className="base"></span>
+                            <span className="text">Log In</span>
+                            </p> 
                             </button>
-                         }
+            
                          <button className="nav"
                          onClick={() => {
                             navigate('/Cart')

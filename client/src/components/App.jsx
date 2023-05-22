@@ -32,7 +32,7 @@ function App() {
     }
     };
       fetchUser()
-  }, [isLoggedIn]);
+  }, {token});
 
   return (
     <> 
@@ -57,7 +57,11 @@ function App() {
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
       <Route path="/Profile" element= {<Profile/>}/>
-      <Route path="/Register" element= {<Register/>}/>
+      <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+        setToken={setToken}/>}/>
       <Route path="/SearchBar" element= {<SearchBar/>}/>
       <Route path="/SingleGame" element= {<SingleGame/>}/>
       

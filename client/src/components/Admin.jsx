@@ -24,47 +24,59 @@ const Admin = ({gamesList}) => {
     
     return (
         <>
-        <h1>This is Admin!</h1>
-        <button onClick={handleCreateGame}>Add Game</button>
-        {isAdmin &&
-        gamesList.map(game => {
-            let tagArr = [] 
+        <div id="outerContainer">
+            <div id="adminTabs">
+                <h1 className="admin">Admin Dashboard</h1>
+                <button onClick={handleCreateGame}>Add Game</button>
+            </div>
+            <div id="adminInfo">
 
-            if (game.tags.length) {
-                let tagNames = Object.values(game.tags);
-               
-                tagNames.map(tag => {
-                    tagArr.push(tag.name);
-                })
-            }
-            
-            return (
-                <div key={game.id} id="allGames">
-                        <div className="titlebox">
-                          <p className="title">{game.title}</p>
-                          {game.featured &&
-                            <p className="featured">(Featured)</p>
-                          }
-                        </div>
+                <div className="container">
+                {isAdmin &&
+                gamesList.map(game => {
+                    let tagArr = [] 
 
-                        <p>Author: {game.authorName}</p>
-                        <p>Genre: {game.genre}</p>
+                    if (game.tags.length) {
+                        let tagNames = Object.values(game.tags);
+                    
+                        tagNames.map(tag => {
+                            tagArr.push(tag.name);
+                        })
+                    }
+                    
+                    return (
 
-                        {game.tags.length ? 
-                        <p>Tags: {tagArr.join(' ')}</p> :
-                        <p>Tags: N/A</p>
-                        } 
+                        <div key={game.id} id="game">
+                                <div className="titlebox">
+                                <p className="title">{game.title}</p>
+                                {game.featured &&
+                                    <p className="featured">(Featured)</p>
+                                }
+                                </div>
 
-                        <p>Price: {game.price}</p>
-                        <p>Inventory: {game.inventoryqty}</p>
-                        {/* <p>Featured: {game.featured}</p> */}
-                        <p>Description: {game.description}</p>
-                        <button onClick={handleUpdateGame}>Update</button>
-                        <button onClick={() => {console.log('add delete function here')}}>Delete</button>
-                    </div>
-                )
-        })
-    }
+                                <p>Author: {game.authorName}</p>
+                                <p>Genre: {game.genre}</p>
+
+                                {game.tags.length ? 
+                                <p>Tags: {tagArr.join(' ')}</p> :
+                                <p>Tags: N/A</p>
+                            } 
+
+                                <p>Price: {game.price}</p>
+                                <p>Inventory: {game.inventoryqty}</p>
+                                {/* <p>Featured: {game.featured}</p> */}
+                                <p>Description: {game.description}</p>
+                                <div className="button">
+                                    <button onClick={handleUpdateGame}>Update</button>
+                                    <button onClick={() => {console.log('add delete function here')}}>Delete</button>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+                </div>
+            </div>
+        </div>
         </> 
     )  
 }

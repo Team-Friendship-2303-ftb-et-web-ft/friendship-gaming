@@ -1,26 +1,56 @@
-div#allGames {
+div#outerContainer {
+    display:flex;
+}
+
+div#adminTabs {
+    width: 40%;
+    background-color: #e3e3ef;
+    padding: 20px;
+}
+
+div#adminInfo {
+    min-width:60%;
+}
+
+
+div#game {
     color:black;
-    background-color: #E3E3EF;
-    padding: 10px;
+    background-color: #e3e3efe5;
+    padding: 10px 10px 40px 10px;
     margin: 10px;
     font-size: 18px;
+    width: 30%;
+    min-width: 500px;
+    position:relative;
+}
+
+div.container {
+    display:flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+    margin: 10px 0;
+
 }
 
 p.title {
-    font-size: 1.5em;
+    font-size: 1.4em;
+    margin: 10px;
 }
 
 p.featured {
     color: purple;
-    margin-left: 10px;
+    margin: 0 0 0 10px;
     text-align: right;
 }
 
 div.titlebox {
     display:flex;
+    flex-flow:wrap;
     align-items: center;
 }
 
-button {
+div.button {
     color: white;
+    position: absolute;
+    bottom: 0;
 }

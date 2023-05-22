@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../api";
 import './Header.css';
+//import {logo} from './images'
 
 const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
     const navigate = useNavigate();
@@ -10,8 +11,10 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
         <>
         <section className="header">
             <div>
-                "Logo image here"
-            </div>
+            {/* <a href="http://localhost:5173/" target="_blank">
+          <img src={logo} className="logo" alt=" logo" />
+        </a>  */}         
+        </div> 
             <div className="navSearch">
             <SearchBar  />
             </div>

@@ -4,7 +4,6 @@ const { getUserByUsername, createUser, getUser, getUserById, createUserInfo, get
 const { requireAdmin, requireUser } = require('./utils');
 const { getAllGames } = require('../db');
 const { JWT_SECRET } = process.env;
-
 // GET: api/users
 router.get('/', async (req, res, next) => {
   try {
@@ -50,7 +49,10 @@ router.post('/login', async(req, res, next) => {
     const userInfo = await getUserInfoByUser(user.id)
     
     if (user) {
-      const token = jwt.sign(user, process.env.JWT_SECRET);
+      console.log("secret is", JWT_SECRET)
+      const token = jwt.sign(user, JWT_SECRET);     
+       console.log("line 53", token)
+
       res.send({message: 'you have been logged in', user, token, userInfo})
     } else {
       next({message: 'username or password is incorrect'})

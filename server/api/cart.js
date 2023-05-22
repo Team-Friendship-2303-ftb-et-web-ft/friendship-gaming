@@ -1,52 +1,75 @@
-// const express = require('express');
-// const cartRouter = express.Router();
-// const { getAllCarts, getCartByOrder, getCartByUserId, createCart } = require('../db');
+const express = require('express');
+const cartRouter = express.Router();
+const { getAllCarts, getCartByOrder, getCartByUserId, createCart, updatePurchaseStatus } = require('../db');
 
-// //GET/API/CARTS
-// cartRouter.get('/',  async (req, res)=>{
-//     const carts = await getAllCarts();
+// //GET/api/cart/user/:userId
+cartRouter.get('/user/:userId', async (req, res, next) => {
+try{
+    const { userId } = req.params;
+    const userCart = await getCartByUserId(userId);
+    console.log("This is userCart:", userCart);
 
-//     res.send({
-//         carts 
-//     });
-// });
+        res.send({userCart})
 
-// //GET/API/CART/USER/:USERID
-// cartRouter.get('/user/:userId', async (req, res, next) => {
-//     try{
-        
-//     const userCart = await getCartByUserId();
-//     res.send({
-//         carts
-//     })
-// } catch (error){
-//     next(error)
-// }
-// })
-// //GET/API/CART/ORDER/:ORDERID
-// cartRouter.get('/:orderId', async (req,res)=>{
-//     const carts = await getCartByOrder();
+} catch (error){
+    next(error)
+}
+})
 
-//     res.send({
-//         carts
-//     })
-// })
-// //POST/API/CART
-// cartRouter.post('/', async (req,res,next) => {
-//     const { userId, purchaseStatus } = req.body;
-//     const cartData = {
-//         userId: req.user.id
-// };
-// try{
-//     const cart = await createCart(cartData);
-//     res.send({
-//         cart
-//     });
-// } catch (error){
-//     next(error);
-// }
-// });
-// module.exports = cartRouter;
+// //GET/api/cart/order/orderId
+cartRouter.get('/order/:orderId', async (req, res, next) => {
+try {
+    const { orderId } = req.params;
+    const cart = await getCartByOrder(orderId);
+    // console.log("This is cart:", cart);
+
+        res.send({ cart });
+
+} catch (error) {
+    next(error);
+}
+})
+
+//PATCH /api/cart/:orderId
+cartRouter.patch('/:orderId', async (req, res, next) => {
+
+    try {
+        const { orderId } = req.params;
+        const { purchaseStatus } = req.body;
+        const cart = await getCartByOrder(orderId);
+        // console.log("This is cart:", cart);
+    
+        if (!cart) {
+            return res.status(404).json({ error: 'CartNotFound', message: 'No cart found with that id' });
+          }
+    
+          const updatedCart = await updatePurchaseStatus(cart)
+
+          res.send({ updatedCart })
+
+    } catch (error) {
+        next(error);
+    }
+  })
+
+//POST/api/cart
+cartRouter.post('/', async (req,res,next) => {
+    const { userId, purchaseStatus } = req.body;
+
+try{
+    const newCart = await createCart({
+        userId,
+        purchaseStatus
+    });
+
+    res.send({ newCart });
+
+} catch (error){
+    next(error);
+}
+});
+
+module.exports = cartRouter;
 
 
 

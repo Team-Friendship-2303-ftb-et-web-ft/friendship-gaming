@@ -72,7 +72,7 @@ export const getMe = async (token) => {
 // GET ALL GAMES
 export const getAllGames = async () => {
   try {
-    const response = await fetch(`${BASE}/games`, {
+    const response = await fetch(`api/games`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ export const getAllGames = async () => {
 // CREATE GAME
 export const createGame = async (gameData) => {
   try {
-    const response = await fetch(`${BASE}/games`, {
+    const response = await fetch(`api/games`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -108,7 +108,7 @@ export const createGame = async (gameData) => {
 // GET GAME BY ID
 export const getGameById = async (gameId) => {
   try {
-    const response = await fetch(`${BASE}/games/${gameId}`, {
+    const response = await fetch(`api/games/${gameId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

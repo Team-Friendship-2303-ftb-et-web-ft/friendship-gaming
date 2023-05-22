@@ -62,6 +62,8 @@ router.use(async(req, res, next) => {
 
 router.use('/users', require('./users'));
 
+router.use('/games', require('./games'));
+
 // const cartRouter = require('./cart');
 // router.use('/cart', cartRouter);
 

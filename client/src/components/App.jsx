@@ -5,8 +5,7 @@ import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame} from "./index";
 import reactLogo from '../assets/react.svg'
-// import {getAllGames} from '../api';
-import {getMe} from '../api';
+import {getAllGames, getMe} from '../api';
 import './App.css'
 
 function App() {
@@ -23,17 +22,17 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       try{
-      if (token) {
-      const fetchedUser = await getMe(token);
-     setCurrentUser(fetchedUser) 
-    }
-    }
+        if (token) {
+          const fetchedUser = await getMe(token);
+          setCurrentUser(fetchedUser)
+        }
+      }
     catch (error) {
     console.error(error)
     }
     };
       fetchUser()
-  }, {token});
+  }, [isLoggedIn]);
 
   return (
     <> 

@@ -1,9 +1,8 @@
-const BASE = "our api link here"
 
 //REGISTER USER
 export const registerUser = async (userObject) => {
     try{
-        const response = await fetch(`${BASE}/users/register`, {
+        const response = await fetch(`api/users/register`, {
             method: 'POST',
             headers: {
                 'Content=Type': 'application/json',
@@ -28,7 +27,7 @@ export const registerUser = async (userObject) => {
 //LOGIN USER
 export const loginUser = async (userObject) => {
     try{
-        const response = await fetch(`${BASE}/users/login`, {
+        const response = await fetch(`api/users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +35,7 @@ export const loginUser = async (userObject) => {
             body: JSON.stringify(userObject),
         });
         const result = await response.json();
-        console.log(result);
+        console.log("line 39",result);
         if (result.user){
             const {message, user, token} = result;
             localStorage.setItem('token', token);
@@ -56,7 +55,7 @@ export const loginUser = async (userObject) => {
 export const getMe = async (token) => {
 
     try {
-      const response = await fetch(`${BASE}/users/me`, {
+      const response = await fetch(`api/users/me`, {
           method: 'GET',
           headers: {
           'Content-Type': 'application/json',

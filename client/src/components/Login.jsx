@@ -33,7 +33,7 @@ const Login = ({
          
           setUsername("");
           setPassword("");
-          navigate("/Home");
+          navigate("/");
         }
       };
     return (
@@ -59,7 +59,7 @@ const Login = ({
                 onChange={(event) => setPassword(event.target.value)}
               />
               <div className="loginButtons">
-              <button type="submit" className="loginButton">
+              <button type="submit" className="loginButton" onClick={() => {handleSubmit}}>
                 Log in
               </button>
               <button onClick={() => { navigate('/Register')}} className="loginButton">Sign Up</button>

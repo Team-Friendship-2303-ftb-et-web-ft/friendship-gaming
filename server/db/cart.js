@@ -1,4 +1,3 @@
-const cartRouter = require('../api/cart');
 const client = require('./client');
 
 //----------Cart----------//

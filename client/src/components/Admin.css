@@ -3,14 +3,22 @@ div#allGames {
     background-color: #E3E3EF;
     padding: 10px;
     margin: 10px;
+    font-size: 18px;
 }
 
 p.title {
-    font-size: 1.6em;
+    font-size: 1.5em;
 }
 
-p {
-    font-size: 18px;
+p.featured {
+    color: purple;
+    margin-left: 10px;
+    text-align: right;
+}
+
+div.titlebox {
+    display:flex;
+    align-items: center;
 }
 
 button {

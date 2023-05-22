@@ -40,7 +40,13 @@ const Admin = ({gamesList}) => {
             
             return (
                 <div key={game.id} id="allGames">
-                        <p className="title">Title: {game.title}</p>
+                        <div className="titlebox">
+                          <p className="title">{game.title}</p>
+                          {game.featured &&
+                            <p className="featured">(Featured)</p>
+                          }
+                        </div>
+
                         <p>Author: {game.authorName}</p>
                         <p>Genre: {game.genre}</p>
 
@@ -50,8 +56,8 @@ const Admin = ({gamesList}) => {
                         } 
 
                         <p>Price: {game.price}</p>
-                        <p>Inventory: {game.inventory}</p>
-                        <p>Featured: {game.featured}</p>
+                        <p>Inventory: {game.inventoryqty}</p>
+                        {/* <p>Featured: {game.featured}</p> */}
                         <p>Description: {game.description}</p>
                         <button onClick={handleUpdateGame}>Update</button>
                         <button onClick={() => {console.log('add delete function here')}}>Delete</button>

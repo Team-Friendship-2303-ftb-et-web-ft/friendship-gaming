@@ -205,7 +205,7 @@ async function createInitialUserInfo(){
       firstName: 'Albert',
       lastName: 'Einstein',
       dateOfBirth: '1879-03-14',
-      isAdmin: false,
+      isAdmin: true,
       addressId: 1
     },
     {

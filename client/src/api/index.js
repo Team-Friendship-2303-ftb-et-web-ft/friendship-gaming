@@ -197,6 +197,21 @@ export const getAllCartItems = async () => {
       },
     });
 
+
+
+
+//fetch call to /api/users/admin
+//make a use effect for this call ^
+//put that use effect in admin.jsx
+
+export const getUsersWithInfo= () => {
+  try {
+    console.log('coming soon');
+  } catch(error) {
+    console.error(error);
+  }
+}
+//CREATE CART ITEM
     const cartItems = await response.json();
     console.log("This is all the cartItems:", cartItems);
 

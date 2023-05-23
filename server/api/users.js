@@ -4,6 +4,7 @@ const { getUserByUsername, createUser, getAllUsers, getUser, getUserById, create
 const { requireAdmin, requireUser } = require('./utils');
 const { getAllGames } = require('../db');
 const { JWT_SECRET } = process.env;
+
 // GET: api/users
 router.get('/', async (req, res, next) => {
   try {
@@ -93,7 +94,7 @@ router.get('/admin', requireAdmin, async(req, res, next) => {
     const promises = users.map(getInfo);
 
     const usersWithInfo = await Promise.all(promises);
-
+    console.log(usersWithInfo);
     res.send({message: "logged in as admin", usersWithInfo, allGames})
   } catch (message){
     res.send(message);

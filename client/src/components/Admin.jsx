@@ -42,9 +42,9 @@ const Admin = ({gamesList, usersList}) => {
                 {/* <p>Games</p> */}
                 <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
                 {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
-                <button className="add" onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button className="add" onClick={()=>{navigate('/CreateGame')}}>Add Game</button>
                 <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
-                <button className="add" onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+                {/* <button className="add" onClick={()=>{setAdminRequest('addUser')}}>Add User</button> */}
               </div>
                 <h1>This is create game!</h1>
             </div>
@@ -120,7 +120,8 @@ const Admin = ({gamesList, usersList}) => {
                 {/* <p>Games</p> */}
                 <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
                 {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
-                <button className="add" onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                {/* <button className="add" onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
+                <button className="add" onClick={()=>{navigate('/CreateGame')}}>Add Game</button>
                 <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
               </div>
               <div id="adminInfo">

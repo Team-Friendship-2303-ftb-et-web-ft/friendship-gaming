@@ -90,7 +90,7 @@ export const getAllGames = async () => {
 // GET ALL USERS
 export const getAllUsers = async () => {
     try {
-      const response = await fetch(`api/users/admin/users`, {
+      const response = await fetch(`api/users/admin`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

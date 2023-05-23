@@ -19,38 +19,25 @@ function App() {
   const [selectedGame, setSelectedGame] = useState({})
   const [usersList, setUsersList] = useState([]);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try{
-        console.log(token)
-        if (token) {
-          const fetchedUser = await getMe(token);
-          // console.log(fetchedUser)
-          setCurrentUser(fetchedUser)
-        }
-      }
-    catch (error) {
-    console.error(error)
-    }
-    };
-      fetchUser()
-  }, [token]);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try{
+  //       console.log(token)
+  //       if (token) {
+  //         const fetchedUser = await getMe(token);
+  //         // console.log(fetchedUser)
+  //         setCurrentUser(fetchedUser)
+  //       }
+  //     }
+  //   catch (error) {
+  //   console.error(error)
+  //   }
+  //   };
+  //     fetchUser()
+  // }, [token]);
 
 
-  useEffect(() => {
-    const fetchGames = async () => {
-      try{
-          const fetchedGames = await getAllGames();
-          setGamesList(fetchedGames)
-      }
-    catch (error) {
-    console.error(error)
-    }
-    };
-      fetchGames()
-  }, []);
-
-  //no longer in state so no longer in admin
+  
   // useEffect(() => {
   //   const fetchUsers = async () => {
   //     try{
@@ -64,6 +51,19 @@ function App() {
   //   };
   //     fetchUsers()
   // }, []);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try{
+          const fetchedGames = await getAllGames();
+          setGamesList(fetchedGames)
+      }
+    catch (error) {
+    console.error(error)
+    }
+    };
+      fetchGames()
+  }, []);
 
   return (
     <> 

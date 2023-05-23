@@ -16,8 +16,8 @@ try{
 }
 })
 
-// //GET/api/cart/order/orderId
-cartRouter.get('/order/:orderId', async (req, res, next) => {
+// //GET/api/cart/orderId
+cartRouter.get('/:orderId', async (req, res, next) => {
 try {
     const { orderId } = req.params;
     const cart = await getCartByOrder(orderId);

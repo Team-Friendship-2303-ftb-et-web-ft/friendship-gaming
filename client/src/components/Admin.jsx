@@ -23,7 +23,7 @@ const Admin = ({gamesList, usersList}) => {
     // useEffect(() => {
     //   const fetchUsers = async () => {
     //     try{
-    //         const fetchedUsers = await getAllUsers();
+    //         const fetchedUsers = await getAllUsersWithInfo();
     //         console.log(fetchedUsers)
     //         setUsersList(fetchedUsers)
     //     }

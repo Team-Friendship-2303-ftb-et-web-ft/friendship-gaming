@@ -187,6 +187,20 @@ export const createCartItems = async (newCartItem) => {
   }
 }
 
+//CREATE CART ITEM
+
+
+//fetch call to /api/users/admin
+//make a use effect for this call ^
+//put that use effect in admin.jsx
+export const getUsersWithInfo = async () => {
+  try {
+    console.log('coming soon');
+  } catch(error) {
+    console.error(error);
+  }
+}
+
 //GET ALL CART ITEMS
 export const getAllCartItems = async () => {
   try {
@@ -196,22 +210,8 @@ export const getAllCartItems = async () => {
         'Content-Type': 'application/json'
       },
     });
+  
 
-
-
-
-//fetch call to /api/users/admin
-//make a use effect for this call ^
-//put that use effect in admin.jsx
-
-export const getUsersWithInfo= () => {
-  try {
-    console.log('coming soon');
-  } catch(error) {
-    console.error(error);
-  }
-}
-//CREATE CART ITEM
     const cartItems = await response.json();
     console.log("This is all the cartItems:", cartItems);
 

@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame, CreateGameForm} from "./index";
-import reactLogo from '../assets/react.svg'
+// import reactLogo from '../assets/react.svg'
 import {getAllGames, getMe, getAllUsers} from '../api';
 import './App.css'
 
@@ -24,6 +24,7 @@ function App() {
       try{
         if (token) {
           const fetchedUser = await getMe(token);
+          console.log(fetchedUser)
           setCurrentUser(fetchedUser)
         }
       }
@@ -32,7 +33,7 @@ function App() {
     }
     };
       fetchUser()
-  }, {token});
+  }, [token]);
 
 
   useEffect(() => {
@@ -48,19 +49,20 @@ function App() {
       fetchGames()
   }, []);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try{
-          const fetchedUsers = await getAllUsers();
-          console.log(fetchedUsers)
-          setUsersList(fetchedUsers)
-      }
-    catch (error) {
-    console.error(error)
-    }
-    };
-      fetchUsers()
-  }, []);
+  //no longer in state so no longer in admin
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try{
+  //         const fetchedUsers = await getAllUsers();
+  //         console.log(fetchedUsers)
+  //         setUsersList(fetchedUsers)
+  //     }
+  //   catch (error) {
+  //   console.error(error)
+  //   }
+  //   };
+  //     fetchUsers()
+  // }, []);
 
   return (
     <> 

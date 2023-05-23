@@ -54,7 +54,7 @@ export const loginUser = async (userObject) => {
 
 //GET ME
 export const getMe = async (token) => {
-
+  // console.log('token:',token);
     try {
       const response = await fetch(`api/users/me`, {
           method: 'GET',
@@ -65,7 +65,7 @@ export const getMe = async (token) => {
       });
       const result = await response.json();
       console.log('result',result);
-      return result
+      return result;
     } catch (err) {
       console.error(err);
     }

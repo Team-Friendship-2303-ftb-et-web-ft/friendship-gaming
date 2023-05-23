@@ -123,8 +123,9 @@ async function getUserInfoByUser(userId) {
 `, [userId]);
 
   const userAddress = await getAddressByUsername({username: user.username});
-
-  userInfo.address = userAddress;
+  if (user.address) {
+    userInfo.address = userAddress;
+  }
   return userInfo;
 }
 

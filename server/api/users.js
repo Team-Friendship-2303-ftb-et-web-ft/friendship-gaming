@@ -96,22 +96,20 @@ router.get('/admin', requireAdmin, async(req, res, next) => {
   }
 });
 
-//get all users with user info and addresses
 router.get('/admin/users', async (req, res, next) => {
   try {
     const users = await getAllUsers();
-    const getInfo = async() => {
-      const usersWithInfo = users.map(async(user)=> {
-        const info = await getUserInfoByUser(user.id)
-        console.log(info)
-      })
 
-      // return usersWithInfo;
+    const getInfo = async (user) => {
+      const info = await getUserInfoByUser(user.id);
+      return { ...user, info };
     }
-    // console.log(usersWithInfo);
-    getInfo();
 
-    res.status(200).json(users);
+    const promises = users.map(getInfo);
+
+    const usersWithInfo = await Promise.all(promises);
+
+    res.status(200).json(usersWithInfo);
 
   } catch (error) {
     next(error);

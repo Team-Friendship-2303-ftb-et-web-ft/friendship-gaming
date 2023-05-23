@@ -19,8 +19,6 @@ function App() {
   const [selectedGame, setSelectedGame] = useState({})
   const [usersList, setUsersList] = useState([]);
 
-
- 
   useEffect(() => {
     const fetchUser = async () => {
       try{
@@ -35,6 +33,7 @@ function App() {
     };
       fetchUser()
   }, {token});
+
 
   useEffect(() => {
     const fetchGames = async () => {

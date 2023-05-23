@@ -56,12 +56,12 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
                             </button>}
                             <button className="nav"
                                 onClick={() => {
-                                    navigate('/Login');
+                                    navigate('/Profile');
                                 }}
                             > <p>
                             <span className="bg"></span>
                             <span className="base"></span>
-                            <span className="text">Log In</span>
+                            <span className="text">Profile</span>
                             </p> 
                             </button>
             

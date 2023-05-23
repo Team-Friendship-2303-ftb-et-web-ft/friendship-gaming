@@ -19,22 +19,21 @@ function App() {
   const [selectedGame, setSelectedGame] = useState({})
   const [usersList, setUsersList] = useState([]);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try{
+        if (token) {
+          const fetchedUser = await getMe(token);
+          setCurrentUser(fetchedUser)
+        }
+      }
+    catch (error) {
+    console.error(error)
+    }
+    };
+      fetchUser()
+  }, {token});
 
- 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try{
-  //       if (token) {
-  //         const fetchedUser = await getMe(token);
-  //         setCurrentUser(fetchedUser)
-  //       }
-  //     }
-  //   catch (error) {
-  //   console.error(error)
-  //   }
-  //   };
-  //     fetchUser()
-  // }, [token]);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -87,7 +86,7 @@ function App() {
           setCurrentUser={setCurrentUser}  
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
-      <Route path="/Profile" element= {<Profile/>}/>
+      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} />}/>
       <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         currentUser={currentUser}

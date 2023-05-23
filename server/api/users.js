@@ -7,7 +7,8 @@ const { JWT_SECRET } = process.env;
 // GET: api/users
 router.get('/', async (req, res, next) => {
   try {
-    res.send('Hit the users api!');
+    const users = await getAllUsers();
+    res.send(users);
   } catch (error) {
     throw error;
   }

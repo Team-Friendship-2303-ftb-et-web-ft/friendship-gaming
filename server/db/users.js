@@ -111,6 +111,25 @@ async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin
   return userInfo;
 }
 
+// async function getUserInfoByUser(userId) {
+
+//   // const user = await getUserById(userId)
+
+//   const { rows: [userInfo] } = await client.query(`
+//   SELECT users.id, users.username, userInfo.*
+//   FROM users
+//   JOIN userInfo ON users.id = userInfo."userId"
+//   WHERE users.id = $1
+// `, [userId]);
+
+//   const userAddress = await getAddressByUsername({username: userInfo.username});
+//   console.log('useraddress',userAddress);
+//   if (userAddress) {
+//     userInfo.address = userAddress;
+//   }
+//   return userInfo;
+// }
+
 async function getUserInfoByUser(userId) {
 
   const user = await getUserById(userId)

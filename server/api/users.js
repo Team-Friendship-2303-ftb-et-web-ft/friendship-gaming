@@ -70,35 +70,62 @@ router.post('/login', async(req, res, next) => {
 
 //User Profile
 router.get('/me', requireUser, async(req, res, next) => {
-  const {id} = req.user;
-  
+  // const {id} = req.user;
   try {
-    const userInfo = await getUserInfoByUser(id)
-    const userAddress = await getAddressById(userInfo.addressId)
+    // const userInfo = await getUserInfoByUser(id)
+    // console.log('req.user',userInfo);
+   
+      res.send({message:'at /me', user: req.user});
     
-    res.send({message:'at /me', userInfo, userAddress});
+    // const userInfo = await getUserInfoByUser(id)
+    // console.log('req.user',userInfo);
+    // const userAddress = await getAddressById(userInfo.addressId)
+    
   } catch (message) {
     res.send(message);
   }
 });
 
 //Admin Controls
+// router.get('/admin', requireAdmin, async(req, res, next) => {
+//   try {
+//     const userInfo = await getUserInfoByUser(req.user.id)
+//     const userAddress = await getAddressById(userInfo.addressId)
+//     const allUsers = await getAllUsers();
+//     const allGames = await getAllGames();
+
+//     res.send({message: "logged in as admin", userInfo, userAddress, allUsers, allGames})
+//   } catch (message){
+//     res.send(message);
+//   }
+// });
+
+// router.get('/admin/users', async (req, res, next) => {
+//   try {
+    // const users = await getAllUsers();
+
+    // const getInfo = async (user) => {
+    //   const info = await getUserInfoByUser(user.id);
+    //   return { ...user, info };
+    // }
+
+//     const promises = users.map(getInfo);
+
+//     const usersWithInfo = await Promise.all(promises);
+
+//     res.status(200).json(usersWithInfo);
+
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 router.get('/admin', requireAdmin, async(req, res, next) => {
   try {
-    const userInfo = await getUserInfoByUser(req.user.id)
-    const userAddress = await getAddressById(userInfo.addressId)
-    const allUsers = await getAllUsers();
-    const allGames = await getAllGames();
-
-    res.send({message: "logged in as admin", userInfo, userAddress, allUsers, allGames})
-  } catch (message){
-    res.send(message);
-  }
-});
-
-router.get('/admin/users', async (req, res, next) => {
-  try {
+    // const userInfo = await getUserInfoByUser(req.user.id)
+    // const userAddress = await getAddressById(userInfo.addressId)
     const users = await getAllUsers();
+    const allGames = await getAllGames();
 
     const getInfo = async (user) => {
       const info = await getUserInfoByUser(user.id);
@@ -109,10 +136,9 @@ router.get('/admin/users', async (req, res, next) => {
 
     const usersWithInfo = await Promise.all(promises);
 
-    res.status(200).json(usersWithInfo);
-
-  } catch (error) {
-    next(error);
+    res.send({message: "logged in as admin", usersWithInfo, allGames})
+  } catch (message){
+    res.send(message);
   }
 });
 

@@ -130,6 +130,26 @@ async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin
 //   return userInfo;
 // }
 
+// async function getUserInfoByUser(userId) {
+
+//   const user = await getUserById(userId)
+
+//   const { rows: [userInfo] } = await client.query(`
+//   SELECT users.id, users.username, userInfo.*
+//   FROM users
+//   JOIN userInfo ON users.id = userInfo."userId"
+//   WHERE users.id = $1
+// `, [userId]);
+
+//   const userAddress = await getAddressByUsername({username: user.username});
+//   if (user.address) {
+//     userInfo.address = userAddress;
+//   }
+//   console.log(userInfo);
+//   return userInfo;
+// }
+
+//the goal is to get all the users and all their info (send only to the admin page)
 async function getUserInfoByUser(userId) {
 
   const user = await getUserById(userId)
@@ -142,9 +162,11 @@ async function getUserInfoByUser(userId) {
 `, [userId]);
 
   const userAddress = await getAddressByUsername({username: user.username});
-  if (user.address) {
+  console.log(userAddress)
+  if (userAddress) {
     userInfo.address = userAddress;
   }
+  console.log(userInfo);
   return userInfo;
 }
 

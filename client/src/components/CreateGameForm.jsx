@@ -38,6 +38,7 @@ const CreateGameForm = ({ token }) => {
   }
 
   return (
+    //wrap with a div (make into a modal?)
     <form id="create-game-form" onSubmit={handleSubmit}>
       <label>
         Author Name:

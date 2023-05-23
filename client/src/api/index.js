@@ -64,7 +64,7 @@ export const getMe = async (token) => {
         },
       });
       const result = await response.json();
-      console.log('result',result);
+      // console.log('result',result);
       return result;
     } catch (err) {
       console.error(err);
@@ -80,7 +80,7 @@ export const getAllGames = async () => {
       },
     });
     const games = await response.json();
-    console.log(games);
+    // console.log(games);
     return games;
   } catch (err) {
     console.error(err);

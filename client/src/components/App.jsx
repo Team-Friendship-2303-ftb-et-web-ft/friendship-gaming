@@ -22,9 +22,10 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       try{
+        console.log(token)
         if (token) {
           const fetchedUser = await getMe(token);
-          console.log(fetchedUser)
+          // console.log(fetchedUser)
           setCurrentUser(fetchedUser)
         }
       }

@@ -5,6 +5,8 @@ import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame} from "./index";
 import reactLogo from '../assets/react.svg'
+// import {getAllGames} from '../api';
+import {getMe} from '../api';
 import './App.css'
 
 function App() {
@@ -17,22 +19,7 @@ function App() {
   const [selectedCart, setSelectedCart] = useState({});
   const [selectedGame, setSelectedGame] = useState({})
 
-  useEffect(() => {
-    const getInitialData = async () => {
-      try {
-        let games = await getAllGames();
-        setGamesList(games);
-
-        if (token) {
-          setIsLoggedIn(true);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getInitialData();
-  }, []);
-
+ 
   useEffect(() => {
     const fetchUser = async () => {
       try{
@@ -64,7 +51,12 @@ function App() {
       <Route path="/Error" element= {<Error/>}/>
       <Route path="/Games" element= {<Games/>}/>
     
-      <Route path="/Login" element= {<Login/>}/>
+      <Route path="/Login" element= {<Login token={token}
+          setToken={setToken} 
+          currentUser={currentUser} 
+          setCurrentUser={setCurrentUser}  
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}/>}/>
       <Route path="/Profile" element= {<Profile/>}/>
       <Route path="/Register" element= {<Register/>}/>
       <Route path="/SearchBar" element= {<SearchBar/>}/>
@@ -75,9 +67,7 @@ function App() {
     <div className="App">
       <div>
         
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        
       </div>
     </div>
     </>

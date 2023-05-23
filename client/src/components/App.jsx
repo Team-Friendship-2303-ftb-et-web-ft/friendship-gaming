@@ -21,20 +21,20 @@ function App() {
 
 
  
-  useEffect(() => {
-    const fetchUser = async () => {
-      try{
-        if (token) {
-          const fetchedUser = await getMe(token);
-          setCurrentUser(fetchedUser)
-        }
-      }
-    catch (error) {
-    console.error(error)
-    }
-    };
-      fetchUser()
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try{
+  //       if (token) {
+  //         const fetchedUser = await getMe(token);
+  //         setCurrentUser(fetchedUser)
+  //       }
+  //     }
+  //   catch (error) {
+  //   console.error(error)
+  //   }
+  //   };
+  //     fetchUser()
+  // }, [token]);
 
   useEffect(() => {
     const fetchGames = async () => {

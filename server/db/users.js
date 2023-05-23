@@ -23,6 +23,7 @@ async function getAllUsers() {
     const { rows } = await client.query(`
       SELECT id, username FROM users
     `);
+
     return rows;
   } catch (error) {
     console.error(error);
@@ -34,18 +35,6 @@ async function getUser({ username, password }) {
     const user = await getUserByUsername(username);
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
-
-    // if (!passwordsMatch) {
-    //   console.log(`Passwords do not match for user ${username}`);
-    //   return null;
-    // } else {
-    //   console.log(`Passwords match for user ${username}`);
-    //   delete user.password;
-    //   return {
-    //     id: user.id,
-    //     username: user.username
-    //   };
-    // }
 
     if (user && passwordsMatch) {
       console.log(`Passwords match for user ${username}`);
@@ -62,7 +51,6 @@ async function getUser({ username, password }) {
   }
 }
 
-
 async function getUserById(userId) {
   try {
     const { rows: [user] } = await client.query(`
@@ -70,10 +58,10 @@ async function getUserById(userId) {
       WHERE id=$1
     `, [userId]);
 
-    if (user.length == 0) {
-      console.log('could not find user');
-      return;
-    }
+    // if (user.length == 0) {
+    //   console.log('could not find user');
+    //   return;
+    // }
     
     return user;
   } catch (error) {
@@ -123,15 +111,40 @@ async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin
   return userInfo;
 }
 
+// async function getUserInfoByUser(userId) {
+
+//   // const user = await getUserById(userId)
+
+//   const { rows: [userInfo] } = await client.query(`
+//   SELECT users.id, users.username, userInfo.*
+//   FROM users
+//   JOIN userInfo ON users.id = userInfo."userId"
+//   WHERE users.id = $1
+// `, [userId]);
+
+//   const userAddress = await getAddressByUsername({username: userInfo.username});
+//   console.log('useraddress',userAddress);
+//   if (userAddress) {
+//     userInfo.address = userAddress;
+//   }
+//   return userInfo;
+// }
+
 async function getUserInfoByUser(userId) {
 
+  const user = await getUserById(userId)
+
   const { rows: [userInfo] } = await client.query(`
-  SELECT users.id, userInfo.*
+  SELECT users.id, users.username, userInfo.*
   FROM users
   JOIN userInfo ON users.id = userInfo."userId"
   WHERE users.id = $1
 `, [userId]);
 
+  const userAddress = await getAddressByUsername({username: user.username});
+  if (user.address) {
+    userInfo.address = userAddress;
+  }
   return userInfo;
 }
 
@@ -172,11 +185,6 @@ async function getAddressById(addressId) {
       SELECT * FROM addresses
       WHERE id = $1
     `, [addressId]);
-  
-    if(address.length === 0) {
-      console.log('could not find address');
-      return
-    };
   
     return address
   } catch (error) {

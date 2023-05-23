@@ -4,8 +4,8 @@ import ReactDOM from "react-dom";
 import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame, CreateGameForm} from "./index";
-import reactLogo from '../assets/react.svg'
-import {getAllGames, getMe} from '../api';
+// import reactLogo from '../assets/react.svg'
+import {getAllGames, getMe, getAllUsers} from '../api';
 import './App.css'
 
 function App() {
@@ -17,13 +17,15 @@ function App() {
   const [cartItemsList, setCartItemsList] = useState([]);
   const [selectedCart, setSelectedCart] = useState({});
   const [selectedGame, setSelectedGame] = useState({})
+  const [usersList, setUsersList] = useState([]);
 
- 
   useEffect(() => {
     const fetchUser = async () => {
       try{
+        console.log(token)
         if (token) {
           const fetchedUser = await getMe(token);
+          // console.log(fetchedUser)
           setCurrentUser(fetchedUser)
         }
       }
@@ -32,7 +34,8 @@ function App() {
     }
     };
       fetchUser()
-  }, {token});
+  }, [token]);
+
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -47,6 +50,21 @@ function App() {
       fetchGames()
   }, []);
 
+  //no longer in state so no longer in admin
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try{
+  //         const fetchedUsers = await getAllUsers();
+  //         console.log(fetchedUsers)
+  //         setUsersList(fetchedUsers)
+  //     }
+  //   catch (error) {
+  //   console.error(error)
+  //   }
+  //   };
+  //     fetchUsers()
+  // }, []);
+
   return (
     <> 
      <Header 
@@ -57,7 +75,7 @@ function App() {
         setToken={setToken}/>
     <Routes>
       <Route path="/" element= {<Home/>}/>
-      <Route path="/Admin" element= {<Admin gamesList={gamesList}/>}/>
+      <Route path="/Admin" element= {<Admin gamesList={gamesList} usersList={usersList}/>}/>
       <Route path="/Cart" element= {<Cart/>}/>
       <Route path="/Checkout" element= {<Checkout/>}/>
       <Route path="/Error" element= {<Error/>}/>
@@ -71,7 +89,7 @@ function App() {
           setCurrentUser={setCurrentUser}  
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
-      <Route path="/Profile" element= {<Profile/>}/>
+      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} />}/>
       <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         currentUser={currentUser}

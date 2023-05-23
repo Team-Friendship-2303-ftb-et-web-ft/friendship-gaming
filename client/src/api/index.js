@@ -54,7 +54,7 @@ export const loginUser = async (userObject) => {
 
 //GET ME
 export const getMe = async (token) => {
-
+  // console.log('token:',token);
     try {
       const response = await fetch(`api/users/me`, {
           method: 'GET',
@@ -64,8 +64,8 @@ export const getMe = async (token) => {
         },
       });
       const result = await response.json();
-      console.log('result',result);
-      return result
+      // console.log('result',result);
+      return result;
     } catch (err) {
       console.error(err);
     }
@@ -80,13 +80,31 @@ export const getAllGames = async () => {
       },
     });
     const games = await response.json();
-    console.log(games);
+    // console.log(games);
     return games;
   } catch (err) {
     console.error(err);
   }
 }
 
+// GET ALL USERS
+export const getAllUsers = async () => {
+    try {
+      const response = await fetch(`api/users/admin/users`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const users = await response.json();
+      console.log(users);
+      return users;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  
 // CREATE GAME
 export const createGame = async (gameData) => {
   try {

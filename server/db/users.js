@@ -173,11 +173,6 @@ async function getAddressById(addressId) {
       WHERE id = $1
     `, [addressId]);
   
-    if(address.length === 0) {
-      console.log('could not find address');
-      return
-    };
-  
     return address
   } catch (error) {
     console.error(error)

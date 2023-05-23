@@ -3,7 +3,8 @@ import {CreateGameForm} from "./index";
 import {NavLink, useNavigate} from 'react-router-dom';
 import './Admin.css'
 
-const Admin = ({gamesList}) => {
+const Admin = ({gamesList, usersList}) => {
+    console.log('UL',usersList)
     const navigate = useNavigate();
     //delete this when done
     const isAdmin = true;
@@ -14,39 +15,102 @@ const Admin = ({gamesList}) => {
     useEffect(()=>{
         // console.log('adminRequest changed')
     }, [adminRequest])
-    
+
     return (
         <>
-
+         {/* ADMIN HOME */}
           {adminRequest.includes('adminDb') &&
             <div id="outerContainer">
               <div id="adminTabs">
                 <h1 className="admin">Admin Dashboard</h1>
-                <button onClick={()=>{setAdminRequest('adminDb')}}>Admin Home</button>
-                <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                {/* <p>Games</p> */}
                 <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
+                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
+                {/* <p>Users</p> */}
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
+                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
               </div>
-                <h1>This is Profile!</h1>
+              <div id="adminHome">
+                <h1>This is Home!</h1>
+              </div>
             </div>
           }
+
+          {/* ADD GAME BUTTON */}
           {adminRequest.includes('createGame') &&
             <div id="outerContainer">
               <div id="adminTabs">
                 <h1 className="admin">Admin Dashboard</h1>
-                <button onClick={()=>{setAdminRequest('adminDb')}}>Admin Home</button>
-                <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                {/* <p>Games</p> */}
                 <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
+                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
+                {/* <p>Users</p> */}
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
+                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
               </div>
                 <h1>This is create game!</h1>
             </div>
           }
+
+          {/* SEE ALL USERS */}
+          {adminRequest.includes('seeUsers') &&
+            <div id="outerContainer">
+              <div id="adminTabs">
+                <h1 className="admin">Admin Dashboard</h1>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                {/* <p>Games</p> */}
+                <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
+                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
+                {/* <p>Users</p> */}
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
+                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+              </div>
+                <div className="usersList">
+                <h1>This is see Users!</h1>
+                {isAdmin &&
+                usersList.map(user => {
+                    return(
+                        <div key={user.id}>
+                            <p>User: {user.username}</p>
+                        </div>
+                    )
+                })
+                }
+                </div>
+            </div>
+          }
+
+          {/* ADD USER BUTTON */}
+            {adminRequest.includes('addUser') &&
+            <div id="outerContainer">
+              <div id="adminTabs">
+                <h1 className="admin">Admin Dashboard</h1>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                {/* <p>Games</p> */}
+                <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
+                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
+                {/* <p>Users</p> */}
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
+                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+              </div>
+                <h1>This is Add User!</h1>
+            </div>
+          }
+
+          {/* SEE ALL GAMES */}
           {adminRequest.includes('seeGames') &&
             <div id="outerContainer">
               <div id="adminTabs">
                 <h1 className="admin">Admin Dashboard</h1>
-                <button onClick={()=>{setAdminRequest('adminDb')}}>Admin Home</button>
-                <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                {/* <p>Games</p> */}
                 <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
+                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
+                {/* <p>Users</p> */}
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
+                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
               </div>
               <div id="adminInfo">
                 <div className="container">
@@ -75,7 +139,7 @@ const Admin = ({gamesList}) => {
                       <p>Inventory: {game.inventoryqty}</p>
                       <p>Description: {game.description}</p>
                       <div className="button">
-                          <button onClick={console.log('add delete function here')}>Update</button>
+                          <button onClick={console.log('add update form function here')}>Update</button>
                           <button onClick={() => {console.log('add delete function here')}}>Delete</button>
                       </div>
                       </div>

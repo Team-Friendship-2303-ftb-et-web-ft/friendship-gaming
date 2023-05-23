@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { getUserByUsername, createUser, getUser, getUserById, createUserInfo, getUserInfoByUser, getAddressById, getAllUsers } = require('../db/users');
+const { getUserByUsername, createUser, getAllUsers, getUser, getUserById, createUserInfo, getUserInfoByUser, getAddressById } = require('../db/users');
 const { requireAdmin, requireUser } = require('./utils');
 const { getAllGames } = require('../db');
 const { JWT_SECRET } = process.env;
@@ -97,6 +97,16 @@ router.get('/admin', requireAdmin, async(req, res, next) => {
     res.send({message: "logged in as admin", userInfo, userAddress, allUsers, allGames})
   } catch (message){
     res.send(message);
+  }
+});
+
+router.get('/admin/users', async (req, res, next) => {
+  try {
+    const users = await getAllUsers();
+
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
   }
 });
 

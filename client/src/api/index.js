@@ -87,6 +87,23 @@ export const getAllGames = async () => {
   }
 }
 
+// GET ALL USERS
+export const getAllUsers = async () => {
+    try {
+      const response = await fetch(`api/users/admin/users`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const users = await response.json();
+      console.log(users);
+      return users;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
 // CREATE GAME
 export const createGame = async (gameData) => {
   try {

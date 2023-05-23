@@ -3,13 +3,58 @@ div#outerContainer {
 }
 
 div#adminTabs {
-    width: 40%;
     background-color: #e3e3ef;
     padding: 20px;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div#adminTabs button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    /* border: 1px solid #e3e3ef; */
+    /* border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid #e3e3ef;
+    border-right: 1px solid #e3e3ef; */
+    /* color: black;
+    background: #e3e3ef; */
+}
+
+div.usersList {
+    color: white;
+}
+
+div#adminTabs button:hover {
+    text-decoration: underline;
+}
+
+div#adminTabs p {
+    /* width: 100%; */
+    /* text-align: left; */
+    /* padding: 20px 0 0 20px; */
+    margin-bottom:0px;
+    border-bottom: 1px solid black;
+    padding: 20px 0 0 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 4px;
 }
 
 div#adminInfo {
-    min-width:60%;
+   width:90%;
+}
+
+div#adminHome {
+    width:80%;
 }
 
 

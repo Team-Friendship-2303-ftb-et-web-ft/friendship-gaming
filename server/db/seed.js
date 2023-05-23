@@ -32,7 +32,8 @@ const {
   purchaseGame,
   attachCartItemsToCart,
   deleteCartItems,
-  updatePurchaseStatus
+  updatePurchaseStatus,
+  updateCartItemQty
 } = require('./index.js');
 const 
   client
@@ -582,29 +583,33 @@ const testDB = async () => {
 //     const gamesWithScary = await getGamesByTag("#scary");
 //     console.log("Result:",gamesWithScary);
 
-    console.log("Calling getCartByOrder");
-    const orderById = await getCartByOrder(1);
-    console.log("Result:", orderById);
+    // console.log("Calling getCartByOrder");
+    // const orderById = await getCartByOrder(1);
+    // console.log("Result:", orderById);
 
-    console.log("Calling getCartByUser");
-    const orderByUser = await getCartByUserId(1);
-    console.log("Result:", orderByUser);
+    // console.log("Calling getCartByUser");
+    // const orderByUser = await getCartByUserId(1);
+    // console.log("Result:", orderByUser);
 
-    console.log("Calling getCartItemsByUser");
-    const cartItemsByOrder = await getCartItemsByOrder(1);
-    console.log("Result:", cartItemsByOrder);
+    // console.log("Calling getCartItemsByUser");
+    // const cartItemsByOrder = await getCartItemsByOrder(1);
+    // console.log("Result:", cartItemsByOrder);
 
-    console.log("Calling attachCartItemsToCart");
-    const cartItemsToCart = await attachCartItemsToCart(2);
-    console.log("Result:", cartItemsToCart);
+    // console.log("Calling attachCartItemsToCart");
+    // const cartItemsToCart = await attachCartItemsToCart(2);
+    // console.log("Result:", cartItemsToCart);
 
-    console.log("Calling deleteCartItems");
-    const deleteOrderItems = await deleteCartItems(1);
-    console.log("Result:", await getAllCartItems());
+    // console.log("Calling deleteCartItems");
+    // const deleteOrderItems = await deleteCartItems(1);
+    // console.log("Result:", await getAllCartItems());
 
-      console.log("Calling updateCart");
-      const updatedCart = await updatePurchaseStatus({id: 1, purchaseStatus: true});
-      console.log("updateUserInfo Result:", updatedCart);
+    //   console.log("Calling updateCart");
+    //   const updatedCart = await updatePurchaseStatus({id: 1, purchaseStatus: true});
+    //   console.log("updateUserInfo Result:", updatedCart);
+
+    // console.log("Calling updateCartItems");
+    //   const updatedCartItems = await updateCartItemQty({id: 1, quantity: 8});
+    //   console.log("updateCartItems Result:", updatedCartItems);
 
   } catch (error) {
     console.error("It broke....no work...test fail");

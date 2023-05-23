@@ -11,3 +11,4 @@ export { default as Profile } from "./Profile";
 export { default as Register } from "./Register";
 export { default as SearchBar } from "./SearchBar";
 export { default as SingleGame } from "./SingleGame";
+export { default as CreateGameForm } from "./CreateGameForm";

@@ -5,13 +5,13 @@ export const registerUser = async (userObject) => {
         const response = await fetch(`api/users/register`, {
             method: 'POST',
             headers: {
-                'Content=Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(userObject),
         });
         const result = await response.json();
         console.log(result);
-        if (result.user) {
+        if (result) {
             const {message, userObject, token} = result;
             localStorage.setItem('token', token);
             return {message, userObject, token};
@@ -51,6 +51,7 @@ export const loginUser = async (userObject) => {
         console.error(error);
     }  
 };
+
 //GET ME
 export const getMe = async (token) => {
 
@@ -63,7 +64,7 @@ export const getMe = async (token) => {
         },
       });
       const result = await response.json();
-      console.log(result);
+      console.log('result',result);
       return result
     } catch (err) {
       console.error(err);
@@ -72,7 +73,7 @@ export const getMe = async (token) => {
 // GET ALL GAMES
 export const getAllGames = async () => {
   try {
-    const response = await fetch(`${BASE}/games`, {
+    const response = await fetch(`api/games`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -89,7 +90,7 @@ export const getAllGames = async () => {
 // CREATE GAME
 export const createGame = async (gameData) => {
   try {
-    const response = await fetch(`${BASE}/games`, {
+    const response = await fetch(`api/games`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -108,7 +109,7 @@ export const createGame = async (gameData) => {
 // GET GAME BY ID
 export const getGameById = async (gameId) => {
   try {
-    const response = await fetch(`${BASE}/games/${gameId}`, {
+    const response = await fetch(`api/games/${gameId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

@@ -37,10 +37,10 @@ async function getCartByOrder(id) {
 
 async function getCartByUserId(userId) {
     try {
-        const { rows: [ order ] } = await client.query(`
+        const { rows: order  } = await client.query(`
         SELECT * FROM cart
-           WHERE id = $1 AND "purchaseStatus" = false
-          `, [ userId ]);
+           WHERE "userId" = ${userId}
+          `);
           /**************** QUESTION: ??????? ****************/
 
            return order;
@@ -131,8 +131,22 @@ async function attachCartItemsToCart(id) {
   }
 }
 
-async function updateCartItemQty(id) {
+async function updateCartItemQty({id, quantity}) {
+  try {
+    if (quantity) {
+      const { rows: [cartItem] } = await client.query(`
+        UPDATE cartItems
+        SET quantity = $1
+        WHERE id = $2
+        RETURNING *;
+      `, [quantity, id]);
+      console.log("This is cartItem:", cartItem)
 
+      return cartItem;
+    }
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function deleteCartItems(id) {
@@ -159,6 +173,7 @@ async function deleteCartItems(id) {
       createCartItems,
       getAllCartItems,
       getCartItemsByOrder,
+      updateCartItemQty,
       attachCartItemsToCart,
       deleteCartItems
     }

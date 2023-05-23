@@ -1,52 +1,166 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {CreateGameForm} from "./index";
 import {NavLink, useNavigate} from 'react-router-dom';
 import './Admin.css'
 
-const Admin = ({gamesList}) => {
-    const isAdmin = true;
-    console.log(gamesList);
+const Admin = ({gamesList, usersList}) => {
+    console.log('UL',usersList)
     const navigate = useNavigate();
+    //delete this when done
+    const isAdmin = true;
+    //
 
-    const handleUpdateUser = () => {
-        console.log('in progess')
-    };
+    const [adminRequest, setAdminRequest] = useState('adminDb');
 
-    const handleCreateGame = () => {
-        navigate('/CreateGame');
-    }
-    const handleUpdateGame = () => {
-        navigate('/UpdateGame');
-    }
+    useEffect(()=>{
+        // console.log('adminRequest changed')
+    }, [adminRequest])
 
     return (
         <>
-        {isAdmin &&
-        gamesList.map(game => {
+         {/* ADMIN HOME */}
+          {adminRequest.includes('adminDb') &&
+            <div id="outerContainer">
+              <div id="adminTabs">
+                <h1 className="admin">Admin Dashboard</h1>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
+              </div>
+              <div id="adminHome">
+                <h1>This is Home!</h1>
+              </div>
+            </div>
+          }
 
+          {/* ADD GAME BUTTON */}
+          {adminRequest.includes('createGame') &&
+            <div id="outerContainer">
+              <div id="adminTabs">
+                <h1 className="admin">Admin Dashboard</h1>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                {/* <p>Games</p> */}
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
+                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
+                <button className="add" onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
+                <button className="add" onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+              </div>
+                <h1>This is create game!</h1>
+            </div>
+          }
 
-            return (
-            
-                <div key={game.id} id="allGames">
-                <p>{game.id}</p>
-                <p>{game.authorName}</p>
-                <p>{game.genre}</p>
-                <p>{game.title}</p>
-                {/* <p>{game.tags}</p> */}
-                <p>{game.price}</p>
-                <p>{game.inventory}</p>
-                <p>{game.featured}</p>
-                <p>{game.description}</p>
-                <button onClick={handleUpdateGame}>Update</button>
+          {/* SEE ALL USERS */}
+          {adminRequest.includes('seeUsers') &&
+            <div id="outerContainer">
+              <div id="adminTabs">
+                <h1 className="admin">Admin Dashboard</h1>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
+                <button className="add" onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+              </div>
+              <div id="adminInfo">
+                {/* 
+                <div className="stats">
+                    <div className="total">
+                        <p>Total Users:</p>
+                        <p>{usersList.length}</p>
+                    </div>
+                    <div className="total">
+                        <p>Total Users Created Today:</p>
+                        <p>{usersList.length}</p>
+                    </div>
+                    <div className="total">
+                        <p>Total Admin Users:</p>
+                        <p>{usersList.length}</p>
+                    </div>
+                </div> */}
+                <div className="usersList">
+                    {isAdmin &&
+                    usersList.map(user => {
+                        return(
+                            <div key={user.id} className="user">
+                                <p>User: {user.username}</p>
+                                <div className="button">
+                                <button onClick={console.log('add update form function here')}>Update</button>
+                                <button onClick={() => {console.log('add delete function here')}}>Delete</button>
+                                </div>
+                            </div>
+                            )
+                        })
+                    }
                 </div>
-           
-           
-           )
-           
-        })
-    }
-        <button onClick={handleCreateGame}>Add Game</button>
-        <h1>This is Admin!</h1>
+              </div>
+            </div>
+          }
+
+          {/* ADD USER BUTTON */}
+            {adminRequest.includes('addUser') &&
+            <div id="outerContainer">
+              <div id="adminTabs">
+                <h1 className="admin">Admin Dashboard</h1>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                {/* <p>Games</p> */}
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
+                <button className="add" onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
+                <button className="add" onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+              </div>
+                <h1>This is Add User!</h1>
+            </div>
+          }
+
+          {/* SEE ALL GAMES */}
+          {adminRequest.includes('seeGames') &&
+            <div id="outerContainer">
+              <div id="adminTabs">
+                <h1 className="admin">Admin Dashboard</h1>
+                <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
+                {/* <p>Games</p> */}
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
+                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
+                <button className="add" onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
+              </div>
+              <div id="adminInfo">
+                <div className="container">
+                  {isAdmin &&
+                    gamesList.map(game => {
+                    let tagArr = [] 
+
+                    if (game.tags.length) {
+                      let tagNames = Object.values(game.tags);
+    
+                      tagNames.map(tag => {
+                          tagArr.push(tag.name);
+                      })
+                    }
+    
+                    return (
+                      <div key={game.id} id="game">
+                      <div className="titlebox">
+                          <p className="title">{game.title}</p>
+                          {game.featured && <p className="featured">(Featured)</p>}
+                      </div>
+                      <p>Author: {game.authorName}</p>
+                      <p>Genre: {game.genre}</p>
+                      {game.tags.length ? <p>Tags: {tagArr.join(' ')}</p> :<p>Tags: N/A</p>} 
+                      <p>Price: {game.price}</p>
+                      <p>Inventory: {game.inventoryqty}</p>
+                      <p>Description: {game.description}</p>
+                      <div className="button">
+                          <button onClick={console.log('add update form function here')}>Update</button>
+                          <button onClick={() => {console.log('add delete function here')}}>Delete</button>
+                      </div>
+                      </div>
+                    )
+                    })
+                  }
+                </div>
+              </div>
+            </div>
+          }
         </> 
     )  
 }

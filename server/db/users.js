@@ -35,18 +35,6 @@ async function getUser({ username, password }) {
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
 
-    // if (!passwordsMatch) {
-    //   console.log(`Passwords do not match for user ${username}`);
-    //   return null;
-    // } else {
-    //   console.log(`Passwords match for user ${username}`);
-    //   delete user.password;
-    //   return {
-    //     id: user.id,
-    //     username: user.username
-    //   };
-    // }
-
     if (user && passwordsMatch) {
       console.log(`Passwords match for user ${username}`);
       delete user.password;
@@ -61,7 +49,6 @@ async function getUser({ username, password }) {
     throw error;
   }
 }
-
 
 async function getUserById(userId) {
   try {
@@ -173,11 +160,6 @@ async function getAddressById(addressId) {
       WHERE id = $1
     `, [addressId]);
   
-    if(address.length === 0) {
-      console.log('could not find address');
-      return
-    };
-  
     return address
   } catch (error) {
     console.error(error)
@@ -194,6 +176,42 @@ async function getAddressByUsername({username}) {
     console.error(error)
   }
 }
+// /, street_address, city, state, country, postal_code FROM addresses
+async function attachInfoToUser() {
+  try {
+    const { rows:  userInfo  } = await client.query(`
+        SELECT * FROM userInfo
+        JOIN users ON users.id = userInfo."userId"
+        WHERE userInfo."userId" = users.id
+      `);
+
+      console.log('This is userInfo', userInfo);
+
+      return userInfo;
+
+  } catch (error) {
+      throw error;
+  }
+}
+
+async function attachAddressToUserInfo() {
+  try {
+    const {rows: userAddress} = await client.query(`
+      SELECT * FROM addresses
+      JOIN userInfo ON addresses.id = userInfo."addressId"
+      WHERE addresses.id = userInfo."addressId"
+    `);
+
+    console.log('This is userInfo', userAddress);
+
+    return userAddress;
+
+  } catch (error) {
+      throw error;
+  }
+}
+
+
 
 module.exports = {
   createUser,
@@ -207,5 +225,7 @@ module.exports = {
   updateUserInfo,
   createAddress,
   getAddressById,
-  getAddressByUsername
+  getAddressByUsername,
+  attachInfoToUser,
+  attachAddressToUserInfo
 };

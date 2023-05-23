@@ -8,6 +8,8 @@ const {
   createUserInfo,
   getUserInfoByUser,
   updateUserInfo,
+  attachInfoToUser, 
+  attachAddressToUserInfo,
   createCart,
   getCartByOrder,
   getCartByUserId,
@@ -546,13 +548,22 @@ const testDB = async () => {
 //       console.log("getUserById Result:", Aalbert);
 
 
-//     console.log("Calling getUserById with 1");
-//       const albert = await getUserById(1);
-//       console.log("getUserByID Result:", albert);
 
 //     console.log("Calling user by username");
 //       const user = await getUserByUsername('albert');
 //       console.log("getUserByUsername Result:", user);
+
+// console.log("Calling attachInfoToUser");
+// const infoToUser = await attachInfoToUser(2);
+// console.log("Result:", infoToUser);
+
+// console.log("Calling attachAddressToUserInfo");
+// const addressToUser = await attachAddressToUserInfo(2);
+// console.log("Result:", addressToUser);
+
+//     console.log("Calling getUserById with 2");
+//       const albert = await getUserById(2);
+//       console.log("getUserByID Result:", albert);
 
 //     console.log("Calling deleteUser");
 //       await deleteUser(1);

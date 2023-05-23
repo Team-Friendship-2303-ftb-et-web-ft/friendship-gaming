@@ -5,7 +5,7 @@ import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame, CreateGameForm} from "./index";
 import reactLogo from '../assets/react.svg'
-import {getAllGames, getMe} from '../api';
+import {getAllGames, getMe, getAllUsers} from '../api';
 import './App.css'
 
 function App() {
@@ -17,6 +17,8 @@ function App() {
   const [cartItemsList, setCartItemsList] = useState([]);
   const [selectedCart, setSelectedCart] = useState({});
   const [selectedGame, setSelectedGame] = useState({})
+  const [usersList, setUsersList] = useState([]);
+
 
  
   useEffect(() => {
@@ -32,7 +34,7 @@ function App() {
     }
     };
       fetchUser()
-  }, {token});
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -47,6 +49,20 @@ function App() {
       fetchGames()
   }, []);
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try{
+          const fetchedUsers = await getAllUsers();
+          console.log(fetchedUsers)
+          setUsersList(fetchedUsers)
+      }
+    catch (error) {
+    console.error(error)
+    }
+    };
+      fetchUsers()
+  }, []);
+
   return (
     <> 
      <Header 
@@ -57,7 +73,7 @@ function App() {
         setToken={setToken}/>
     <Routes>
       <Route path="/" element= {<Home/>}/>
-      <Route path="/Admin" element= {<Admin gamesList={gamesList}/>}/>
+      <Route path="/Admin" element= {<Admin gamesList={gamesList} usersList={usersList}/>}/>
       <Route path="/Cart" element= {<Cart/>}/>
       <Route path="/Checkout" element= {<Checkout/>}/>
       <Route path="/Error" element= {<Error/>}/>

@@ -1,0 +1,14 @@
+  @import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+
+  h2{
+    font-family: 'Zeyada', cursive; 
+ }
+ .profileBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    text-align: left;
+    font-family: 'Zeyada', cursive;
+    background: #E3E3EF;
+ }

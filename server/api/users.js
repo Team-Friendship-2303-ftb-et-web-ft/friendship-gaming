@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { getUserByUsername, createUser, getAllUsers, getUser, getUserById, createUserInfo, getUserInfoByUser, getAddressById } = require('../db/users');
+const { getUserByUsername, createUser, getAllUsers, getUser, getUserById, createUserInfo, getUserInfoByUser, getAddressById, attachAddressToUserInfo, attachInfoToUser } = require('../db/users');
 const { requireAdmin, requireUser } = require('./utils');
 const { getAllGames } = require('../db');
 const { JWT_SECRET } = process.env;
@@ -32,9 +32,15 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
-// router.patch('/')
-// await createUserInfo({userId: user.id, firstName: 'anna', lastName: 'gibes', dateOfBirth: '01/27/1999', isAdmin: true, addressId: null})
-// const userInfo = await getUserInfoByUser(user.id)
+router.patch('/', async (req, res, next) => {
+  try {
+    // await createUserInfo({userId: user.id, firstName: 'anna', lastName: 'gibes', dateOfBirth: '01/27/1999', isAdmin: true, addressId: null})
+    // const userInfo = await getUserInfoByUser(user.id)
+    console.log('coming soon')
+  } catch (error) {
+    console.error(error);
+  }
+})
 
 //Login
 router.post('/login', async(req, res, next) => {
@@ -76,14 +82,6 @@ router.get('/me', requireUser, async(req, res, next) => {
   }
 });
 
-//Admin Profile
-// getUserByUsername,
-// deleteUser,
-// updateUserInfo,
-// createAddress,
-// getAddressById,
-// getAddressByUsername
-// getAllUsers,
 //Admin Controls
 router.get('/admin', requireAdmin, async(req, res, next) => {
   try {
@@ -91,8 +89,6 @@ router.get('/admin', requireAdmin, async(req, res, next) => {
     const userAddress = await getAddressById(userInfo.addressId)
     const allUsers = await getAllUsers();
     const allGames = await getAllGames();
-    // req.users = allUsers;
-    // console.log(req.users);
 
     res.send({message: "logged in as admin", userInfo, userAddress, allUsers, allGames})
   } catch (message){
@@ -100,9 +96,11 @@ router.get('/admin', requireAdmin, async(req, res, next) => {
   }
 });
 
+//instead of getAllUsers, attach both (see db/users) + remove password
 router.get('/admin/users', async (req, res, next) => {
   try {
-    const users = await getAllUsers();
+    const users = await attachInfoToUser();
+    console.log(users)
 
     res.status(200).json(users);
   } catch (error) {

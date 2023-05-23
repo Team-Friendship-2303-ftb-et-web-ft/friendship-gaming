@@ -20,18 +20,8 @@ div#adminTabs button {
     height: 50px;
     padding: 0;
     margin: 0;
-    /* border: 1px solid #e3e3ef; */
-    /* border-bottom: 1px solid black;
-    border-top: 1px solid black;
-    border-left: 1px solid #e3e3ef;
-    border-right: 1px solid #e3e3ef; */
-    /* color: black;
-    background: #e3e3ef; */
 }
 
-div.usersList {
-    color: white;
-}
 
 div#adminTabs button:hover {
     text-decoration: underline;
@@ -50,11 +40,21 @@ div#adminTabs p {
 }
 
 div#adminInfo {
-   width:90%;
+    width:90%;
 }
 
 div#adminHome {
     width:80%;
+}
+
+div#adminTabs button.add {
+    color: black;
+    background-color: #e3e3ef;
+    border: 1px solid #e3e3ef;
+    font-weight: normal;
+    border: 1px solid black;
+    width: 170px;
+    margin:10px 0;
 }
 
 
@@ -74,7 +74,7 @@ div.container {
     flex-flow: wrap;
     justify-content: space-around;
     margin: 10px 0;
-
+    
 }
 
 p.title {
@@ -98,4 +98,37 @@ div.button {
     color: white;
     position: absolute;
     bottom: 0;
+}
+
+div.usersList {
+    color: black;
+    width: 100%;
+    display: flex;
+}
+
+div.user {
+    background-color: #e3e3ef;
+    height: 100px;
+    width: 50%;
+    font-size: 18px;
+    margin: 10px;
+    position:relative;
+}
+
+
+
+div.stats {
+    color: white;
+    margin: 30px;
+    font-size: 24px;
+    text-transform: uppercase;
+    display: flex;
+}
+
+div.total {
+    width: 100%;
+    background-color: #595B7E;
+    border-radius: 12px;
+    padding: 20px 40px;
+    margin: 20px;
 }

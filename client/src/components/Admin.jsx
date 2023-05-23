@@ -24,12 +24,8 @@ const Admin = ({gamesList, usersList}) => {
               <div id="adminTabs">
                 <h1 className="admin">Admin Dashboard</h1>
                 <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
-                {/* <p>Games</p> */}
-                <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
-                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
-                {/* <p>Users</p> */}
-                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
-                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
               </div>
               <div id="adminHome">
                 <h1>This is Home!</h1>
@@ -44,11 +40,11 @@ const Admin = ({gamesList, usersList}) => {
                 <h1 className="admin">Admin Dashboard</h1>
                 <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
                 {/* <p>Games</p> */}
-                <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
                 {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
-                {/* <p>Users</p> */}
-                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
-                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+                <button className="add" onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
+                <button className="add" onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
               </div>
                 <h1>This is create game!</h1>
             </div>
@@ -60,25 +56,42 @@ const Admin = ({gamesList, usersList}) => {
               <div id="adminTabs">
                 <h1 className="admin">Admin Dashboard</h1>
                 <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
-                {/* <p>Games</p> */}
-                <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
-                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
-                {/* <p>Users</p> */}
-                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
-                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
+                <button className="add" onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
               </div>
+              <div id="adminInfo">
+                {/* 
+                <div className="stats">
+                    <div className="total">
+                        <p>Total Users:</p>
+                        <p>{usersList.length}</p>
+                    </div>
+                    <div className="total">
+                        <p>Total Users Created Today:</p>
+                        <p>{usersList.length}</p>
+                    </div>
+                    <div className="total">
+                        <p>Total Admin Users:</p>
+                        <p>{usersList.length}</p>
+                    </div>
+                </div> */}
                 <div className="usersList">
-                <h1>This is see Users!</h1>
-                {isAdmin &&
-                usersList.map(user => {
-                    return(
-                        <div key={user.id}>
-                            <p>User: {user.username}</p>
-                        </div>
-                    )
-                })
-                }
+                    {isAdmin &&
+                    usersList.map(user => {
+                        return(
+                            <div key={user.id} className="user">
+                                <p>User: {user.username}</p>
+                                <div className="button">
+                                <button onClick={console.log('add update form function here')}>Update</button>
+                                <button onClick={() => {console.log('add delete function here')}}>Delete</button>
+                                </div>
+                            </div>
+                            )
+                        })
+                    }
                 </div>
+              </div>
             </div>
           }
 
@@ -89,11 +102,10 @@ const Admin = ({gamesList, usersList}) => {
                 <h1 className="admin">Admin Dashboard</h1>
                 <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
                 {/* <p>Games</p> */}
-                <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
-                {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
-                {/* <p>Users</p> */}
-                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
-                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
+                <button className="add" onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
+                <button className="add" onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
               </div>
                 <h1>This is Add User!</h1>
             </div>
@@ -106,11 +118,10 @@ const Admin = ({gamesList, usersList}) => {
                 <h1 className="admin">Admin Dashboard</h1>
                 <button onClick={()=>{setAdminRequest('adminDb')}}>Home</button>
                 {/* <p>Games</p> */}
-                <button onClick={()=>{setAdminRequest('seeGames')}}>See Games</button>
+                <button onClick={()=>{setAdminRequest('seeGames')}}>Games</button>
                 {/* <button onClick={()=>{setAdminRequest('createGame')}}>Add Game</button> */}
-                {/* <p>Users</p> */}
-                <button onClick={()=>{setAdminRequest('seeUsers')}}>See Users</button>
-                <button onClick={()=>{setAdminRequest('addUser')}}>Add User</button>
+                <button className="add" onClick={()=>{setAdminRequest('createGame')}}>Add Game</button>
+                <button onClick={()=>{setAdminRequest('seeUsers')}}>Users</button>
               </div>
               <div id="adminInfo">
                 <div className="container">

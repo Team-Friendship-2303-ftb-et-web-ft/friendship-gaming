@@ -23,6 +23,7 @@ async function getAllUsers() {
     const { rows } = await client.query(`
       SELECT id, username FROM users
     `);
+
     return rows;
   } catch (error) {
     console.error(error);
@@ -57,10 +58,10 @@ async function getUserById(userId) {
       WHERE id=$1
     `, [userId]);
 
-    if (user.length == 0) {
-      console.log('could not find user');
-      return;
-    }
+    // if (user.length == 0) {
+    //   console.log('could not find user');
+    //   return;
+    // }
     
     return user;
   } catch (error) {
@@ -112,13 +113,18 @@ async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin
 
 async function getUserInfoByUser(userId) {
 
+  const user = await getUserById(userId)
+
   const { rows: [userInfo] } = await client.query(`
-  SELECT users.id, userInfo.*
+  SELECT users.id, users.username, userInfo.*
   FROM users
   JOIN userInfo ON users.id = userInfo."userId"
   WHERE users.id = $1
 `, [userId]);
 
+  const userAddress = await getAddressByUsername({username: user.username});
+
+  userInfo.address = userAddress;
   return userInfo;
 }
 
@@ -176,42 +182,6 @@ async function getAddressByUsername({username}) {
     console.error(error)
   }
 }
-// /, street_address, city, state, country, postal_code FROM addresses
-async function attachInfoToUser() {
-  try {
-    const { rows:  userInfo  } = await client.query(`
-        SELECT * FROM userInfo
-        JOIN users ON users.id = userInfo."userId"
-        WHERE userInfo."userId" = users.id
-      `);
-
-      console.log('This is userInfo', userInfo);
-
-      return userInfo;
-
-  } catch (error) {
-      throw error;
-  }
-}
-
-async function attachAddressToUserInfo() {
-  try {
-    const {rows: userAddress} = await client.query(`
-      SELECT * FROM addresses
-      JOIN userInfo ON addresses.id = userInfo."addressId"
-      WHERE addresses.id = userInfo."addressId"
-    `);
-
-    console.log('This is userInfo', userAddress);
-
-    return userAddress;
-
-  } catch (error) {
-      throw error;
-  }
-}
-
-
 
 module.exports = {
   createUser,
@@ -225,7 +195,5 @@ module.exports = {
   updateUserInfo,
   createAddress,
   getAddressById,
-  getAddressByUsername,
-  attachInfoToUser,
-  attachAddressToUserInfo
+  getAddressByUsername
 };

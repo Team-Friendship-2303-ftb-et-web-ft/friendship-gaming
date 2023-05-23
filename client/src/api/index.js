@@ -54,7 +54,7 @@ export const loginUser = async (userObject) => {
 
 //GET ME
 export const getMe = async (token) => {
-  // console.log('token:',token);
+
     try {
       const response = await fetch(`api/users/me`, {
           method: 'GET',
@@ -64,8 +64,8 @@ export const getMe = async (token) => {
         },
       });
       const result = await response.json();
-      // console.log('result',result);
-      return result;
+      console.log('result',result);
+      return result
     } catch (err) {
       console.error(err);
     }
@@ -142,13 +142,86 @@ export const getGameById = async (gameId) => {
 }
 
 //CREATE CART
+export const createCart = async (newCart) => {
+  try {
+    const response = await fetch(`api/cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(newCart)
+    });
+    const newCart = await response.json();
+    console.log(newCart);
+    return newCart;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 //GET ALL CARTS
 
 //GET CART BY USER
 
-//
+//CREATE CART ITEM
+export const createCartItems = async (newCartItem) => {
+  try {
+    const response = await fetch(`api/cartItems`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(newCartItems)
+    });
+
+    const newCartItems = await response.json();
+    console.log(newCartItems);
+
+    return newCartItems;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 //GET ALL CART ITEMS
+export const getAllCartItems = async () => {
+  try {
+    const response = await fetch(`api/cartItems`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
 
-//CREATE CART ITEM
+    const cartItems = await response.json();
+    console.log("This is all the cartItems:", cartItems);
+
+    return cartItems;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+//GET ALL CART ITEMS BY ID
+export const getCartItemsById = async (orderId) => {
+  try {
+    const response = await fetch(`api/cartItems/${orderId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    const cartItemsById = await response.json();
+    console.log("This is cartItemsById:", cartItemsById);
+
+    return cartItemsById;
+
+  } catch (err) {
+    console.error(err);
+  }
+}

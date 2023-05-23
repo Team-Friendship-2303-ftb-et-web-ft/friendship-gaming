@@ -13,7 +13,7 @@ function App() {
   const [currentUser,setCurrentUser] = useState('');
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [gamesList, setGamesList] = useState([]);
-  const [cartsList, setCartsList] = useState([]);
+  const [cart, setCart] = useState(localStorage.getItem("currentCart"));
   const [cartItemsList, setCartItemsList] = useState([]);
   const [selectedCart, setSelectedCart] = useState({});
   const [selectedGame, setSelectedGame] = useState({})
@@ -76,7 +76,12 @@ function App() {
     <Routes>
       <Route path="/" element= {<Home/>}/>
       <Route path="/Admin" element= {<Admin gamesList={gamesList} usersList={usersList}/>}/>
-      <Route path="/Cart" element= {<Cart/>}/>
+      <Route path="/Cart" element= 
+      {<Cart
+        isLoggedIn={isLoggedIn}
+        cart={cart}
+        setCart={setCart}
+      />}/>
       <Route path="/Checkout" element= {<Checkout/>}/>
       <Route path="/Error" element= {<Error/>}/>
       <Route path="/Games" element= {<Games/>}/>

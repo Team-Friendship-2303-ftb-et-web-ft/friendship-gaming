@@ -15,7 +15,12 @@ div.loginbody{
   background-color: #E3E3EF;
 }
 form{
-    margin:auto;
+    margin:auto;   
+
+}
+.loginHi{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
 }
 input.login{
     display: flex;

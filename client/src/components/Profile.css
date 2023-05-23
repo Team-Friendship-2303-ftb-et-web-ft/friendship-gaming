@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+.welcome{
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+   background-color: rgb(88, 85, 85);
+}
+  h2{
+   font-family: 'Nanum Pen Script', cursive; }
+ h3{
+   font-family: 'Nanum Pen Script', cursive; 
+   font-size: 45px;
+}
+ .profileBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    text-align: left;
+    font-family: 'Zeyada', cursive;
+    background: #E3E3EF;
+    margin: auto;
+    max-width: 1550px;
+    
+ }

@@ -8,8 +8,6 @@ const {
   createUserInfo,
   getUserInfoByUser,
   updateUserInfo,
-  attachInfoToUser, 
-  attachAddressToUserInfo,
   createCart,
   getCartByOrder,
   getCartByUserId,
@@ -511,9 +509,9 @@ const testDB = async () => {
 //       const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
 //       console.log("createUserInfo Result:", userInfo)
 
-//     console.log("Calling getUserInfoByUser");
-//       const userInfoByUser = await getUserInfoByUser(1);
-//       console.log("getUserInfoByUser Result:", userInfoByUser);
+    // console.log("Calling getUserInfoByUser");
+    //   const userInfoByUser = await getUserInfoByUser(1);
+    //   console.log("getUserInfoByUser Result:", userInfoByUser);
 
 //     console.log("Calling updateUserInfo");
 //       const updatedUserInfo = await updateUserInfo({id: 1, lastName: 'albertie'});
@@ -547,19 +545,9 @@ const testDB = async () => {
 //       const Aalbert = await getUserById(1);
 //       console.log("getUserById Result:", Aalbert);
 
-
-
 //     console.log("Calling user by username");
 //       const user = await getUserByUsername('albert');
 //       console.log("getUserByUsername Result:", user);
-
-// console.log("Calling attachInfoToUser");
-// const infoToUser = await attachInfoToUser(2);
-// console.log("Result:", infoToUser);
-
-// console.log("Calling attachAddressToUserInfo");
-// const addressToUser = await attachAddressToUserInfo(2);
-// console.log("Result:", addressToUser);
 
 //     console.log("Calling getUserById with 2");
 //       const albert = await getUserById(2);

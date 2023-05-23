@@ -34,7 +34,7 @@ function App() {
     }
     };
       fetchUser()
-  }, [isLoggedIn]);
+  }, {token});
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -87,7 +87,7 @@ function App() {
           setCurrentUser={setCurrentUser}  
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
-      <Route path="/Profile" element= {<Profile/>}/>
+      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} />}/>
       <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         currentUser={currentUser}

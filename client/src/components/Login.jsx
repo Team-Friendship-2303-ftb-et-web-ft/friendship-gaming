@@ -40,7 +40,7 @@ const Login = ({
         <div className="loginbody">
         <h1>Login/Sign Up!</h1>
         <form onSubmit={handleSubmit} className="formContainer">
-              <h2>Please Log in</h2>
+              <h2 className="loginHi">Please Log in</h2>
               
               <input
               className="login"

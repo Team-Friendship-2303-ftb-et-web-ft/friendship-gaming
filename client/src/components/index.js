@@ -12,3 +12,5 @@ export { default as Register } from "./Register";
 export { default as SearchBar } from "./SearchBar";
 export { default as SingleGame } from "./SingleGame";
 export { default as CreateGameForm } from "./CreateGameForm";
+export { default as AdminGames } from "./AdminGames";
+export { default as AdminUsers } from "./AdminUsers";

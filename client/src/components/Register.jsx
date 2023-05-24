@@ -27,7 +27,7 @@ const Register = ({
         setToken(data.token);
         console.log(data.token);
         setCurrentUser(username);
-        console.log(username);
+        console.log('-------->',username);
         setIsLoggedIn(true); }
         {
         console.log("login is set to true");

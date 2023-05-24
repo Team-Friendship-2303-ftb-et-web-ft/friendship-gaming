@@ -4,8 +4,8 @@ import ReactDOM from "react-dom";
 import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame, CreateGameForm} from "./index";
-// import reactLogo from '../assets/react.svg'
-import {getAllGames, getMe, getAllUsers} from '../api';
+import reactLogo from '../assets/react.svg'
+import {getAllGames, getMe} from '../api';
 import './App.css'
 
 function App() {
@@ -18,14 +18,17 @@ function App() {
   const [selectedCart, setSelectedCart] = useState({});
   const [selectedGame, setSelectedGame] = useState({});
   const [usersList, setUsersList] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
 
+
+ 
   useEffect(() => {
     const fetchUser = async () => {
       try{
-        console.log(token)
+        // console.log(token)
         if (token) {
           const fetchedUser = await getMe(token);
-          // console.log(fetchedUser)
+          setIsAdmin(fetchedUser.user.isAdmin);
           setCurrentUser(fetchedUser)
         }
       }
@@ -78,7 +81,7 @@ function App() {
       <Route path="/" element= {<Home/>}/>
 
 
-      <Route path="/Admin" element= {<Admin gamesList={gamesList}/>}/>
+      <Route path="/Admin" element= {<Admin isAdmin={isAdmin} gamesList={gamesList} currentUser={currentUser} />}/>
 
       <Route path="/Cart" element= 
       {<Cart
@@ -115,7 +118,8 @@ function App() {
 
       <Route path="/SearchBar" element= {<SearchBar/>}/>
 
-      <Route path="/SingleGame" element= {<SingleGame/>}/>
+      <Route path="/games/:gameId" element= {<SingleGame/>}/>
+
       
     </Routes> 
     

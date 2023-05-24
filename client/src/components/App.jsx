@@ -4,8 +4,8 @@ import ReactDOM from "react-dom";
 import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame, CreateGameForm} from "./index";
-// import reactLogo from '../assets/react.svg'
-import {getAllGames, getMe, getAllUsers} from '../api';
+import reactLogo from '../assets/react.svg'
+import {getAllGames, getMe} from '../api';
 import './App.css'
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
 
+ 
   useEffect(() => {
     const fetchUser = async () => {
       try{
@@ -117,7 +118,8 @@ function App() {
 
       <Route path="/SearchBar" element= {<SearchBar/>}/>
 
-      <Route path="/SingleGame" element= {<SingleGame/>}/>
+      <Route path="/games/:gameId" element= {<SingleGame/>}/>
+
       
     </Routes> 
     

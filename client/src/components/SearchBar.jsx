@@ -57,5 +57,6 @@ return (
   );
 };
 
+
 export default SearchBar;
 

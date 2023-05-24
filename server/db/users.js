@@ -39,7 +39,7 @@ async function getUser({ username, password }) {
     if (user && passwordsMatch) {
       console.log(`Passwords match for user ${username}`);
       delete user.password;
-      console.log(user)
+      // console.log(user)
       return user
     } else {
       console.log(`Passwords do not match for user ${username}`);

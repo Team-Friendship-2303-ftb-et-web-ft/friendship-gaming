@@ -114,7 +114,8 @@ function App() {
 
       <Route path="/SearchBar" element= {<SearchBar/>}/>
 
-      <Route path="/SingleGame" element= {<SingleGame/>}/>
+      <Route path="/games/:gameId" element= {<SingleGame/>}/>
+
       
     </Routes> 
     

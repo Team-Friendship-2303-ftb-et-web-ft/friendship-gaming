@@ -21,6 +21,19 @@ async function createCart({ userId, purchaseStatus }) {
     }
 }
 
+async function getAllCarts() {
+  try {
+    const { rows: order } = await client.query(`
+    SELECT * FROM cart
+    `);
+    
+    return order;
+    
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getCartByOrder(id) {
     try {
       const { rows: [ order ] } = await client.query(`
@@ -175,6 +188,7 @@ async function deleteCartItems(id) {
       getCartItemsByOrder,
       updateCartItemQty,
       attachCartItemsToCart,
-      deleteCartItems
+      deleteCartItems,
+      getAllCarts
     }
 

@@ -268,6 +268,21 @@ export const createCart = async (newCart) => {
 }
 
 //GET ALL CARTS
+export const getAllCarts = async () => {
+  try {
+    const response = await fetch(`api/cart`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const carts = await response.json();
+    // console.log(carts);
+    return carts;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 //GET CART BY USER
 

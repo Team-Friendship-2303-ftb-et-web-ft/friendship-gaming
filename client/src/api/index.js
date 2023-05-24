@@ -187,7 +187,6 @@ export const createCartItems = async (newCartItem) => {
   }
 }
 
-//CREATE CART ITEM
 
 //GET USERS WITH INFO
 export const getUsersWithInfo = async (token) => {
@@ -247,3 +246,4 @@ export const getCartItemsById = async (orderId) => {
     console.error(err);
   }
 }
+

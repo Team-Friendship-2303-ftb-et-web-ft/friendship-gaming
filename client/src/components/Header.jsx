@@ -35,7 +35,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
                         setToken('');
                             localStorage.removeItem('currentUser');
                             localStorage.removeItem('token');
-                            navigate('/Home');  
+                            navigate('/');  
                                 }}
                                 > <p>
                                 <span className="bg"></span>

@@ -30,7 +30,7 @@ async function createTag(name) {
       JOIN game_tags ON game_tags."tagId" = tags.id
       WHERE game_tags."gameId" IN (${placeholders});
     `, gameIds);
-    console.log("this is from attachtagstogames", tags)
+    // console.log("this is from attachtagstogames", tags)
     
  
     for (const game of gamesToReturn) {

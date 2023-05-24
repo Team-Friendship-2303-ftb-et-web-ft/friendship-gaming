@@ -2,15 +2,15 @@ const client = require('./client');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-async function createUser({username, password}) {
+async function createUser({username, password, isAdmin}) {
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
       const { rows: [user] } = await client.query(`
-      INSERT INTO users(username, password)
-      VALUES ($1, $2)
+      INSERT INTO users(username, password, "isAdmin")
+      VALUES ($1, $2, $3)
       ON CONFLICT (username) DO NOTHING
-      RETURNING id, username;
-      `, [username, hashedPassword]);
+      RETURNING id, username, "isAdmin";
+      `, [username, hashedPassword, isAdmin]);
     return user;
 
   } catch (error) {
@@ -54,14 +54,9 @@ async function getUser({ username, password }) {
 async function getUserById(userId) {
   try {
     const { rows: [user] } = await client.query(`
-      SELECT id, username FROM users
+      SELECT id, username, "isAdmin" FROM users
       WHERE id=$1
     `, [userId]);
-
-    // if (user.length == 0) {
-    //   console.log('could not find user');
-    //   return;
-    // }
     
     return user;
   } catch (error) {
@@ -102,57 +97,17 @@ async function deleteUser(id) {
 }
 
 /**********userInfo**********/
-async function createUserInfo({userId, firstName, lastName, dateOfBirth, isAdmin, addressId}) {
+async function createUserInfo({userId, firstName, lastName, dateOfBirth, addressId}) {
   const { rows: [userInfo] } = await client.query(`
-    INSERT INTO userInfo("userId", "firstName", "lastName", "dateOfBirth", "isAdmin", "addressId")
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO userInfo("userId", "firstName", "lastName", "dateOfBirth", "addressId")
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *
-  `, [userId, firstName, lastName, dateOfBirth, isAdmin, addressId]);
+  `, [userId, firstName, lastName, dateOfBirth, addressId]);
   return userInfo;
 }
 
-// async function getUserInfoByUser(userId) {
-
-//   // const user = await getUserById(userId)
-
-//   const { rows: [userInfo] } = await client.query(`
-//   SELECT users.id, users.username, userInfo.*
-//   FROM users
-//   JOIN userInfo ON users.id = userInfo."userId"
-//   WHERE users.id = $1
-// `, [userId]);
-
-//   const userAddress = await getAddressByUsername({username: userInfo.username});
-//   console.log('useraddress',userAddress);
-//   if (userAddress) {
-//     userInfo.address = userAddress;
-//   }
-//   return userInfo;
-// }
-
-// async function getUserInfoByUser(userId) {
-
-//   const user = await getUserById(userId)
-
-//   const { rows: [userInfo] } = await client.query(`
-//   SELECT users.id, users.username, userInfo.*
-//   FROM users
-//   JOIN userInfo ON users.id = userInfo."userId"
-//   WHERE users.id = $1
-// `, [userId]);
-
-//   const userAddress = await getAddressByUsername({username: user.username});
-//   if (user.address) {
-//     userInfo.address = userAddress;
-//   }
-//   console.log(userInfo);
-//   return userInfo;
-// }
-
-//the goal is to get all the users and all their info (send only to the admin page)
 async function getUserInfoByUser(userId) {
-
-  const user = await getUserById(userId)
+  const user = await getUserById(userId);
 
   const { rows: [userInfo] } = await client.query(`
   SELECT users.id, users.username, userInfo.*
@@ -162,7 +117,6 @@ async function getUserInfoByUser(userId) {
 `, [userId]);
 
   const userAddress = await getAddressByUsername({username: user.username});
-  console.log(userAddress)
   if (userAddress) {
     userInfo.address = userAddress;
   }

@@ -16,7 +16,7 @@ function App() {
   const [cart, setCart] = useState(localStorage.getItem("currentCart"));
   const [cartItemsList, setCartItemsList] = useState([]);
   const [selectedCart, setSelectedCart] = useState({});
-  const [selectedGame, setSelectedGame] = useState({})
+  const [selectedGame, setSelectedGame] = useState({});
   const [usersList, setUsersList] = useState([]);
 
   useEffect(() => {
@@ -40,12 +40,11 @@ function App() {
     const fetchUsers = async () => {
       try{
           let allUsers = await getAllUsers();
-          console.log(allUsers)
-          setUsersList(allUsers)
-         
+          // console.log(allUsers);
+          setUsersList(allUsers);
       }
     catch (error) {
-    console.error(error)
+    console.error(error);
     }
     };
       fetchUsers()
@@ -56,10 +55,11 @@ function App() {
     const fetchGames = async () => {
       try{
           const fetchedGames = await getAllGames();
-          setGamesList(fetchedGames)
+          // console.log(fetchedGames);
+          setGamesList(fetchedGames);
       }
     catch (error) {
-    console.error(error)
+    console.error(error);
     }
     };
       fetchGames()
@@ -78,7 +78,7 @@ function App() {
       <Route path="/" element= {<Home/>}/>
 
 
-      <Route path="/Admin" element= {<Admin gamesList={gamesList} usersList={usersList}/>}/>
+      <Route path="/Admin" element= {<Admin gamesList={gamesList}/>}/>
 
       <Route path="/Cart" element= 
       {<Cart

@@ -42,7 +42,7 @@ function App() {
     const fetchUsers = async () => {
       try{
           let allUsers = await getAllUsers();
-          // console.log(allUsers);
+          console.log(allUsers);
           setUsersList(allUsers);
       }
     catch (error) {

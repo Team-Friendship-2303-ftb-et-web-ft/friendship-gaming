@@ -144,7 +144,7 @@ async function createInitialUsers() {
         await createUser({ 
           username: 'sandra', 
           password: '2sandy4me',
-          isAdmin: false,
+          isAdmin: true,
         });
         await createUser({ 
           username: 'glamgal',

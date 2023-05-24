@@ -212,9 +212,9 @@ export const getGamesByGenre = async (genre) => {
   }
   
   // DELETE GAME
-  export const destroyGame = async (gameId) => {
+  export const destroyGame = async (gameId, token) => {
     try {
-      const response = await fetch(`${BASE}/games/${gameId}`, {
+      const response = await fetch(`api/games/${gameId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

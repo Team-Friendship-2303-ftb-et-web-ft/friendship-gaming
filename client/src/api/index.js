@@ -189,13 +189,19 @@ export const createCartItems = async (newCartItem) => {
 
 //CREATE CART ITEM
 
-
-//fetch call to /api/users/admin
-//make a use effect for this call ^
-//put that use effect in admin.jsx
-export const getUsersWithInfo = async () => {
+//GET USERS WITH INFO
+export const getUsersWithInfo = async (token) => {
   try {
-    console.log('coming soon');
+    const response = await fetch(`api/users/admin`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
   } catch(error) {
     console.error(error);
   }

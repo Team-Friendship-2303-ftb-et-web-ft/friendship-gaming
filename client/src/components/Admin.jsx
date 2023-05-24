@@ -1,42 +1,34 @@
 import React, { useState, useEffect } from "react";
 import {CreateGameForm} from "./index";
 import {NavLink, useNavigate} from 'react-router-dom';
-import {getAllUsers} from '../api';
+import {getUsersWithInfo} from '../api';
 import './Admin.css'
 
-const Admin = ({gamesList, usersList}) => {
-    // console.log('UL',usersList)
+const Admin = ({gamesList}) => {
     const navigate = useNavigate();
     //delete this when done
     const isAdmin = true;
     //
-
-    const [adminRequest, setAdminRequest] = useState('adminDb');
-    // const [usersList, setUsersList] = useState([]);
+    const [usersList, setUsersList] = useState([]);
     const [showGames, setShowGames] = useState(true);
     // const [showUsers, setShowUsers] = useState(false);
 
-    useEffect(()=>{
-        console.log('adminRequest changed')
-    }, [adminRequest])
-
-    // useEffect(() => {
-    //   const fetchUsers = async () => {
-    //     try{
-    //         const fetchedUsers = await getAllUsersWithInfo();
-    //         console.log(fetchedUsers)
-    //         setUsersList(fetchedUsers)
-    //     }
-    //   catch (error) {
-    //   console.error(error)
-    //   }
-    //   };
-    //     fetchUsers()
-    // }, []);
+    useEffect(() => {
+      const fetchUsers = async () => {
+        try{
+          const token = localStorage.getItem("token");
+          const fetchedUsers = await getUsersWithInfo(token);
+          console.log(fetchedUsers)
+          setUsersList(fetchedUsers)
+        } catch (error) {
+          console.error(error)
+        }
+      };
+        fetchUsers()
+    }, []);
 
     return (
         <>
-
             <div id="outerContainer">
               <div id="adminTabs">
                 <h1 className="admin">Admin Dashboard</h1>
@@ -58,7 +50,6 @@ const Admin = ({gamesList, usersList}) => {
                 {!showGames&& 
                 <button className="add" onClick={()=>{setShowGames(false);}}>Add User</button>
                 }
-
               </div>
               <div id="adminInfo">
           {/* SEE ALL GAMES */}

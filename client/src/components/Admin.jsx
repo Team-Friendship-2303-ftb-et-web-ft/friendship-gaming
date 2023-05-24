@@ -4,10 +4,17 @@ import {NavLink, useNavigate} from 'react-router-dom';
 import {getUsersWithInfo} from '../api';
 import './Admin.css'
 
-const Admin = ({gamesList}) => {
+const Admin = ({gamesList, currentUser, isAdmin}) => {
     const navigate = useNavigate();
     //delete this when done
-    const isAdmin = true;
+
+      // console.log(currentUser);
+      
+      // console.log('current user--->',currentUser)
+      // const isAdmin = true;
+      // console.log('isAdmin', isAdmin);
+
+
     //
     const [usersList, setUsersList] = useState([]);
     const [showGames, setShowGames] = useState(true);
@@ -15,10 +22,10 @@ const Admin = ({gamesList}) => {
 
     useEffect(() => {
       const fetchUsers = async () => {
-        try{
+        try {
           const token = localStorage.getItem("token");
           const fetchedUsers = await getUsersWithInfo(token);
-          console.log(fetchedUsers)
+          // console.log(fetchedUsers)
           setUsersList(fetchedUsers)
         } catch (error) {
           console.error(error)
@@ -100,6 +107,7 @@ const Admin = ({gamesList}) => {
         </> 
     )  
 }
+
 
 export default Admin;
 

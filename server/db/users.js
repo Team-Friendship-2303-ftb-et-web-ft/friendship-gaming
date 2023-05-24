@@ -120,7 +120,7 @@ async function getUserInfoByUser(userId) {
   if (userAddress) {
     userInfo.address = userAddress;
   }
-  console.log(userInfo);
+  // console.log(userInfo);
   return userInfo;
 }
 

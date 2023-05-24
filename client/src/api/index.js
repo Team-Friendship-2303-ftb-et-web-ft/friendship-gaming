@@ -12,9 +12,9 @@ export const registerUser = async (userObject) => {
         const result = await response.json();
         console.log(result);
         if (result) {
-            const {message, userObject, token} = result;
+            const {message, user, token} = result;
             localStorage.setItem('token', token);
-            return {message, userObject, token};
+            return {message, user, token};
         }
         if (result.error) {
             return result;

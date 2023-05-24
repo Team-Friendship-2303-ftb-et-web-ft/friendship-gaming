@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Games.css';
 
@@ -35,17 +35,17 @@ function Games() {
       <h1 id="featured-title">Featured</h1>
       <div id="featured-section">
         {featuredGames.map(game => (
-          <div className="game-card" key={game.id}>
-            <img className="game-image" src="placeholder.png" alt={game.title}/>
-            <div className="game-info">
-            <Link to={`/games/${game.id}`} className="game-title">{game.title}</Link>
-              <p className="game-description">{game.description}</p>
-              <p className="game-price">{game.price}</p>
-              <p className="game-author">{game.authorName}</p>
-              <p className="game-tags">{game.tags.map(tag => tag.name).join(', ')}</p>
-
+          <Link to={`/games/${game.id}`} style={{ textDecoration: 'none' }} key={game.id}>
+            <div className="game-card">
+              <img className="game-image" src="/images/fotor-ai-20230516102519.jpg" alt={game.title}/>
+              <div className="game-info">
+                <h2 className="game-title">{game.title}</h2>
+                <div className="hover-info">
+                  <p className="game-tags">Game Tags: {game.tags.map(tag => tag.name).join(', ')}</p>
+                </div>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -59,17 +59,17 @@ function Games() {
       <h1 id="all-games-title">All Games</h1>
       <div id="all-games-section">
         {games.map(game => (
-          <div className="game-card" key={game.id}>
-            <img className="game-image" src="placeholder.png" alt={game.title}/>
-            <div className="game-info">
-            <Link to={`/games/${game.id}`} className="game-title">{game.title}</Link>
-              <p className="game-description">{game.description}</p>
-              <p className="game-price">{game.price}</p>
-              <p className="game-author">{game.authorName}</p>
-              <p className="game-tags">{game.tags.map(tag => tag.name).join(', ')}</p>
-
+          <Link to={`/games/${game.id}`} style={{ textDecoration: 'none' }} key={game.id}>
+            <div className="game-card">
+              <img className="game-image" src="/images/fotor-ai-20230516102524.jpg" alt={game.title}/>
+              <div className="game-info">
+                <h2 className="game-title">{game.title}</h2>
+                <div className="hover-info">
+                  <p className="game-tags">Game Tags: {game.tags.map(tag => tag.name).join(', ')}</p>
+                </div>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

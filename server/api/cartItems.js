@@ -2,10 +2,8 @@ const express = require('express');
 const cartItemsRouter = express.Router();
 const { createCartItems, getAllCartItems, getCartItemsByOrder } = require('../db');
 
-//GET api/cartItems
-
-//GET /api/cartItems/order/:orderId
-cartItemsRouter.get('/order/:orderId', async (req, res, next) => {
+//GET /api/cartItems/:orderId
+cartItemsRouter.get('/:orderId', async (req, res, next) => {
     try {
         const { orderId } = req.params;
         const cartItems = await getCartItemsByOrder(orderId);

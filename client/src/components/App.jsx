@@ -13,10 +13,11 @@ function App() {
   const [currentUser,setCurrentUser] = useState('');
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [gamesList, setGamesList] = useState([]);
-  const [cartsList, setCartsList] = useState([]);
+  const [cart, setCart] = useState(localStorage.getItem("currentCart"));
   const [cartItemsList, setCartItemsList] = useState([]);
   const [selectedCart, setSelectedCart] = useState({});
-  const [selectedGame, setSelectedGame] = useState({})
+  const [selectedGame, setSelectedGame] = useState({});
+  const [usersList, setUsersList] = useState([]);
 
  
   useEffect(() => {
@@ -32,16 +33,32 @@ function App() {
     }
     };
       fetchUser()
-  }, {token});
+  }, [token]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try{
+          let allUsers = await getAllUsers();
+          // console.log(allUsers);
+          setUsersList(allUsers);
+      }
+    catch (error) {
+    console.error(error);
+    }
+    };
+      fetchUsers()
+  }, []);
+
 
   useEffect(() => {
     const fetchGames = async () => {
       try{
           const fetchedGames = await getAllGames();
-          setGamesList(fetchedGames)
+          // console.log(fetchedGames);
+          setGamesList(fetchedGames);
       }
     catch (error) {
-    console.error(error)
+    console.error(error);
     }
     };
       fetchGames()
@@ -55,14 +72,29 @@ function App() {
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
         setToken={setToken}/>
+
     <Routes>
       <Route path="/" element= {<Home/>}/>
+
+
       <Route path="/Admin" element= {<Admin gamesList={gamesList}/>}/>
-      <Route path="/Cart" element= {<Cart/>}/>
+
+      <Route path="/Cart" element= 
+      {<Cart
+        isLoggedIn={isLoggedIn}
+        cart={cart}
+        setCart={setCart}
+      />}/>
+
+
       <Route path="/Checkout" element= {<Checkout/>}/>
+
       <Route path="/Error" element= {<Error/>}/>
+
       <Route path="/Games" element= {<Games/>}/>
+
       <Route path="/CreateGame" element= {<CreateGameForm/>}/>
+
       <Route path="/UpdateGame" element= {<CreateGameForm/>}/>
     
       <Route path="/Login" element= {<Login token={token}
@@ -71,14 +103,19 @@ function App() {
           setCurrentUser={setCurrentUser}  
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
-      <Route path="/Profile" element= {<Profile/>}/>
+
+      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} setCartItemsList={setCartItemsList} />}/>
+
       <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
         setToken={setToken}/>}/>
+
       <Route path="/SearchBar" element= {<SearchBar/>}/>
-      <Route path="/games/:gameId" element={<SingleGame />} />
+
+      <Route path="/SingleGame" element= {<SingleGame/>}/>
+      
     </Routes> 
     
     <div className="App">

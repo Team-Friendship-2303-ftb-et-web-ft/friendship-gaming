@@ -15,7 +15,7 @@ const Profile = (props) => {
                 const carts = await getAllCarts();
                 const filteredCarts = carts.filter((cart) => cart.userId === currentUser.div
                 );
-                getUserCartsList(filteredCarts);
+                setUserCartsList(filteredCarts);
             } catch (error){
                 console.error(error);
             }

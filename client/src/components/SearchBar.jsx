@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 const SearchBar = (props) => {
 
   const { gamesList, setReturnedGamesList } = props;
@@ -46,6 +47,7 @@ return (
           let filteredList = searchAllGames(gamesList, searchForGame);
           console.log(filteredList);
           setReturnedGamesList(filteredList);
+          //Navigate('./SearchResults')
         }}
         className="search-button"
       >
@@ -54,6 +56,7 @@ return (
     </div>
   );
 };
+
 
 export default SearchBar;
 

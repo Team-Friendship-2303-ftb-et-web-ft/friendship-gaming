@@ -1,13 +1,15 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { getUserByUsername, createUser, getAllUsers, getUser, getUserById, createUserInfo, getUserInfoByUser, getAddressById, attachAddressToUserInfo, attachInfoToUser } = require('../db/users');
+const { getUserByUsername, createUser, getAllUsers, getUser, getUserById, getUserInfoByUser} = require('../db/users');
 const { requireAdmin, requireUser } = require('./utils');
 const { getAllGames } = require('../db');
 const { JWT_SECRET } = process.env;
+
 // GET: api/users
 router.get('/', async (req, res, next) => {
   try {
-    res.send('Hit the users api!');
+    const users = await getAllUsers();
+    res.send(users);
   } catch (error) {
     throw error;
   }
@@ -55,10 +57,7 @@ router.post('/login', async(req, res, next) => {
     const userInfo = await getUserInfoByUser(user.id)
     
     if (user) {
-      console.log("secret is", JWT_SECRET)
       const token = jwt.sign(user, JWT_SECRET);     
-       console.log("line 53", token)
-
       res.send({message: 'you have been logged in', user, token, userInfo})
     } else {
       next({message: 'username or password is incorrect'})
@@ -71,7 +70,8 @@ router.post('/login', async(req, res, next) => {
 //User Profile
 router.get('/me', requireUser, async(req, res, next) => {
   try {
-    res.send({message:'at /me', user: req.user});
+    const user = await getUserById(req.user.id)
+    res.send({message:'at /me', user: user});
   } catch (message) {
     res.send(message);
   }
@@ -79,8 +79,6 @@ router.get('/me', requireUser, async(req, res, next) => {
 
 router.get('/admin', requireAdmin, async(req, res, next) => {
   try {
-    // const userInfo = await getUserInfoByUser(req.user.id)
-    // const userAddress = await getAddressById(userInfo.addressId)
     const users = await getAllUsers();
     const allGames = await getAllGames();
 

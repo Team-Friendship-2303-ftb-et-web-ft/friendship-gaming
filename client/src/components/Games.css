@@ -7,8 +7,13 @@
   
   .game-card {
     position: relative;
-    width: 200px;
+    width: 250px;
     margin: 10px;
+    color: #000;
+  }
+  
+  .game-card:hover {
+    color: #fff;
   }
   
   .game-image {
@@ -17,7 +22,7 @@
   }
   
   .game-card:hover .game-image {
-    opacity: 0.5;
+    opacity: 0.3;
   }
   
   .game-info {
@@ -30,23 +35,36 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.3s ease-in-out;
     text-align: center;
-  }
-  
-  .game-card:hover .game-info {
-    opacity: 1;
-  }
-  
-  #featured-section,
-  #all-games-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .genre-button {
-    margin: 5px;
-  }
-  
+}
+
+.game-title {
+  text-shadow: 2px 2px 3px purple;
+  color: white
+}
+
+.game-card:hover .game-title {
+  text-shadow: none;
+
+}
+
+.game-card .game-info .hover-info {
+  opacity: 0;
+}
+
+.game-card:hover .game-info .hover-info {
+  opacity: 1;
+}
+
+#featured-section,
+#all-games-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.genre-button {
+  margin: 5px;
+}

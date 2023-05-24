@@ -52,6 +52,18 @@ cartRouter.patch('/:orderId', async (req, res, next) => {
     }
   })
 
+  //GET /api/cart
+  cartRouter.get('/', async (req, res, next) => {
+    try {
+        const carts = await getAllCarts();
+
+            res.send({ carts });
+
+    } catch (error) {
+        next(error);
+    }    
+})
+  
 //POST/api/cart
 cartRouter.post('/', async (req,res,next) => {
     const { userId, purchaseStatus } = req.body;

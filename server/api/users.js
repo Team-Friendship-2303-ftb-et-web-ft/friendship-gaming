@@ -70,7 +70,7 @@ router.post('/login', async(req, res, next) => {
 //User Profile
 router.get('/me', requireUser, async(req, res, next) => {
   try {
-    const user = await getUserById(req.user.id)
+    const user = await getUserById(req.user.id);
     res.send({message:'at /me', user: user});
   } catch (message) {
     res.send(message);
@@ -84,7 +84,8 @@ router.get('/admin', requireAdmin, async(req, res, next) => {
 
     const getInfo = async (user) => {
       const info = await getUserInfoByUser(user.id);
-      return { ...user, info };
+      const adminDetails = await getUserById(user.id);
+      return { ...user, adminDetails, info };
     }
 
     const promises = users.map(getInfo);

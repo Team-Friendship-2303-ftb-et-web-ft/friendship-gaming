@@ -19,22 +19,22 @@ function App() {
   const [selectedGame, setSelectedGame] = useState({})
   const [usersList, setUsersList] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try{
-  //       console.log(token)
-  //       if (token) {
-  //         const fetchedUser = await getMe(token);
-  //         // console.log(fetchedUser)
-  //         setCurrentUser(fetchedUser)
-  //       }
-  //     }
-  //   catch (error) {
-  //   console.error(error)
-  //   }
-  //   };
-  //     fetchUser()
-  // }, [token]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try{
+        console.log(token)
+        if (token) {
+          const fetchedUser = await getMe(token);
+          // console.log(fetchedUser)
+          setCurrentUser(fetchedUser)
+        }
+      }
+    catch (error) {
+    console.error(error)
+    }
+    };
+      fetchUser()
+  }, [token]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -73,19 +73,29 @@ function App() {
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
         setToken={setToken}/>
+
     <Routes>
       <Route path="/" element= {<Home/>}/>
+
+
       <Route path="/Admin" element= {<Admin gamesList={gamesList} usersList={usersList}/>}/>
+
       <Route path="/Cart" element= 
       {<Cart
         isLoggedIn={isLoggedIn}
         cart={cart}
         setCart={setCart}
       />}/>
+
+
       <Route path="/Checkout" element= {<Checkout/>}/>
+
       <Route path="/Error" element= {<Error/>}/>
+
       <Route path="/Games" element= {<Games/>}/>
+
       <Route path="/CreateGame" element= {<CreateGameForm/>}/>
+
       <Route path="/UpdateGame" element= {<CreateGameForm/>}/>
     
       <Route path="/Login" element= {<Login token={token}
@@ -94,13 +104,17 @@ function App() {
           setCurrentUser={setCurrentUser}  
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
-      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} />}/>
+
+      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} setCartItemsList={setCartItemsList} />}/>
+
       <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
         setToken={setToken}/>}/>
+
       <Route path="/SearchBar" element= {<SearchBar/>}/>
+
       <Route path="/SingleGame" element= {<SingleGame/>}/>
       
     </Routes> 

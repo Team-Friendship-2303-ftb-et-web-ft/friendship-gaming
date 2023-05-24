@@ -16,14 +16,11 @@ async function createTag(name) {
   }
  
   async function attachTagsToGames(games) {
-    // Avoid mutation of the original games array.
     const gamesToReturn = [...games];
     
-    // Generate placeholders for the query.
     const placeholders = games.map((_, index) => `$${index + 1}`).join(', ');
     const gameIds = games.map((game) => game.id);
-  
-    // Fetch the tags for these games.
+
     const { rows: tags } = await client.query(`
       SELECT tags.*, game_tags."gameId"
       FROM tags

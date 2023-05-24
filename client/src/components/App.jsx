@@ -4,8 +4,8 @@ import ReactDOM from "react-dom";
 import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame, CreateGameForm} from "./index";
-// import reactLogo from '../assets/react.svg'
-import {getAllGames, getMe, getAllUsers} from '../api';
+import reactLogo from '../assets/react.svg'
+import {getAllGames, getMe} from '../api';
 import './App.css'
 
 function App() {
@@ -19,13 +19,12 @@ function App() {
   const [selectedGame, setSelectedGame] = useState({});
   const [usersList, setUsersList] = useState([]);
 
+ 
   useEffect(() => {
     const fetchUser = async () => {
       try{
-        console.log(token)
         if (token) {
           const fetchedUser = await getMe(token);
-          // console.log(fetchedUser)
           setCurrentUser(fetchedUser)
         }
       }

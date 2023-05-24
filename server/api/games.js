@@ -13,6 +13,17 @@ gamesRouter.get('/', async (req, res, next) => {
     next(error);
   }
 });
+// GET /api/games/:gameid
+gamesRouter.get('/:gameId', async (req, res, next) => {
+  try {
+    const { gameId } = req.params;
+    const game = await getGameById(gameId);
+    res.status(200).json(game);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 // GET /api/games/genre/:genre
 gamesRouter.get('/genre/:genre', async (req, res, next) => {

@@ -1,6 +1,14 @@
 import './Admin.css'
+import { destroyGame } from '../api';
 
-const AdminGames = ({gamesList,  isAdmin}) => {
+const AdminGames = ({gamesList, token, isAdmin}) => {
+
+    const handleDelete = async(game, token) => {
+        console.log(token)
+        console.log(game);
+        await destroyGame(game.id, token)
+    }
+
     return(
         <div className="container">
 
@@ -30,7 +38,7 @@ const AdminGames = ({gamesList,  isAdmin}) => {
             <p>Description: {game.description}</p>
             <div className="button">
                 <button onClick={console.log('add update form function here')}>Update</button>
-                <button onClick={() => {console.log('add delete function here')}}>Delete</button>
+                <button onClick={()=>{handleDelete(game, token)}}>Delete</button>
             </div>
             </div>
           )

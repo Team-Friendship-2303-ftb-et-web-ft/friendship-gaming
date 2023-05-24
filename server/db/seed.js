@@ -70,7 +70,8 @@ const createTables = async () => {
       CREATE TABLE users (
           id SERIAL PRIMARY KEY,
           username varchar(255) UNIQUE NOT NULL,
-          password varchar(255) NOT NULL
+          password varchar(255) NOT NULL,
+          "isAdmin" BOOLEAN DEFAULT false
         );
         CREATE TABLE addresses(
           id SERIAL PRIMARY KEY,
@@ -86,7 +87,6 @@ const createTables = async () => {
           "firstName" varchar(255) NOT NULL,
           "lastName" varchar(255) NOT NULL,
           "dateOfBirth" DATE,
-          "isAdmin" BOOLEAN DEFAULT false,
           "addressId" INTEGER REFERENCES addresses(id)
         );
         CREATE TABLE games(
@@ -138,15 +138,18 @@ async function createInitialUsers() {
       console.log("Creating the Users");
       await createUser({ 
           username: 'albert', 
-          password: 'bertie99'
+          password: 'bertie99',
+          isAdmin: true,
         });
         await createUser({ 
           username: 'sandra', 
-          password: '2sandy4me'
+          password: '2sandy4me',
+          isAdmin: false,
         });
         await createUser({ 
           username: 'glamgal',
-          password: 'soglam'
+          password: 'soglam',
+          isAdmin: false,
         });
       console.log("Users are Created!")
   
@@ -164,7 +167,7 @@ async function createInitialAddresses(){
       city: "Willowbrook",
       state: "Texas",
       country: "United States",
-     postal_code: 23456,
+      postal_code: 23456,
     },
     {
       street_address: '456 Elm Avenue',
@@ -197,7 +200,6 @@ async function createInitialUserInfo(){
       firstName: 'Gloria',
       lastName: 'Gallagher',
       dateOfBirth: '1985-12-10',
-      isAdmin: false,
       addressId: 3
     },
     {
@@ -205,7 +207,6 @@ async function createInitialUserInfo(){
       firstName: 'Albert',
       lastName: 'Einstein',
       dateOfBirth: '1879-03-14',
-      isAdmin: true,
       addressId: 1
     },
     {
@@ -213,7 +214,6 @@ async function createInitialUserInfo(){
       firstName: 'Sandra',
       lastName: 'Smith',
       dateOfBirth: '1990-07-20',
-      isAdmin: false,
       addressId: 2
     }
   ]

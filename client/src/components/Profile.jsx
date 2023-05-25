@@ -15,9 +15,14 @@ const Profile = (props) => {
         const fetchUserCarts = async () => {
             console.log(token)
             console.log(currentUser.user.id)
-            try{
+                console.log("This is carts:", carts);
+                
+                const filteredCarts = carts.filter(cart => cart.userId == currentUser.div);
+                setUserCartsList(filteredCarts);            try{
+
              const userCarts = await getCartByUserId(currentUser.user.id, token);
              setUserCartsList(userCarts.userCart)
+
             } catch (error){
                 console.error(error);
             }

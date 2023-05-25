@@ -3,7 +3,7 @@ const cartItemsRouter = express.Router();
 const { createCartItems, getAllCartItems, getCartItemsByOrder } = require('../db');
 
 //GET /api/cartItems/:orderId
-cartItemsRouter.get('/:orderId', async (req, res, next) => {
+cartItemsRouter.get('/order/:orderId', async (req, res, next) => {
     try {
         const { orderId } = req.params;
         const cartItems = await getCartItemsByOrder(orderId);
@@ -27,6 +27,8 @@ cartItemsRouter.get('/', async (req, res, next) => {
         next(error);
     }    
 })
+
+
 
 //POST /api/cartItems
 cartItemsRouter.post('/', async (req,res,next) => {

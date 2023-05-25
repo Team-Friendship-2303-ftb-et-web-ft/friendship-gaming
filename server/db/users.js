@@ -30,6 +30,7 @@ async function getAllUsers() {
   }
 }
 
+//only used in login
 async function getUser({ username, password }) {
   try {
     const user = await getUserByUsername(username);
@@ -50,6 +51,7 @@ async function getUser({ username, password }) {
     throw error;
   }
 }
+
 
 async function getUserById(userId) {
   try {
@@ -110,7 +112,7 @@ async function getUserInfoByUser(userId) {
   const user = await getUserById(userId);
 
   const { rows: [userInfo] } = await client.query(`
-  SELECT users.id, userInfo.*
+  SELECT users.id, users.username, users."isAdmin", userInfo.*
   FROM users
   JOIN userInfo ON users.id = userInfo."userId"
   WHERE users.id = $1
@@ -124,6 +126,8 @@ async function getUserInfoByUser(userId) {
   return userInfo;
 }
 
+
+//////////////broken - will fix soon
 async function updateUserInfo({id, ...fields}) {
   try {
     const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 2}`).join(', ');
@@ -179,6 +183,23 @@ async function getAddressByUsername({username}) {
   }
 }
 
+async function updateUserAddress({id, ...fields}) {
+  try {
+    const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 2}`).join(', ');
+    
+    const { rows } = await client.query(`
+      UPDATE addresses
+      SET ${setString}
+      WHERE id=$1
+      RETURNING *
+    `, [id, ...Object.values(fields)]);
+
+    return rows;
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
   createUser,
   getUser,
@@ -191,5 +212,6 @@ module.exports = {
   updateUserInfo,
   createAddress,
   getAddressById,
-  getAddressByUsername
+  getAddressByUsername,
+  updateUserAddress
 };

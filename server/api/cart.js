@@ -2,6 +2,7 @@ const express = require('express');
 const cartRouter = express.Router();
 const { getAllCarts, getCartByOrder, getCartByUserId, createCart, updatePurchaseStatus } = require('../db');
 
+//replace function with getCartWithAllInfo
 // //GET/api/cart/user/:userId
 cartRouter.get('/user/:userId', async (req, res, next) => {
 try{
@@ -63,6 +64,20 @@ cartRouter.patch('/:orderId', async (req, res, next) => {
         next(error);
     }    
 })
+
+//GET api/cart/:userId
+cartRouter.get('/userId/:userId', async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const cartById = await getCartByUserId(userId);
+        // console.log("This is cart:", cart);
+    
+            res.send({ cartById });
+    
+    } catch (error) {
+        next(error);
+    }
+    })
   
 //POST/api/cart
 cartRouter.post('/', async (req,res,next) => {

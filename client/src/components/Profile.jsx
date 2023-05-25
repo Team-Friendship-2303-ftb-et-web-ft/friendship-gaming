@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import {CreateGameForm} from "./index";
 import {NavLink, useNavigate} from 'react-router-dom';
 import './Profile.css'
-import { getAllCarts } from "../api";
+//import {carts} from './Carts.jsx';
 const Profile = (props) => {
     const {isLoggedIn, currentUser, token, cartsList, setCartsList } = props;
     const [userCartsList, setUserCartsList] = useState([]);
@@ -13,8 +13,9 @@ const Profile = (props) => {
         const fetchUserCarts = async () => {
             try{
                 const carts = await getAllCarts();
-                const filteredCarts = carts.filter((cart) => cart.userId === currentUser.div
-                );
+                console.log("This is carts:", carts);
+                
+                const filteredCarts = carts.filter(cart => cart.userId == currentUser.div);
                 setUserCartsList(filteredCarts);
             } catch (error){
                 console.error(error);

@@ -112,7 +112,12 @@ async function updateGame({ id, ...fields }) {
 
 async function destroyGame(id) {
     try {
-    d
+      // await client.query(`
+      //   ALTER TABLE cartItems
+      //   DROP COLUMN IF EXISTS "gameId" CASCADE
+      //   WHERE "gameId"=$1
+      // `);
+
       await client.query(`
         DELETE FROM game_Tags
         WHERE "gameId"=$1;
@@ -121,7 +126,7 @@ async function destroyGame(id) {
       // Delete the game from the games table
       const { rows: [deletedgame] } = await client.query(`
         DELETE FROM games
-        WHERE "gameId"=$1
+        WHERE id=$1
         RETURNING *;
       `, [id]);
   

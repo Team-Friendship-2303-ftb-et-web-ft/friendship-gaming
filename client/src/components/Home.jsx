@@ -1,9 +1,10 @@
 import React from "react";
+import Games from './Games';
 
 const Home = () => {
     return (
         <>
-        <h1>This is Home!</h1>
+    <Games/>
         </>
     )   
 }

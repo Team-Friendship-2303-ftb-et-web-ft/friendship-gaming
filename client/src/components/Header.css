@@ -9,11 +9,13 @@
   text-align: center;
   font-family: 'Balsamic Sans', sans-serif;
   font-size: 16px;
-
   background: #E3E3EF;
-  padding: 5px;
+  margin-bottom: 2%;
 }
 
+.logo{
+ width: 100px;
+}
 
  h1 {
   font-size: 2.4em;

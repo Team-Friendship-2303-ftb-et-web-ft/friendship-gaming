@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { getUserByUsername, createUser, getAllUsers, getUser, getUserById, getUserInfoByUser} = require('../db/users');
+const { getUserByUsername, createUser, getAllUsers, getUser, getUserById, getUserInfoByUser, getAddressById, updateUserInfo, updateUserAddress, getAddressByUsername} = require('../db/users');
 const { requireAdmin, requireUser } = require('./utils');
 const { getAllGames } = require('../db');
 const { JWT_SECRET } = process.env;
@@ -34,11 +34,48 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
-router.patch('/', async (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
   try {
-    // await createUserInfo({userId: user.id, firstName: 'anna', lastName: 'gibes', dateOfBirth: '01/27/1999', isAdmin: true, addressId: null})
-    // const userInfo = await getUserInfoByUser(user.id)
-    console.log('coming soon')
+    const {id} = req.params;
+    const {firstName, lastName, dateOfBirth, city, street_address, state, postal_code, country} = req.body;
+
+    const user = await getUserById(id);
+
+    //check to see if user exists
+    if (!user) {
+      throw new Error ("Could not find the user you want to update");
+    }
+
+    //check to see if that user has userInfo
+    const userInfo = await getUserInfoByUser(id);
+
+    //if theres user info
+    if (userInfo) {
+      //get the address
+      const userAddress = await getAddressById(userInfo.addressId);
+      console.log('userAddress', userAddress);
+      //if theres an address update address`
+
+
+      //////////////////
+      if (userAddress) {
+        await updateUserAddress({id: userAddress.id, city, street_address, state, postal_code, country});
+        next();
+      } 
+      const updatedUserInfo = await updateUserInfo({id: userInfo.id, firstName, lastName, dateOfBirth});
+
+
+
+      //check to see if that userInfo has an address
+        const newUserAddress = await getAddressById(userInfo.addressId);
+        console.log('newUserAddress', newUserAddress);
+        console.log('updatedUserInfo', updatedUserInfo);
+        const newupdatedUserInfo = updatedUserInfo.newUserAddress;
+        console.log('newupdatedUserInfo', newupdatedUserInfo);
+        res.send(updatedUserInfo);
+      
+    
+    }
   } catch (error) {
     console.error(error);
   }
@@ -67,7 +104,6 @@ router.post('/login', async(req, res, next) => {
   }
 });
 
-//User Profile
 router.get('/me', requireUser, async(req, res, next) => {
   try {
     const user = await getUserById(req.user.id);

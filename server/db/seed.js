@@ -33,8 +33,7 @@ const {
   attachCartItemsToCart,
   deleteCartItems,
   updatePurchaseStatus,
-  updateCartItemQty,
-  getAllCarts
+  updateCartItemQty
 } = require('./index.js');
 const 
   client
@@ -510,9 +509,9 @@ const testDB = async () => {
 //       const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
 //       console.log("createUserInfo Result:", userInfo)
 
-    // console.log("Calling getUserInfoByUser");
-    //   const userInfoByUser = await getUserInfoByUser(1);
-    //   console.log("getUserInfoByUser Result:", userInfoByUser);
+    console.log("Calling getUserInfoByUser");
+      const userInfoByUser = await getUserInfoByUser(1);
+      console.log("getUserInfoByUser Result:", userInfoByUser);
 
 //     console.log("Calling updateUserInfo");
 //       const updatedUserInfo = await updateUserInfo({id: 1, lastName: 'albertie'});
@@ -546,9 +545,9 @@ const testDB = async () => {
 //       const Aalbert = await getUserById(1);
 //       console.log("getUserById Result:", Aalbert);
 
-//     console.log("Calling user by username");
-//       const user = await getUserByUsername('albert');
-//       console.log("getUserByUsername Result:", user);
+    // console.log("Calling user by username");
+    //   const user = await getUserByUsername('albert');
+    //   console.log("getUserByUsername Result:", user);
 
 //     console.log("Calling getUserById with 2");
 //       const albert = await getUserById(2);
@@ -595,9 +594,9 @@ const testDB = async () => {
     // const cartItemsByOrder = await getCartItemsByOrder(1);
     // console.log("Result:", cartItemsByOrder);
 
-    // console.log("Calling attachCartItemsToCart");
-    // const cartItemsToCart = await attachCartItemsToCart(2);
-    // console.log("Result:", cartItemsToCart);
+    console.log("Calling attachCartItemsToCart");
+    const cartItemsToCart = await attachCartItemsToCart(2);
+    console.log("Result:", cartItemsToCart);
 
     // console.log("Calling deleteCartItems");
     // const deleteOrderItems = await deleteCartItems(1);
@@ -614,6 +613,10 @@ const testDB = async () => {
       //   console.log("Calling getAllCarts");
       // const GetCarts = await getAllCarts();
       // console.log("updateCartItems Result:", GetCarts);
+
+      // console.log("Calling getCartByUser");
+      // const cartByUser = await getCartByUserId(1);
+      // console.log("Result:", cartByUser);
 
   } catch (error) {
     console.error("It broke....no work...test fail");

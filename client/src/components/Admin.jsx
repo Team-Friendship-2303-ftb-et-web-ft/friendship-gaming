@@ -72,7 +72,6 @@ const Admin = ({gamesList, currentUser, isAdmin, token}) => {
                 {showUsers &&
                   <div className="container">
                     <AdminUsers gamesList={gamesList} isAdmin={isAdmin} adminUsersList={adminUsersList}/>
-                    <p>coming soon</p>
                   </div>
                 }
               </div>

@@ -1,4 +1,5 @@
 const client = require('./client');
+const {getGameById} = require('./games')
 
 //----------Cart----------//
 
@@ -21,19 +22,6 @@ async function createCart({ userId, purchaseStatus }) {
     }
 }
 
-async function getAllCarts() {
-  try {
-    const { rows: order } = await client.query(`
-    SELECT * FROM cart
-    `);
-    
-    return order;
-    
-  } catch (error) {
-    throw error;
-  }
-}
-
 async function getCartByOrder(id) {
     try {
       const { rows: [ order ] } = await client.query(`
@@ -54,7 +42,6 @@ async function getCartByUserId(userId) {
         SELECT * FROM cart
            WHERE "userId" = ${userId}
           `);
-          /**************** QUESTION: ??????? ****************/
 
            return order;
         
@@ -128,16 +115,67 @@ async function getCartItemsByOrder(id) {
      }
     }
 
+    // async function attachCartItemsToCart(id) {
+    //   try {
+    //       const { rows:  orderItems  } = await client.query(`
+    //         SELECT * FROM cart
+    //         JOIN cartItems ON cart.id = cartItems."cartId"
+    //         WHERE cart.id = $1
+    //       `, [ id ]);
+    //       // console.log('This is orderItems', orderItems);
+    
+    //         return orderItems;
+    
+    //   } catch (error) {
+    //       throw error;
+    //   }
+    // }
+
+async function getGamesByCartId() {
+
+}
+
+//in progress
+// async function addGamesToCartItem(userId, gameId) {
+//   try {
+//     const gameToAdd = getGameById(gameId)
+//     await createCartItem(...)
+//     //insert games into cartItems
+//   await client.query(`
+//     INSERT INTO cartItems
+//     VALUES $2, $3
+//     WHERE "gameId" =$1
+//   `, [gameId])
+//   //instert cart items into cart
+//   const rows = await client.query(`
+//     INSERT INTO cart
+//     VALUES $1, $2, $3
+//     WHERE "userId" =$1
+//   `, [userId])
+//   return rows
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
+
+//change name to getCartWithAllInfo
 async function attachCartItemsToCart(id) {
   try {
-      const { rows:  orderItems  } = await client.query(`
-        SELECT * FROM cartItems
-        JOIN cart ON cart.id = cartItems."cartId"
-        WHERE cart.id = $1
-      `, [ id ]);
+      // const { rows:  order  } = await client.query(`
+      //   SELECT * FROM cart
+      //   WHERE cart.id = $1
+      // `, [ id ]);
       // console.log('This is orderItems', orderItems);
 
-        return orderItems;
+      const order = await getCartByOrder(id)
+      const cartItems = await getCartItemsByOrder(id);
+      // const games = await getGamesByCartId
+
+      if (cartItems) {
+        order.cartItems = cartItems;
+      }
+
+        return order;
 
   } catch (error) {
       throw error;
@@ -188,7 +226,6 @@ async function deleteCartItems(id) {
       getCartItemsByOrder,
       updateCartItemQty,
       attachCartItemsToCart,
-      deleteCartItems,
-      getAllCarts
+      deleteCartItems
     }
 

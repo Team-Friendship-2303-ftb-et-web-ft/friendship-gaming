@@ -40,19 +40,19 @@ function App() {
       fetchUser()
   }, [token]);
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     try{
-  //         let allUsers = await getAllUsers();
-  //         // console.log(allUsers);
-  //         setUsersList(allUsers);
-  //     }
-  //   catch (error) {
-  //   console.error(error);
-  //   }
-  //   };
-  //     fetchUsers()
-  // }, []);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try{
+          let allUsers = await getAllUsers();
+          console.log(allUsers);
+          setUsersList(allUsers);
+      }
+    catch (error) {
+    console.error(error);
+    }
+    };
+      fetchUsers()
+  }, []);
 
 
   useEffect(() => {

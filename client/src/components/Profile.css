@@ -1,16 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 
+  @import url('https://fonts.googleapis.com/css2?family=Almendra+Display&display=swap');
+
+  .profileMain{
+   display: flex;
+   flex-direction: column;
+   align-content: center;
+
+}
 .welcome{
    display: flex;
    flex-direction: row;
    align-content: center;
+   justify-content: space-between;
    background-color: rgb(88, 85, 85);
+   text-shadow: 2px 2px 3px black;
+  color: black;
+  height: 75px;
 }
   h2{
-   font-family: 'Nanum Pen Script', cursive; }
- h3{
-   font-family: 'Nanum Pen Script', cursive; 
-   font-size: 45px;
+   font-family: 'Almendra Display', cursive;
+   padding: 5px;
+   margin-left: 7px;
+   font-size: 35px;
+}
+
+
+h3{
+   font-family: 'Courier New', Courier, monospace;
+   font-size: 30px;
+}
+.update{
+   width: 150px;
+   height: 50px;
 }
  .profileBody{
     display: flex;
@@ -20,7 +41,9 @@
     text-align: left;
     font-family: 'Zeyada', cursive;
     background: #E3E3EF;
-    margin: auto;
-    max-width: 1550px;
+    margin: 2%;
+    margin-left: 2%;
+    padding-left: 2%;
+   width: auto;
     
  }

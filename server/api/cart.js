@@ -2,6 +2,7 @@ const express = require('express');
 const cartRouter = express.Router();
 const { getAllCarts, getCartByOrder, getCartByUserId, createCart, updatePurchaseStatus } = require('../db');
 
+//replace function with getCartWithAllInfo
 // //GET/api/cart/user/:userId
 cartRouter.get('/user/:userId', async (req, res, next) => {
 try{

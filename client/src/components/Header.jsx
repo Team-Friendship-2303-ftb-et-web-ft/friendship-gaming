@@ -9,7 +9,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
     return (
         <>
         <section className="header">
-            <div>
+            <div className="logo">
             <a href="http://localhost:5173/" target="_blank">
           <img src="./images/logo.png" className="logo" alt=" logo" />
         </a>     

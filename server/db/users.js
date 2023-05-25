@@ -110,7 +110,7 @@ async function getUserInfoByUser(userId) {
   const user = await getUserById(userId);
 
   const { rows: [userInfo] } = await client.query(`
-  SELECT users.id, users.username, userInfo.*
+  SELECT users.id, userInfo.*
   FROM users
   JOIN userInfo ON users.id = userInfo."userId"
   WHERE users.id = $1

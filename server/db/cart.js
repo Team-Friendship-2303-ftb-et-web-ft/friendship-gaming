@@ -1,5 +1,5 @@
 const client = require('./client');
-import {getGameById} from './games'
+const {getGameById} = require('./games')
 
 //----------Cart----------//
 

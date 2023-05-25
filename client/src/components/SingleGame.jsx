@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-// import './SingleGame.css';
+import './SingleGame.css';
 
 function SingleGame() {
   const { gameId } = useParams();
@@ -25,15 +25,23 @@ function SingleGame() {
   }
 
   return (
-    <div className="single-game-component">
-      <h1 className="game-title">{game.title}</h1>
-      <img className="game-image" src="placeholder.png" alt={game.title}/>
-      <div className="game-info">
+    <div id="single-game-component">
+      <div id="game-header">
+        <h1 id="single-game-title">{game.title}</h1>
         <p className="game-author">By {game.authorName}</p>
-        <p className="game-description">{game.description}</p>
-        <p className="game-price">${game.price}</p>
-        <p className="game-tags">{game.tags.map(tag => tag.name).join(', ')}</p>
-        <button className="add-to-cart-button">Add to Cart</button>
+      </div>
+      <img id="single-game-image" src={game.imageUrl || "/images/fotor-ai-20230516102519.jpg"} alt={game.title}/>
+      <div id="single-game-info">
+        <div className="game-details">
+          <p className="game-description">{game.description}</p>
+          <div className="game-tags">
+            {game.tags.map(tag => <span className="tag">{tag.name}</span>)}
+          </div>
+        </div>
+        <div className="game-purchase">
+          <p className="game-price">${game.price}</p>
+          <button id="add-to-cart-button">Add to Cart</button>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
 
+.logo {
+  height: 50px;
+  width: 50px;
+}
+
   
 .header {
   display: flex;

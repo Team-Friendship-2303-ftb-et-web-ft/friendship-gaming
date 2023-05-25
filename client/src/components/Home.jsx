@@ -4,7 +4,7 @@ import Games from './Games';
 const Home = () => {
     return (
         <>
-    <Games/>
+        <Games />
         </>
     )   
 }

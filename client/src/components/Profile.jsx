@@ -13,8 +13,9 @@ const Profile = (props) => {
         const fetchUserCarts = async () => {
             try{
                 const carts = await getAllCarts();
-                const filteredCarts = carts.filter((cart) => cart.userId === currentUser.div
-                );
+                console.log("This is carts:", carts);
+                
+                const filteredCarts = carts.filter(cart => cart.userId == currentUser.div);
                 setUserCartsList(filteredCarts);
             } catch (error){
                 console.error(error);

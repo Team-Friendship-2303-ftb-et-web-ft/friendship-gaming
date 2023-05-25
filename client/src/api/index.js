@@ -308,6 +308,25 @@ export const createCartItems = async (newCartItem) => {
   }
 }
 
+export const getCartById = async (userId) => {
+  try {
+    const response = await fetch(`api/cart/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    const cartById = await response.json();
+    console.log("This is cartById:", cartById);
+
+    return cartById;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 
 //GET USERS WITH INFO
 export const getUsersWithInfo = async (token) => {

@@ -54,7 +54,6 @@ async function getCartByUserId(userId) {
         SELECT * FROM cart
            WHERE "userId" = ${userId}
           `);
-          /**************** QUESTION: ??????? ****************/
 
            return order;
         

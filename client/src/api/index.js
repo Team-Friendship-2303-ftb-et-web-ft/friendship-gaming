@@ -144,7 +144,7 @@ export const getGameById = async (gameId) => {
 // GET GAMES BY GENRE
 export const getGamesByGenre = async (genre) => {
     try {
-      const response = await fetch(`${BASE}/games/genre/${genre}`, {
+      const response = await fetch(`api/games/genre/${genre}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -161,7 +161,7 @@ export const getGamesByGenre = async (genre) => {
   // GET GAMES BY TAG
   export const getGamesByTag = async (tagId) => {
     try {
-      const response = await fetch(`${BASE}/games/tag/${tagId}`, {
+      const response = await fetch(`api/games/tag/${tagId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -178,7 +178,7 @@ export const getGamesByGenre = async (genre) => {
   // GET GAMES BY AUTHOR
   export const getGamesByAuthor = async (authorName) => {
     try {
-      const response = await fetch(`${BASE}/games/author/${authorName}`, {
+      const response = await fetch(`api/games/author/${authorName}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -195,7 +195,7 @@ export const getGamesByGenre = async (genre) => {
   // UPDATE GAME
   export const updateGame = async (gameId, gameData) => {
     try {
-      const response = await fetch(`${BASE}/games/${gameId}`, {
+      const response = await fetch(`api/games/${gameId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -212,9 +212,9 @@ export const getGamesByGenre = async (genre) => {
   }
   
   // DELETE GAME
-  export const destroyGame = async (gameId) => {
+  export const destroyGame = async (gameId, token) => {
     try {
-      const response = await fetch(`${BASE}/games/${gameId}`, {
+      const response = await fetch(`api/games/${gameId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -232,7 +232,7 @@ export const getGamesByGenre = async (genre) => {
   // PURCHASE GAME
   export const purchaseGame = async (gameId, quantityPurchased) => {
     try {
-      const response = await fetch(`${BASE}/games/${gameId}/purchase`, {
+      const response = await fetch(`api/games/${gameId}/purchase`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -268,8 +268,39 @@ export const createCart = async (newCart) => {
 }
 
 //GET ALL CARTS
+export const getAllCarts = async () => {
+  try {
+    const response = await fetch(`api/cart`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const carts = await response.json();
+    // console.log(carts);
+    return carts;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 //GET CART BY USER
+export const getCartByUserId = async (userId, token) => {
+  try {
+    const response = await fetch(`api/cart/user/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const userCart = await response.json();
+    console.log(userCart);
+    return userCart;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 //CREATE CART ITEM
 export const createCartItems = async (newCartItem) => {

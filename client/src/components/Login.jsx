@@ -22,7 +22,9 @@ const Login = ({
         if (!data) {
           window.alert("Invalid credentials, Username or Password is incorrect");
         } else {
+          console.log(data);
           setToken(data.token);
+          
             
           setCurrentUser(username);
           
@@ -36,6 +38,7 @@ const Login = ({
           navigate("/");
         }
       };
+
     return (
         <div className="loginbody">
         <h1>Login/Sign Up!</h1>

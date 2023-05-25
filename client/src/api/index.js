@@ -98,7 +98,7 @@ export const getAllUsers = async () => {
         },
       });
       const users = await response.json();
-      // console.log(users);
+      console.log(users);
       return users;
     } catch (err) {
       console.error(err);

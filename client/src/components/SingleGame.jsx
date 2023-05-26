@@ -8,7 +8,7 @@ function SingleGame() {
 
   useEffect(() => {
     const fetchGame = async () => {
-      const response = await fetch(`http://localhost:8080/api/games/${gameId}`, {
+      const response = await fetch(`api/games/${gameId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

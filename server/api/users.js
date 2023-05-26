@@ -46,35 +46,15 @@ router.patch('/:id', async (req, res, next) => {
       throw new Error ("Could not find the user you want to update");
     }
 
-    //check to see if that user has userInfo
     const userInfo = await getUserInfoByUser(id);
-
-    //if theres user info
+    
     if (userInfo) {
-      //get the address
       const userAddress = await getAddressById(userInfo.addressId);
-      console.log('userAddress', userAddress);
-      //if theres an address update address`
-
-
-      //////////////////
-      if (userAddress) {
-        await updateUserAddress({id: userAddress.id, city, street_address, state, postal_code, country});
-        next();
-      } 
+      const UserAddress = await updateUserAddress({id: userAddress.id, city, street_address, state, postal_code, country});
       const updatedUserInfo = await updateUserInfo({id: userInfo.id, firstName, lastName, dateOfBirth});
 
-
-
-      //check to see if that userInfo has an address
-        const newUserAddress = await getAddressById(userInfo.addressId);
-        console.log('newUserAddress', newUserAddress);
-        console.log('updatedUserInfo', updatedUserInfo);
-        const newupdatedUserInfo = updatedUserInfo.newUserAddress;
-        console.log('newupdatedUserInfo', newupdatedUserInfo);
-        res.send(updatedUserInfo);
-      
-    
+      updatedUserInfo[0]['userAddress'] = UserAddress;
+      res.send(updatedUserInfo[0]);
     }
   } catch (error) {
     console.error(error);

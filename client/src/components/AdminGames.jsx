@@ -1,12 +1,18 @@
 import './Admin.css'
 import { destroyGame } from '../api';
+import { EditGameForm } from './index'
+import { useState } from 'react';
 
-const AdminGames = ({gamesList, token, isAdmin}) => {
+const AdminGames = ({game, setGame, gamesList, token, isAdmin}) => {
+    const [showGames, setShowGames] = useState(true);
+    const [showForm, setShowForm] = useState(false)
 
     return(
         <div className="container">
 
-        {isAdmin &&
+
+        {isAdmin && showGames &&
+        
           gamesList.map(game => {
           let tagArr = [] 
         
@@ -31,13 +37,28 @@ const AdminGames = ({gamesList, token, isAdmin}) => {
             <p>Inventory: {game.inventoryqty}</p>
             <p>Description: {game.description}</p>
             <div className="button">
-                <button onClick={console.log('add update form function here')}>Update</button>
+                <button onClick={()=>{
+                  setGame(game);
+                  setShowForm(true);
+                  setShowGames(false);
+                  setShowUsers(false);
+                  setShowAddGameForm(false);
+                  }}>Update</button>
                 <button onClick={async()=>{await destroyGame(game.id, token)}}>Delete</button>
             </div>
             </div>
           )
           })
         }
+
+
+        {isAdmin && showForm &&
+          <div className="container">
+            <EditGameForm token={token} game={game}/>
+          </div>
+        }
+          
+        
         </div>  
     );
 }

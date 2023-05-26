@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './SingleGame.css';
 
-function SingleGame() {
+function SingleGame({game, setGame}) {
   const { gameId } = useParams();
-  const [game, setGame] = useState(null);
+
 
   useEffect(() => {
     const fetchGame = async () => {

@@ -1,48 +1,60 @@
 import React, { useState } from 'react';
 
 const EditGameForm = ({ game, token }) => {
-  const [authorName, setAuthorName] = useState(game.authorName);
-  const [genre, setGenre] = useState(game.genre);
-  const [title, setTitle] = useState(game.title);
-  const [price, setPrice] = useState(game.price);
-  const [description, setDescription] = useState(game.description);
-  const [featured, setFeatured] = useState(game.featured);
-  const [inventoryqty, setInventoryqty] = useState(game.inventoryqty);
+  // const [authorName, setAuthorName] = useState(game.authorName);
+  // const [genre, setGenre] = useState(game.genre);
+  // const [title, setTitle] = useState(game.title);
+  // const [price, setPrice] = useState(game.price);
+  // const [description, setDescription] = useState(game.description);
+  // const [featured, setFeatured] = useState(game.featured);
+  // const [inventoryqty, setInventoryqty] = useState(game.inventoryqty);
 
-  const updateGame = async (gameId, gameData) => {
-    try {
-      const response = await fetch(`${BASE}/games/${gameId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(gameData)
-      });
-      const updatedGame = await response.json();
-      console.log(updatedGame);
-      return updatedGame;
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  const [authorName, setAuthorName] = useState('game.authorName');
+  const [genre, setGenre] = useState('game.genre');
+  const [title, setTitle] = useState('game.title');
+  const [price, setPrice] = useState('game.price');
+  const [description, setDescription] = useState('game.description');
+  const [featured, setFeatured] = useState('game.featured');
+  const [inventoryqty, setInventoryqty] = useState('game.inventoryqty');
 
-  const destroyGame = async (gameId) => {
-    try {
-      const response = await fetch(`${BASE}/games/${gameId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-      });
-      const deletedGame = await response.json();
-      console.log(deletedGame);
-      return deletedGame;
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  console.log('game------>', game)
+  console.log(token)
+
+
+  // const updateGame = async (gameId, gameData) => {
+  //   try {
+  //     const response = await fetch(`/games/${gameId}`, {
+  //       method: 'PATCH',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`
+  //       },
+  //       body: JSON.stringify(gameData)
+  //     });
+  //     const updatedGame = await response.json();
+  //     console.log(updatedGame);
+  //     return updatedGame;
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
+
+  // const destroyGame = async (gameId) => {
+  //   try {
+  //     const response = await fetch(`/games/${gameId}`, {
+  //       method: 'DELETE',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`
+  //       },
+  //     });
+  //     const deletedGame = await response.json();
+  //     console.log(deletedGame);
+  //     return deletedGame;
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 
   const handleUpdate = async (e) => {
     e.preventDefault();

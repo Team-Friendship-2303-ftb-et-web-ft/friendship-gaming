@@ -4,7 +4,7 @@ import './Games.css';
 
 const getAllGames = async () => {
   try {
-    const response = await fetch(`http://localhost:8080/api/games/`, {
+    const response = await fetch(`api/games`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

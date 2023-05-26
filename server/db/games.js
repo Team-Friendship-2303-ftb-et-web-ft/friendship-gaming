@@ -99,7 +99,7 @@ async function updateGame({ id, ...fields }) {
     const { rows: [ updatedgame ] } = await client.query(`
       UPDATE games
       SET ${setString}
-      WHERE "gameId"=$${Object.keys(fields).length + 1}
+      WHERE id=$${Object.keys(fields).length + 1}
       RETURNING *;
     `, [...Object.values(fields), id]);
 
@@ -112,11 +112,10 @@ async function updateGame({ id, ...fields }) {
 
 async function destroyGame(id) {
     try {
-      // await client.query(`
-      //   ALTER TABLE cartItems
-      //   DROP COLUMN IF EXISTS "gameId" CASCADE
-      //   WHERE "gameId"=$1
-      // `);
+      await client.query(`
+        ALTER TABLE cartItems
+        DROP COLUMN IF EXISTS "gameId" CASCADE
+      `);
 
       await client.query(`
         DELETE FROM game_Tags

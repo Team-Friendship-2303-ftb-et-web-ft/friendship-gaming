@@ -33,7 +33,8 @@ const {
   attachCartItemsToCart,
   deleteCartItems,
   updatePurchaseStatus,
-  updateCartItemQty
+  updateCartItemQty,
+  getCartWithAllInfo
 } = require('./index.js');
 const 
   client
@@ -594,9 +595,9 @@ const testDB = async () => {
     // const cartItemsByOrder = await getCartItemsByOrder(1);
     // console.log("Result:", cartItemsByOrder);
 
-    console.log("Calling attachCartItemsToCart");
-    const cartItemsToCart = await attachCartItemsToCart(2);
-    console.log("Result:", cartItemsToCart);
+    console.log("Calling getCartInfo");
+    const getCartInfo = await getCartWithAllInfo(1);
+    console.log("Result:", getCartInfo);
 
     // console.log("Calling deleteCartItems");
     // const deleteOrderItems = await deleteCartItems(1);
@@ -617,6 +618,10 @@ const testDB = async () => {
       // console.log("Calling getCartByUser");
       // const cartByUser = await getCartByUserId(1);
       // console.log("Result:", cartByUser);
+
+      console.log("Calling getGameId");
+      const getGameId = await getGameById(1);
+      console.log("Result:", getGameId);
 
   } catch (error) {
     console.error("It broke....no work...test fail");

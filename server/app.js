@@ -14,10 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../client', 'dist')));
 
-app.use((req,res,next) => {
-  next();
-})
-
 
 app.use('/api', require('./api'));
 app.get('/', (req, res, next) => {

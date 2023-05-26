@@ -40,7 +40,7 @@ function SingleGame() {
         </div>
         <div className="game-purchase">
           <p className="game-price">${game.price}</p>
-          <button id="add-to-cart-button">Add to Cart</button>
+          <button id="add-to-cart-button">Buy</button>
         </div>
       </div>
     </div>

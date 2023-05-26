@@ -1,5 +1,5 @@
 const client = require('./client');
-const {getGameById} = require('./games')
+const { getGameById } = require("./games");
 
 //----------Cart----------//
 
@@ -131,9 +131,9 @@ async function getCartItemsByOrder(id) {
     //   }
     // }
 
-async function getGamesByCartId() {
+// async function getGamesByCartId() {
 
-}
+// }
 
 //in progress
 // async function addGamesToCartItem(userId, gameId) {
@@ -159,20 +159,18 @@ async function getGamesByCartId() {
 // }
 
 //change name to getCartWithAllInfo
-async function attachCartItemsToCart(id) {
+async function getCartWithAllInfo(id) {
   try {
-      // const { rows:  order  } = await client.query(`
-      //   SELECT * FROM cart
-      //   WHERE cart.id = $1
-      // `, [ id ]);
-      // console.log('This is orderItems', orderItems);
-
       const order = await getCartByOrder(id)
       const cartItems = await getCartItemsByOrder(id);
-      // const games = await getGamesByCartId
+      const  games  = await getGameById(cartItems.gameId)
 
       if (cartItems) {
         order.cartItems = cartItems;
+      }
+
+      if (games) {
+        cartItems.games = games;
       }
 
         return order;
@@ -225,7 +223,7 @@ async function deleteCartItems(id) {
       getAllCartItems,
       getCartItemsByOrder,
       updateCartItemQty,
-      attachCartItemsToCart,
+      getCartWithAllInfo,
       deleteCartItems
     }
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const cartRouter = express.Router();
-const { getAllCarts, getCartByOrder, getCartByUserId, createCart, updatePurchaseStatus } = require('../db');
+const { getAllCarts, getCartByOrder, getCartByUserId, createCart, updatePurchaseStatus, getCartWithAllInfo } = require('../db');
 
 //replace function with getCartWithAllInfo
 // //GET/api/cart/user/:userId
@@ -29,6 +29,20 @@ try {
 } catch (error) {
     next(error);
 }
+})
+
+//GET /api/cart/:orderId
+cartRouter.get('/cartInfo/:orderId', async (req, res, next) => {
+    try {
+        const { orderId } = req.params;
+        const cart = await getCartWithAllInfo(orderId);
+        console.log("This is cart:", cart);
+
+        res.send({cart});
+
+    } catch (error) {
+        next(error);
+    }
 })
 
 //PATCH /api/cart/:orderId

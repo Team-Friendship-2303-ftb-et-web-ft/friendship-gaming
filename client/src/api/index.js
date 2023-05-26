@@ -368,3 +368,22 @@ export const getCartItemsById = async (orderId) => {
   }
 }
 
+export const getCartWithAllInfo = async (orderId) => {
+  try {
+    const response = await fetch(`api/cart/cartInfo/${orderId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    const cartWithInfo = await response.json();
+    console.log("This is cartItemsById:", cartWithInfo);
+
+    return cartWithInfo;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+

@@ -3,20 +3,23 @@ import { useEffect, useState } from "react";
 import {CreateGameForm} from "./index";
 import {NavLink, useNavigate} from 'react-router-dom';
 import './Profile.css'
-import { getCartItemsById, getCartByUserId } from "../api";
+import { getCartsWithAllInfo } from "../api";
 const Profile = (props) => {
     const {isLoggedIn, currentUser, token, cartsList, setCartsList } = props;
     const [userCartsList, setUserCartsList] = useState([]);
     const navigate = useNavigate();
+    let allCarts = getCartsWithAllInfo();
+    console.log(allCarts)
 
     useEffect(() => {
         const fetchUserCarts = async () => {
-         
-        try{
+                    
+             try{
+                const userCarts = await getCartsWithAllInfo(currentUser);
 
-             const userCarts = await getCartByUserId(currentUser.user.id, token);
-             setUserCartsList(userCarts.userCart)
-
+                const filteredCarts = userCarts.filter(cart => cart.userId == currentUser.id);
+                setUserCartsList(filteredCarts);       
+              
             } catch (error){
                 console.error(error);
             }
@@ -50,7 +53,15 @@ const Profile = (props) => {
                         <h3>Order Number : {cart.id}</h3>
                         <div className="cartItemsList">
                             <h4>Items:</h4>
-                            <li>{cart.cartItems}</li>
+                       {
+
+                        // cart.map((cartItem) => {
+
+                        //     return(
+                        //         <li></li>
+                        //     )
+                        // })
+                       }
                     </div>
                         <p>Purchase Total: </p>
                     </div>

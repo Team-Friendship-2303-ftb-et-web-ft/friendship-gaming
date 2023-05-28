@@ -81,7 +81,7 @@ async function updatePurchaseStatus({ id }) {
   }
 }
 
-async function getCartWithAllInfo(userId) {
+async function getCartsWithAllInfo(userId) {
   // console.log("This is userId:",userId);
   try {
       const allCarts = await getCartByUserId(userId);
@@ -257,7 +257,7 @@ async function deleteCartItems(id) {
       getAllCartItems,
       getCartItemsByOrder,
       updateCartItemQty,
-      getCartWithAllInfo,
+      getCartsWithAllInfo,
       deleteCartItems,
       getCartItemsByCartId
     }

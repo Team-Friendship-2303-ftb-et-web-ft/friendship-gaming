@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
 
 
 
@@ -9,15 +9,18 @@
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  font-family: 'Balsamic Sans', sans-serif;
+  font-family: 'Marcellus', serif;
   font-size: 16px;
-  background: #E3E3EF;
+  background: #3e3e3e;
+  filter: opacity(90%);
   margin-bottom: 2%;
 }
 
 .logoimage{
  width: 50px;
  margin-left: 5px;
+ opacity: 1;
+ filter: none;
 }
 
  h1 {

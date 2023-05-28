@@ -71,13 +71,16 @@ function App() {
 
   return (
     <> 
+    
      <Header 
         isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
         setToken={setToken}/>
-
+      <div class="background-container">
+          <div class="background-image"></div>
+        </div>
     <Routes>
       <Route path="/" element= {<Home/>}/>
 

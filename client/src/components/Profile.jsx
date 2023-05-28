@@ -8,17 +8,11 @@ const Profile = (props) => {
     const {isLoggedIn, currentUser, token, cartsList, setCartsList } = props;
     const [userCartsList, setUserCartsList] = useState([]);
     const navigate = useNavigate();
-    const userCartItems = getCartItemsById(2);
-    console.log(userCartItems)
 
     useEffect(() => {
         const fetchUserCarts = async () => {
-            console.log(token)
-            console.log(currentUser.user.id)
-                console.log("This is carts:", carts);
-                
-                const filteredCarts = carts.filter(cart => cart.userId == currentUser.div);
-                setUserCartsList(filteredCarts);            try{
+         
+        try{
 
              const userCarts = await getCartByUserId(currentUser.user.id, token);
              setUserCartsList(userCarts.userCart)
@@ -42,7 +36,7 @@ const Profile = (props) => {
         <>
         {isLoggedIn ?
         <div className='profileMain' >
-           <div className="welcome"><h2>Welcome, {currentUser.user.username} </h2>
+           <div className="welcome"><h2><strong>Welcome, {currentUser.user.username}</strong> </h2>
            <button onClick={() => navigate('./UpdateUserInfo.jsx')} className='update'>Update Information</button>
            </div> 
 
@@ -56,15 +50,7 @@ const Profile = (props) => {
                         <h3>Order Number : {cart.id}</h3>
                         <div className="cartItemsList">
                             <h4>Items:</h4>
-                       {
-
-                        // cart.map((cartItem) => {
-
-                        //     return(
-                        //         <li></li>
-                        //     )
-                        // })
-                       }
+                            <li>{cart.cartItems}</li>
                     </div>
                         <p>Purchase Total: </p>
                     </div>
@@ -74,8 +60,9 @@ const Profile = (props) => {
         </div>
         </div>
         :
-        <h2>Welcome! Please login to get started!</h2>
-
+        <div className="notLoggedIn">
+        <h2 className="notLoggedInText">Welcome! Please login to get started!</h2>
+        </div>
         }
         
         </> 

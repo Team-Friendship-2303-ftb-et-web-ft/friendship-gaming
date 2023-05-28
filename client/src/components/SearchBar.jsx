@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import './SearchBar.css';
 const SearchBar = (props) => {
 
   const { gamesList, setReturnedGamesList } = props;
@@ -31,9 +32,9 @@ const SearchBar = (props) => {
 };
 
 return (
-    <div className="search-bar">
-      <label htmlFor="searchgames">Search for a Game:</label>
+    <div className="searchBox">
       <input
+        className="searchInput"
         type="text"
         name="searchgames"
         value={searchForGame}
@@ -49,9 +50,9 @@ return (
           setReturnedGamesList(filteredList);
           //Navigate('./SearchResults')
         }}
-        className="search-button"
+        className="searchButton"
       >
-        Search
+       &#x1F50D;
       </button>
     </div>
   );

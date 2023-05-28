@@ -22,6 +22,19 @@ async function createCart({ userId, purchaseStatus }) {
     }
 }
 
+// async function getAllCarts() {
+//   try {
+//     const { rows: order } = await client.query(`
+//       SELECT * FROM cart;
+//     `);
+   
+//     return order;
+
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
 async function getCartByOrder(id) {
     try {
       const { rows: [ order ] } = await client.query(`
@@ -37,9 +50,10 @@ async function getCartByOrder(id) {
     }
 
 async function getCartByUserId(userId) {
+  console.log("This is userId",userId);
     try {
         const { rows: order  } = await client.query(`
-        SELECT * FROM cart
+          SELECT * FROM cart
            WHERE "userId" = ${userId}
           `);
 
@@ -61,6 +75,38 @@ async function updatePurchaseStatus({ id }) {
     `);
 
       return order;
+
+  } catch (error) {
+      throw error;
+  }
+}
+
+async function getCartWithAllInfo(userId) {
+  // console.log("This is userId:",userId);
+  try {
+      const allCarts = await getCartByUserId(userId);
+      // console.log("This is allCarts:", allCarts)
+
+      const getInfo = async (cart) => {
+        const cartItems = await getCartItemsByCartId(cart.id);
+        // console.log("This is cartItems:", cartItems)  
+        const  games  = await getGameById(cartItems.gameId);
+        // console.log("This is games:", games)
+
+        if (games) {
+          cartItems.games = games;
+        }
+        return { ...cart, cartItems }
+      }
+
+      const promises = allCarts.map(getInfo)
+      // console.log("This is promises:",promises);
+
+      const cartInfo = await Promise.all(promises);
+      // console.log("This is cartInfo 1:",cartInfo);
+
+      return cartInfo;
+      // console.log("This is cartInfo 2:", cartInfo);
 
   } catch (error) {
       throw error;
@@ -103,7 +149,7 @@ async function getAllCartItems() {
 
 async function getCartItemsByOrder(id) {
     try {
-      const { rows: [ order ] } = await client.query(`
+      const { rows:  order  } = await client.query(`
        SELECT * FROM cartItems
        WHERE id = ${ id }
       `);
@@ -114,6 +160,20 @@ async function getCartItemsByOrder(id) {
        throw error;
      }
     }
+
+    async function getCartItemsByCartId(id) {
+      try {
+        const { rows: [ order ] } = await client.query(`
+         SELECT * FROM cartItems
+         WHERE "cartId" = ${ id }
+        `);
+        
+         return order;
+      
+       } catch (error) {
+         throw error;
+       }
+      }
 
     // async function attachCartItemsToCart(id) {
     //   try {
@@ -130,10 +190,6 @@ async function getCartItemsByOrder(id) {
     //       throw error;
     //   }
     // }
-
-// async function getGamesByCartId() {
-
-// }
 
 //in progress
 // async function addGamesToCartItem(userId, gameId) {
@@ -157,28 +213,6 @@ async function getCartItemsByOrder(id) {
 //     console.error(error)
 //   }
 // }
-
-//change name to getCartWithAllInfo
-async function getCartWithAllInfo(id) {
-  try {
-      const order = await getCartByOrder(id)
-      const cartItems = await getCartItemsByOrder(id);
-      const  games  = await getGameById(cartItems.gameId)
-
-      if (cartItems) {
-        order.cartItems = cartItems;
-      }
-
-      if (games) {
-        cartItems.games = games;
-      }
-
-        return order;
-
-  } catch (error) {
-      throw error;
-  }
-}
 
 async function updateCartItemQty({id, quantity}) {
   try {
@@ -224,6 +258,7 @@ async function deleteCartItems(id) {
       getCartItemsByOrder,
       updateCartItemQty,
       getCartWithAllInfo,
-      deleteCartItems
+      deleteCartItems,
+      getCartItemsByCartId
     }
 

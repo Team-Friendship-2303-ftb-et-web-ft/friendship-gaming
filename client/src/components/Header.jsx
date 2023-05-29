@@ -81,4 +81,5 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
     );
 };
 
+
 export default Header;

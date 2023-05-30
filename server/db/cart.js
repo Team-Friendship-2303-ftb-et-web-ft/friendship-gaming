@@ -85,17 +85,21 @@ async function getCartsWithAllInfo(userId) {
   // console.log("This is userId:",userId);
   try {
       const allCarts = await getCartByUserId(userId);
-      // console.log("This is allCarts:", allCarts)
+      console.log("This is allCarts:", allCarts)
 
       const getInfo = async (cart) => {
         const cartItems = await getCartItemsByCartId(cart.id);
-        // console.log("This is cartItems:", cartItems)  
-        const  games  = await getGameById(cartItems.gameId);
-        // console.log("This is games:", games)
+        console.log("This is cartItems puppy monkey baby:", cartItems)
+        cartItems.map( async (cartItem) => {
+          console.log("This is single cartItem:", cartItem)
+          const  games  = await getGameById(cartItem.gameId);
+          console.log("This is games:", games)
+          
+          if (games) {
+            cartItem.games = games;
+          }
 
-        if (games) {
-          cartItems.games = games;
-        }
+        })  
         return { ...cart, cartItems }
       }
 
@@ -163,7 +167,7 @@ async function getCartItemsByOrder(id) {
 
     async function getCartItemsByCartId(id) {
       try {
-        const { rows: [ order ] } = await client.query(`
+        const { rows:  order  } = await client.query(`
          SELECT * FROM cartItems
          WHERE "cartId" = ${ id }
         `);

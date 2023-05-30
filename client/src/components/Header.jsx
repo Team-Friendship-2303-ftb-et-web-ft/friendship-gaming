@@ -1,10 +1,9 @@
-import React from "react";
-import SearchBar from "./SearchBar";
+import React, {useState} from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../api";
 import './Header.css';
 
-const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
+const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList, setGamesList}) => {
     const navigate = useNavigate();
     return (
         <>
@@ -13,20 +12,19 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
             <a href="http://localhost:5173/" target="_blank">
           <img src="./images/logo3t.png" className="logoimage" alt=" logo" />
         </a>     
-        </div> 
-            <div className="navSearch">
-            <SearchBar  />
-            </div>
+        </div>          
             <nav id="navBar">
-            <button className="nav"
-                onClick={() => {
-                    navigate('/')
-                    }}><p>
-                    <span className="bg"></span>
-                    <span className="base"></span>
-                    <span className="text">Home</span>
-                    </p>
-                    </button>
+            <button className="nav" onClick={() => { 
+                navigate('/');
+                window.location.reload();
+                }}>
+                <p>
+                <span className="bg"></span>
+                <span className="base"></span>
+                <span className="text">Home</span>
+                </p>
+                </button>
+
                 {isLoggedIn ?
                 <button className="nav"
                     onClick={() => {
@@ -38,7 +36,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
                                 > <p>
                                 <span className="bg"></span>
                                 <span className="base"></span>
-                                <span className="text">Log Out</span>
+                                <span className="text"> Log Out </span>
                                 </p>
                                 </button> 
                             :
@@ -82,5 +80,6 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
 
     );
 };
+
 
 export default Header;

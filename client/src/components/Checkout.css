@@ -1,0 +1,94 @@
+.checkout-header{
+    margin-left: 20px;
+    margin-right: 20px;
+    background: rgba(75, 75, 75, 70%);
+    border-radius: 5px;
+}
+.checkout-body{
+    display: flex;
+    flex-direction: row;    background-color: white;
+    margin: 20px;
+}
+.checkout-info{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: 'Balsamic Sans', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 0;
+}
+#address{
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+}
+#billing-info{
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+}
+#billing-address{
+    border: #e1dede solid 8px;
+
+}
+#billing-info > label{
+    margin-left: 5px;
+}
+#billing-info > h2{
+    margin-bottom: 64px;
+}
+#cart-totals{
+    display: flex;
+    flex-direction: column;
+    border: solid 10px;
+    border-color: #D9D9D9;
+    min-height: 800px;
+    min-width: 400px;
+    margin: 10px;
+    margin-right: 50px;
+}
+#cart-totals > h2{
+    margin-top: 55px;
+    margin-bottom: 60px;
+}
+
+.billing{
+    width: 350px;
+    justify-content: left;
+    display: flex;
+    flex-direction: row;
+    max-height: 20px;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-family: 'Balsamic Sans', sans-serif;
+    font-size: 16px;
+    padding: 5px;
+    margin:10px;
+    border-color: #D9D9D9;
+    color: #000000;
+    text-align: left;
+}
+.billing-inputs{
+    min-height: 200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.input{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-family: 'Balsamic Sans', sans-serif;
+    font-size: 16px;
+    padding: 5px;
+    margin:10px;
+    border-color: #e1dede;
+    color: #000000;
+}

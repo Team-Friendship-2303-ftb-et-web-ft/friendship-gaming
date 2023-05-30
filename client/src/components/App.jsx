@@ -72,15 +72,18 @@ function App() {
 
   return (
     <> 
+    
      <Header 
         isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
         setToken={setToken}/>
-
+      <div className="background-container">
+          <div className="background-image"></div>
+        </div>
     <Routes>
-      <Route path="/" element= {<Home/>}/>
+      <Route path="/" element= {<Home gamesList={gamesList} setGamesList={setGamesList}  />}/>
 
 
       <Route path="/Admin" element= {<Admin game={game} setGame={setGame} token={token} isAdmin={isAdmin} gamesList={gamesList} currentUser={currentUser} />}/>
@@ -118,7 +121,7 @@ function App() {
         setCurrentUser={setCurrentUser}
         setToken={setToken}/>}/>
 
-      <Route path="/SearchBar" element= {<SearchBar/>}/>
+      <Route path="/SearchBar" element= {<SearchBar gamesList={gamesList}/>}/>
 
       <Route path="/games/:gameId" element= {<SingleGame game={game} setGame={setGame} />}/>
 

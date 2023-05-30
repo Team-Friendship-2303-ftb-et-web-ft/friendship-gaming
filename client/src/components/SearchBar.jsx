@@ -18,12 +18,6 @@ const SearchBar = (props) => {
    
     if(result){
     return result;
-  // } else 
-  // if(resultTags){
-  //   return resultTags;
-  // } else
-  //  if(resultGenre){
-  //   return resultGenre
   } else{
     return
   }

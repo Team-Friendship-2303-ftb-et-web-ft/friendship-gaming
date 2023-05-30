@@ -14,6 +14,7 @@
   background: #3e3e3e;
   filter: opacity(90%);
   margin-bottom: 2%;
+  border-radius: 10px;
 }
 
 .logoimage{
@@ -46,6 +47,7 @@ button {
   text-transform: uppercase;
   position: relative;
   margin: 10px;
+  border-radius: 5px;
 }
 
 button.nav {
@@ -143,7 +145,7 @@ span.base:before {
 }
 
  span.text {
-  z-index: 4;
+  z-index: 5;
   width: auto;
   height: auto;
   position: center;
@@ -161,7 +163,7 @@ span.text:after {
   background: #E3E3EF;
   position: absolute;
   transition: 0.3s ease-out all;
-  z-index: 5;
+  z-index: 7;
 }
 
 button.nav:hover {

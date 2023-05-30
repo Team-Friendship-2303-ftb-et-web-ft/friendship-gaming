@@ -11,10 +11,14 @@ const Home = (props) => {
 
     return (
         <>
+        <div className="search-bar">
             <SearchBar gamesList={gamesList} setReturnedGamesList={setReturnedGamesList} />
-            
+            </div>
             {returnedGamesList.length ?
         <div className="search-results">
+             <button className="back" onClick={() => { 
+                window.location.reload();
+                }}>Back</button>
              <h2>Results:</h2>
     {returnedGamesList.map((game, index) =>{
 

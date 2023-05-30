@@ -36,7 +36,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
                                 > <p>
                                 <span className="bg"></span>
                                 <span className="base"></span>
-                                <span className="text">Log Out</span>
+                                <span className="text"> Log Out </span>
                                 </p>
                                 </button> 
                             :

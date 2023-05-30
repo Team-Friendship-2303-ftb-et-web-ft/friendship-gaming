@@ -8,8 +8,7 @@ const Profile = (props) => {
     const {isLoggedIn, currentUser, token, cartsList, setCartsList } = props;
     const [userCartsList, setUserCartsList] = useState([]);
     const navigate = useNavigate();
-    let allCarts = getCartsWithAllInfo();
-    console.log(allCarts)
+  
 
     useEffect(() => {
         const fetchUserCarts = async () => {

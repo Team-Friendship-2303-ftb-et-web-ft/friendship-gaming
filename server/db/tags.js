@@ -20,6 +20,7 @@ async function createTag(name) {
     
     const placeholders = games.map((_, index) => `$${index + 1}`).join(', ');
     const gameIds = games.map((game) => game.id);
+    console.log("This is gameIds:", gameIds);
 
     const { rows: tags } = await client.query(`
       SELECT tags.*, game_tags."gameId"

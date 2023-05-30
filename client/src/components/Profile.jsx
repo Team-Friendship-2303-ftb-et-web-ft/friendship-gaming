@@ -9,15 +9,15 @@ const Profile = (props) => {
     const [userCartsList, setUserCartsList] = useState([]);
     const navigate = useNavigate();
   
-
+    console.log("This is currentUser:", currentUser.user.id);
     useEffect(() => {
         const fetchUserCarts = async () => {
                     
              try{
-                const userCarts = await getCartsWithAllInfo(currentUser);
+                const userCarts = await getCartsWithAllInfo(currentUser.user.id);
+                    console.log("This is userCarts:", userCarts);
 
-                const filteredCarts = userCarts.filter(cart => cart.userId == currentUser.id);
-                setUserCartsList(filteredCarts);       
+                setUserCartsList(userCarts.cart);       
               
             } catch (error){
                 console.error(error);
@@ -25,6 +25,8 @@ const Profile = (props) => {
         };
         fetchUserCarts()
     }, []);
+
+    console.log("This is UserCartsList:", userCartsList); 
 
     //I need to create an array of all item qty's where the cart.id matches then loop through the array and gather a sum, give it a variable and call it below. same process for purchase total
     function totalQty(arr){ 
@@ -46,20 +48,22 @@ const Profile = (props) => {
             <h3>   Order History :</h3>
         
             {userCartsList.map((cart, index) =>{
-
+                console.log("This is cart:", cart);
                 return(
                     <div key={index}>
                         <h3>Order Number : {cart.id}</h3>
                         <div className="cartItemsList">
                             <h4>Items:</h4>
-                       {
-
-                        // cart.map((cartItem) => {
-
-                        //     return(
-                        //         <li></li>
-                        //     )
-                        // })
+                       {cart.cartItems.map((cartItem) => {
+                            console.log("This is cartItem MAP:", cartItem)
+                            return(
+                                <div>
+                                    <li>{cartItem.games.title} Quantity: {cartItem.quantity}</li>
+                                    <li>{cartItem.games.quantity}</li>
+                                </div>
+                                
+                            )
+                        })
                        }
                     </div>
                         <p>Purchase Total: </p>

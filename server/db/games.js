@@ -21,13 +21,13 @@ async function createGame({ authorName, genre, title, price, description, featur
 
 async function getGameById(id) {
   try {
-    const { rows: [ game ] } = await client.query(`
+    const { rows:  [game]  } = await client.query(`
       SELECT * FROM games
       WHERE id=$1;
     `, [id]);
 
-    const games = await attachTagsToGames([game]);
-    return games[0];
+    // const games = await attachTagsToGames([game]);
+    return game;
   } catch (error) {
     console.error(`Error getting game by id: ${id}`, error);
     throw error;

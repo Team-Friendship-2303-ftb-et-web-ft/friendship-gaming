@@ -34,8 +34,9 @@ const {
   deleteCartItems,
   updatePurchaseStatus,
   updateCartItemQty,
-  getCartWithAllInfo,
-  getCartItemsByCartId
+  getCartsWithAllInfo,
+  getCartItemsByCartId,
+  attachTagsToGames
 } = require('./index.js');
 const 
   client
@@ -387,7 +388,7 @@ async function createInitialCarts() {
     });
     await createCart({
       userId: 2,
-      purchaseStatus: true
+      purchaseStatus: false
     });
     await createCart({
       userId: 3,
@@ -422,6 +423,12 @@ async function createInitialCartItems(){
         priceAtPurchase:25.99
      });
       await createCartItems({
+        cartId: 2,
+        gameId: 6,
+        quantity: 1,
+        priceAtPurchase:49.99
+      });
+      await createCartItems({
         cartId: 4,
         gameId: 6,
         quantity: 1,
@@ -455,7 +462,7 @@ async function createInitialTags() {
     await addTagToGame(gameThree.id, AI.id);
     await purchaseGame(gameTwo.id, 8)
     gameTwo = await getGameById(gameTwo.id);
-    console.log("this is game one with tags", gameTwo)
+    // console.log("this is game one with tags", gameTwo)
     console.log("Finished Creating Tags!");
   } catch (error) {
     console.log("Error creating tags!");
@@ -511,9 +518,9 @@ const testDB = async () => {
 //       const userInfo = await createUserInfo({userId: 1, firstName: 'albert', lastName: 'bertie', dateOfBirth: '10/22/00', isAdmin: false, addressId: 1})
 //       console.log("createUserInfo Result:", userInfo)
 
-    console.log("Calling getUserInfoByUser");
-      const userInfoByUser = await getUserInfoByUser(1);
-      console.log("getUserInfoByUser Result:", userInfoByUser);
+    // console.log("Calling getUserInfoByUser");
+    //   const userInfoByUser = await getUserInfoByUser(1);
+    //   console.log("getUserInfoByUser Result:", userInfoByUser);
 
 //     console.log("Calling updateUserInfo");
 //       const updatedUserInfo = await updateUserInfo({id: 1, lastName: 'albertie'});
@@ -584,6 +591,10 @@ const testDB = async () => {
 //     const gamesWithScary = await getGamesByTag("#scary");
 //     console.log("Result:",gamesWithScary);
 
+    // console.log("Calling GameTags with #scary");
+    // const gameTags = await attachTagsToGames(2);
+    // console.log("Result:",gameTags);
+
     // console.log("Calling getCartByOrder");
     // const orderById = await getCartByOrder(1);
     // console.log("Result:", orderById);
@@ -597,12 +608,12 @@ const testDB = async () => {
     // console.log("Result:", cartItemsByOrder);
 
     // console.log("Calling getCartItemsCart");
-    // const cartItemsByCart = await getCartItemsByCartId(1);
+    // const cartItemsByCart = await getCartItemsByCartId(2);
     // console.log("Result:", cartItemsByCart);
 
-    // console.log("Calling getCartInfo");
-    // const getCartInfo = await getCartWithAllInfo(2);
-    // console.log("Result:", getCartInfo);
+    console.log("Calling getCartInfo");
+    const getCartInfo = await getCartsWithAllInfo(2);
+    console.log("Result:", getCartInfo);
 
     // console.log("Calling deleteCartItems");
     // const deleteOrderItems = await deleteCartItems(1);

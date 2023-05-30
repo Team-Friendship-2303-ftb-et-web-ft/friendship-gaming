@@ -26,7 +26,7 @@ async function getGameById(id) {
       WHERE id=$1;
     `, [id]);
 
-    // const games = await attachTagsToGames([game]);
+    const games = await attachTagsToGames([game]);
     return game;
   } catch (error) {
     console.error(`Error getting game by id: ${id}`, error);

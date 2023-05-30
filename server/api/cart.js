@@ -1,6 +1,6 @@
 const express = require('express');
 const cartRouter = express.Router();
-const { getCartByOrder, getCartByUserId, createCart, updatePurchaseStatus, getCartWithAllInfo } = require('../db');
+const { getCartByOrder, getCartByUserId, createCart, updatePurchaseStatus, getCartsWithAllInfo } = require('../db');
 const { requireUser } = require('./utils');
 
 
@@ -36,7 +36,7 @@ try {
 cartRouter.get('/cartInfo/:userId', async (req, res, next) => {
     try {
         const { userId } = req.params;
-        const cart = await getCartWithAllInfo(userId);
+        const cart = await getCartsWithAllInfo(userId);
         console.log("This is cart:", cart);
 
         res.send({cart});

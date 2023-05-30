@@ -91,6 +91,25 @@ export const getAllUsers = async () => {
     }
   }
 
+  export const deleteUser = async (id, token) => {
+    console.log(id, token);
+    try {
+      const response = await fetch(`api/users/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+      const deletedUser = await response.json();
+      console.log(deletedUser);
+      return deletedUser;
+    } catch (err) {
+      console.error(err);
+    }
+  }  
+
+  
 // GET USERS WITH INFO
 export const getUsersWithInfo = async (token) => {
   try {

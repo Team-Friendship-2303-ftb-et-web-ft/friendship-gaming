@@ -4,7 +4,7 @@ import {NavLink, useNavigate} from 'react-router-dom';
 import {getUsersWithInfo} from '../api';
 import './Admin.css'
 
-const Admin = ({gamesList, currentUser, isAdmin, token}) => {
+const Admin = ({gamesList, game, setGame, currentUser, isAdmin, token}) => {
     const navigate = useNavigate();
 
     const [adminUsersList, setAdminUsersList] = useState([]);
@@ -61,7 +61,7 @@ const Admin = ({gamesList, currentUser, isAdmin, token}) => {
                 {/* SEE ALL GAMES */}
                 {showGames &&
                   <div className="container">
-                    <AdminGames token={token} gamesList={gamesList} isAdmin={isAdmin}/>
+                    <AdminGames setShowUsers={setShowUsers} setShowAddGameForm={setShowAddGameForm} setShowGames={setShowGames} setAdminUsersList={setAdminUsersList} token={token} game={game} setGame={setGame} gamesList={gamesList} isAdmin={isAdmin}/>
                   </div>
                 }
                 {showAddGameForm &&
@@ -71,9 +71,10 @@ const Admin = ({gamesList, currentUser, isAdmin, token}) => {
                 }
                 {showUsers &&
                   <div className="container">
-                    <AdminUsers gamesList={gamesList} isAdmin={isAdmin} adminUsersList={adminUsersList}/>
+                    <AdminUsers gamesList={gamesList} token={token} isAdmin={isAdmin} adminUsersList={adminUsersList}/>
                   </div>
                 }
+
               </div>
           </div>
         </> 

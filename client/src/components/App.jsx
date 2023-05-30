@@ -82,7 +82,7 @@ function App() {
       <Route path="/" element= {<Home/>}/>
 
 
-      <Route path="/Admin" element= {<Admin token={token} isAdmin={isAdmin} gamesList={gamesList} currentUser={currentUser} />}/>
+      <Route path="/Admin" element= {<Admin token={token} isAdmin={isAdmin} gamesList={gamesList} setGamesList={setGamesList} currentUser={currentUser} />}/>
 
       <Route path="/Cart" element= 
       {<Cart

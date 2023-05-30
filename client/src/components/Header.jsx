@@ -11,7 +11,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
         <section className="header">
             <div className="logo">
             <a href="http://localhost:5173/" target="_blank">
-          <img src="./images/logo.png" className="logo" alt=" logo" />
+          <img src="./images/logo3t.png" className="logoimage" alt=" logo" />
         </a>     
         </div> 
             <div className="navSearch">
@@ -31,8 +31,6 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken }) => {
                 <button className="nav"
                     onClick={() => {
                         setIsLoggedIn(false);
-                        setCurrentUser('');
-                        setToken('');
                             localStorage.removeItem('currentUser');
                             localStorage.removeItem('token');
                             navigate('/');  

@@ -42,7 +42,7 @@ const Profile = (props) => {
         <>
         {isLoggedIn ?
         <div className='profileMain' >
-           <div className="welcome"><h2><strong>Welcome, {currentUser.user.username}</strong> </h2>
+           <div className="welcome"><h2>Welcome, {currentUser.user.username} </h2>
            <button onClick={() => navigate('./UpdateUserInfo.jsx')} className='update'>Update Information</button>
            </div> 
 

@@ -305,7 +305,7 @@ export const getCartsWithAllInfo = async (userId) => {
     });
 
     const cartWithInfo = await response.json();
-    console.log("This is cartItemsById:", cartWithInfo);
+    console.log("This is carts with all:", cartWithInfo);
 
     return cartWithInfo;
 

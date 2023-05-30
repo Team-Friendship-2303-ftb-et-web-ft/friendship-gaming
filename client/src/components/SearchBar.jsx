@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import './SearchBar.css';
 const SearchBar = (props) => {
 
   const { gamesList, setReturnedGamesList } = props;
@@ -7,33 +8,25 @@ const SearchBar = (props) => {
   const [searchForGame, setSearchForGame] = useState('');
   const searchAllGames = (gamesArray, searchTerm) => {
     const result = gamesArray.filter((games) =>
-
-    games.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    games.title.toLowerCase().includes(searchTerm.toLowerCase()) || games.genre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  
+    // const resultTags = gamesArray.filter((games) =>
     
-    const resultTags = gamesArray.filter((games) =>
-    
-    games.tags.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    const resultGenre = gamesArray.filter((games) =>
-    
-    games.genre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    // games.tags.toLowerCase().includes(searchTerm.toLowerCase())
+    // );
+   
     if(result){
     return result;
-  } else if(resultTags){
-    return resultTags;
-  } else if(resultGenre){
-    return resultGenre
   } else{
     return
   }
 };
 
 return (
-    <div className="search-bar">
-      <label htmlFor="searchgames">Search for a Game:</label>
+    <div className="searchBox">
       <input
+        className="searchInput"
         type="text"
         name="searchgames"
         value={searchForGame}
@@ -49,9 +42,9 @@ return (
           setReturnedGamesList(filteredList);
           //Navigate('./SearchResults')
         }}
-        className="search-button"
+        className="searchButton"
       >
-        Search
+       &#x1F50D;
       </button>
     </div>
   );

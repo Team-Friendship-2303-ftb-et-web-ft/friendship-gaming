@@ -1,5 +1,5 @@
+  @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
 
-  @import url('https://fonts.googleapis.com/css2?family=Almendra+Display&display=swap');
 
   .profileMain{
    display: flex;
@@ -18,13 +18,25 @@
   height: 75px;
 }
   h2{
-   font-family: 'Almendra Display', cursive;
+   font-family: 'Marcellus', serif;
    text-align: center;
    padding: 5px;
    margin-left: 7px;
    font-size: 35px;
 }
-
+.notLoggedIn{
+   display: flex;
+   justify-content: center;
+   margin: auto;
+   margin-top: 275px;
+}
+.notLoggedInText{
+   display: flex;
+   justify-content: center;
+   background-color: rgb(85, 85, 84);
+   width: fit-content;
+  font-size: 50px;
+}
 
 h3{
    font-family: 'Courier New', Courier, monospace;
@@ -46,5 +58,5 @@ h3{
     margin-left: 2%;
     padding-left: 2%;
    width: auto;
-    
+    min-height: 500px;
  }

@@ -8,7 +8,7 @@ function SingleGame({game, setGame}) {
 
   useEffect(() => {
     const fetchGame = async () => {
-      const response = await fetch(`api/games/${gameId}`, {
+      const response = await fetch(`/api/games/${gameId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ function SingleGame({game, setGame}) {
         </div>
         <div className="game-purchase">
           <p className="game-price">${game.price}</p>
-          <button id="add-to-cart-button">Add to Cart</button>
+          <button id="add-to-cart-button">Buy</button>
         </div>
       </div>
     </div>

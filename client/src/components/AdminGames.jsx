@@ -15,7 +15,7 @@ const AdminGames = ({ gamesList, setGamesList, token, isAdmin }) => {
             console.error(`Failed to delete game: ${error}`);
         }
     };
-
+    
     const handleUpdate = (updatedGame) => {
         setSelectedGameId(null);
         setGamesList(gamesList.map(game => game.id === updatedGame.id ? updatedGame : game));

@@ -34,7 +34,8 @@ const {
   deleteCartItems,
   updatePurchaseStatus,
   updateCartItemQty,
-  getCartWithAllInfo
+  getCartWithAllInfo,
+  getCartItemsByCartId
 } = require('./index.js');
 const 
   client
@@ -394,7 +395,7 @@ async function createInitialCarts() {
     });
     await createCart({
       userId: 2,
-      purchaseStatus: false
+      purchaseStatus: true
     });
     console.log("Carts have been created!")
 }catch (error){
@@ -421,7 +422,7 @@ async function createInitialCartItems(){
         priceAtPurchase:25.99
      });
       await createCartItems({
-        cartId: 2,
+        cartId: 4,
         gameId: 6,
         quantity: 1,
         priceAtPurchase:49.99
@@ -588,16 +589,20 @@ const testDB = async () => {
     // console.log("Result:", orderById);
 
     // console.log("Calling getCartByUser");
-    // const orderByUser = await getCartByUserId(1);
+    // const orderByUser = await getCartByUserId(2);
     // console.log("Result:", orderByUser);
 
     // console.log("Calling getCartItemsByUser");
     // const cartItemsByOrder = await getCartItemsByOrder(1);
     // console.log("Result:", cartItemsByOrder);
 
-    console.log("Calling getCartInfo");
-    const getCartInfo = await getCartWithAllInfo(1);
-    console.log("Result:", getCartInfo);
+    // console.log("Calling getCartItemsCart");
+    // const cartItemsByCart = await getCartItemsByCartId(1);
+    // console.log("Result:", cartItemsByCart);
+
+    // console.log("Calling getCartInfo");
+    // const getCartInfo = await getCartWithAllInfo(2);
+    // console.log("Result:", getCartInfo);
 
     // console.log("Calling deleteCartItems");
     // const deleteOrderItems = await deleteCartItems(1);
@@ -616,12 +621,12 @@ const testDB = async () => {
       // console.log("updateCartItems Result:", GetCarts);
 
       // console.log("Calling getCartByUser");
-      // const cartByUser = await getCartByUserId(1);
+      // const cartByUser = await getCartByUserId(2);
       // console.log("Result:", cartByUser);
 
-      console.log("Calling getGameId");
-      const getGameId = await getGameById(1);
-      console.log("Result:", getGameId);
+      // console.log("Calling getGameId");
+      // const getGameId = await getGameById(1);
+      // console.log("Result:", getGameId);
 
   } catch (error) {
     console.error("It broke....no work...test fail");

@@ -1,3 +1,4 @@
+//------------ USERS ------------//
 
 //REGISTER USER
 export const registerUser = async (userObject) => {
@@ -24,6 +25,7 @@ export const registerUser = async (userObject) => {
         console.error(error);
     }
 };
+
 //LOGIN USER
 export const loginUser = async (userObject) => {
     try{
@@ -70,22 +72,6 @@ export const getMe = async (token) => {
       console.error(err);
     }
   }
-// GET ALL GAMES
-export const getAllGames = async () => {
-  try {
-    const response = await fetch(`api/games`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-    const games = await response.json();
-    // console.log(games);
-    return games;
-  } catch (err) {
-    console.error(err);
-  }
-}
 
 // GET ALL USERS
 export const getAllUsers = async () => {
@@ -105,7 +91,26 @@ export const getAllUsers = async () => {
     }
   }
 
-  
+// GET USERS WITH INFO
+export const getUsersWithInfo = async (token) => {
+  try {
+    const response = await fetch(`api/users/admin`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch(error) {
+    console.error(error);
+  }
+}
+
+//------------ GAMES ------------//
+
 // CREATE GAME
 export const createGame = async (gameData) => {
   try {
@@ -120,6 +125,23 @@ export const createGame = async (gameData) => {
     const newGame = await response.json();
     console.log(newGame);
     return newGame;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// GET ALL GAMES
+export const getAllGames = async () => {
+  try {
+    const response = await fetch(`api/games`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const games = await response.json();
+    // console.log(games);
+    return games;
   } catch (err) {
     console.error(err);
   }
@@ -141,6 +163,7 @@ export const getGameById = async (gameId) => {
     console.error(err);
   }
 }
+
 // GET GAMES BY GENRE
 export const getGamesByGenre = async (genre) => {
     try {
@@ -158,96 +181,98 @@ export const getGamesByGenre = async (genre) => {
     }
   }
   
-  // GET GAMES BY TAG
-  export const getGamesByTag = async (tagId) => {
-    try {
-      const response = await fetch(`api/games/tag/${tagId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      const games = await response.json();
-      console.log(games);
-      return games;
-    } catch (err) {
-      console.error(err);
-    }
+// GET GAMES BY TAG
+export const getGamesByTag = async (tagId) => {
+  try {
+    const response = await fetch(`api/games/tag/${tagId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const games = await response.json();
+    console.log(games);
+    return games;
+  } catch (err) {
+    console.error(err);
   }
+}
   
-  // GET GAMES BY AUTHOR
-  export const getGamesByAuthor = async (authorName) => {
-    try {
-      const response = await fetch(`api/games/author/${authorName}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      const games = await response.json();
-      console.log(games);
-      return games;
-    } catch (err) {
-      console.error(err);
-    }
+// GET GAMES BY AUTHOR
+export const getGamesByAuthor = async (authorName) => {
+  try {
+    const response = await fetch(`api/games/author/${authorName}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const games = await response.json();
+    console.log(games);
+    return games;
+  } catch (err) {
+    console.error(err);
   }
+}
   
-  // UPDATE GAME
-  export const updateGame = async (gameId, gameData) => {
-    try {
-      const response = await fetch(`api/games/${gameId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(gameData)
-      });
-      const updatedGame = await response.json();
-      console.log(updatedGame);
-      return updatedGame;
-    } catch (err) {
-      console.error(err);
-    }
+// UPDATE GAME
+export const updateGame = async (gameId, gameData) => {
+  try {
+    const response = await fetch(`api/games/${gameId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(gameData)
+    });
+    const updatedGame = await response.json();
+    console.log(updatedGame);
+    return updatedGame;
+  } catch (err) {
+    console.error(err);
   }
+}
   
-  // DELETE GAME
-  export const destroyGame = async (gameId, token) => {
-    try {
-      const response = await fetch(`api/games/${gameId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-      });
-      const deletedGame = await response.json();
-      console.log(deletedGame);
-      return deletedGame;
-    } catch (err) {
-      console.error(err);
-    }
+// DELETE GAME
+export const destroyGame = async (gameId, token) => {
+  try {
+    const response = await fetch(`api/games/${gameId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    const deletedGame = await response.json();
+    console.log(deletedGame);
+    return deletedGame;
+  } catch (err) {
+    console.error(err);
   }
+}
   
-  // PURCHASE GAME
-  export const purchaseGame = async (gameId, quantityPurchased) => {
-    try {
-      const response = await fetch(`api/games/${gameId}/purchase`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ quantityPurchased })
-      });
-      if (response.status === 204) {
-        console.log("Purchase Successful");
-      }
-    } catch (err) {
-      console.error(err);
+// PURCHASE GAME
+export const purchaseGame = async (gameId, quantityPurchased) => {
+  try {
+    const response = await fetch(`api/games/${gameId}/purchase`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ quantityPurchased })
+    });
+    if (response.status === 204) {
+      console.log("Purchase Successful");
     }
+  } catch (err) {
+    console.error(err);
   }
-  
+}
+
+//------------ CARTS ------------//
+
 //CREATE CART
 export const createCart = async (newCart) => {
   try {
@@ -261,13 +286,33 @@ export const createCart = async (newCart) => {
     });
     const newCart = await response.json();
     console.log(newCart);
+
     return newCart;
+
   } catch (err) {
     console.error(err);
   }
 }
 
-//GET ALL CARTS
+//GET CARTS WITH ALL INFO BY USERID
+export const getCartsWithAllInfo = async (userId) => {
+  try {
+    const response = await fetch(`api/cart/cartInfo/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    const cartWithInfo = await response.json();
+    console.log("This is carts with all:", cartWithInfo);
+
+    return cartWithInfo;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 //GET CART BY USER
 export const getCartByUserId = async (userId, token) => {
@@ -281,14 +326,39 @@ export const getCartByUserId = async (userId, token) => {
     });
     const userCart = await response.json();
     console.log(userCart);
+
     return userCart;
+
   } catch (err) {
     console.error(err);
   }
 }
 
+// UPDATE CART PURCHASE STATUS
+export const updatePurchaseStatus = async (orderId, cartObj, token) => {
+  try {
+    const response = await fetch(`api/cart/${orderId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(cartObj)
+    });
+    const updatedCart = await response.json();
+    console.log(updatedCart);
+
+    return updatedCart;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+//------------ CART ITEMS ------------//
+
 //CREATE CART ITEM
-export const createCartItems = async (newCartItem) => {
+export const createCartItems = async (CartItemObj, token) => {
   try {
     const response = await fetch(`api/cartItems`, {
       method: 'POST',
@@ -296,34 +366,16 @@ export const createCartItems = async (newCartItem) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(newCartItems)
+      body: JSON.stringify(CartItemObj)
     });
 
-    const newCartItems = await response.json();
-    console.log(newCartItems);
+    const newCartItem = await response.json();
+    console.log(newCartItem);
 
-    return newCartItems;
+    return newCartItem;
 
   } catch (err) {
     console.error(err);
-  }
-}
-
-//GET USERS WITH INFO
-export const getUsersWithInfo = async (token) => {
-  try {
-    const response = await fetch(`api/users/admin`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-    });
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch(error) {
-    console.error(error);
   }
 }
 
@@ -348,42 +400,67 @@ export const getAllCartItems = async () => {
   }
 }
 
-//GET ALL CART ITEMS BY ID
-export const getCartItemsById = async (orderId) => {
+//GET ALL CART ITEMS BY CART ID
+export const getCartItemsByCartId = async (cartId, token) => {
   try {
-    const response = await fetch(`api/cartItems/${orderId}`, {
+    const response = await fetch(`api/cartItems/cartId${cartId}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
     });
 
-    const cartItemsById = await response.json();
-    console.log("This is cartItemsById:", cartItemsById);
+    const cartItemsByCartId = await response.json();
+    console.log("This is cartItemsById:", cartItemsByCartId);
 
-    return cartItemsById;
+    return cartItemsByCartId;
 
   } catch (err) {
     console.error(err);
   }
 }
 
-export const getCartWithAllInfo = async (orderId) => {
+// UPDATE CART ITEMS QUANTITY
+export const updateCartItemsQuantity = async (cartId, cartItemsObj, token) => {
   try {
-    const response = await fetch(`api/cart/cartInfo/${orderId}`, {
-      method: 'GET',
+    const response = await fetch(`api/cartitems/${cartId}`, {
+      method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
+      body: JSON.stringify(cartItemsObj)
     });
+    const updatedCartItem = await response.json();
+    console.log(updatedCartItem);
 
-    const cartWithInfo = await response.json();
-    console.log("This is cartItemsById:", cartWithInfo);
-
-    return cartWithInfo;
+    return updatedCartItem;
 
   } catch (err) {
     console.error(err);
   }
 }
+
+// DELETE CART ITEM 
+export const deleteCartItem = async (cartId, token) => {
+  try {
+    const response = await fetch(`api/cartItems/${cartId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    const deletedCartItem = await response.json();
+    console.log(deletedCartItem);
+
+    return deletedCartItem;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
 

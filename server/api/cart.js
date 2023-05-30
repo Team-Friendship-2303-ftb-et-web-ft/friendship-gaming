@@ -1,9 +1,10 @@
 const express = require('express');
 const cartRouter = express.Router();
-const { getAllCarts, getCartByOrder, getCartByUserId, createCart, updatePurchaseStatus, getCartWithAllInfo } = require('../db');
+const { getCartByOrder, getCartByUserId, createCart, updatePurchaseStatus, getCartsWithAllInfo } = require('../db');
+const { requireUser } = require('./utils');
 
-//replace function with getCartWithAllInfo
-// //GET/api/cart/user/:userId
+
+//GET /api/cart/user/:userId Get All Carts By UserId
 cartRouter.get('/user/:userId', async (req, res, next) => {
 try{
     const { userId } = req.params;
@@ -17,8 +18,8 @@ try{
 }
 })
 
-// //GET/api/cart/orderId
-cartRouter.get('/:orderId', async (req, res, next) => {
+//GET /api/cart/Id/orderId - Get Carts By OrderId 
+cartRouter.get('/Id/:orderId', async (req, res, next) => {
 try {
     const { orderId } = req.params;
     const cart = await getCartByOrder(orderId);
@@ -31,11 +32,11 @@ try {
 }
 })
 
-//GET /api/cart/:orderId
-cartRouter.get('/cartInfo/:orderId', async (req, res, next) => {
+//GET /api/cart/cartInfo/:userId - Get All Carts With Info By UserId
+cartRouter.get('/cartInfo/:userId', async (req, res, next) => {
     try {
-        const { orderId } = req.params;
-        const cart = await getCartWithAllInfo(orderId);
+        const { userId } = req.params;
+        const cart = await getCartsWithAllInfo(userId);
         console.log("This is cart:", cart);
 
         res.send({cart});
@@ -45,20 +46,16 @@ cartRouter.get('/cartInfo/:orderId', async (req, res, next) => {
     }
 })
 
-//PATCH /api/cart/:orderId
-cartRouter.patch('/:orderId', async (req, res, next) => {
+//PATCH /api/cart/:orderId - Get Carts By OrderId and Update PurchaseStatus
+cartRouter.patch('/:orderId', requireUser, async (req, res, next) => {
 
     try {
         const { orderId } = req.params;
         const { purchaseStatus } = req.body;
         const cart = await getCartByOrder(orderId);
         // console.log("This is cart:", cart);
-    
-        if (!cart) {
-            return res.status(404).json({ error: 'CartNotFound', message: 'No cart found with that id' });
-          }
-    
-          const updatedCart = await updatePurchaseStatus(cart)
+
+        const updatedCart = await updatePurchaseStatus(cart)
 
           res.send({ updatedCart })
 
@@ -67,20 +64,20 @@ cartRouter.patch('/:orderId', async (req, res, next) => {
     }
   })
 
-  //GET /api/cart
-  cartRouter.get('/', async (req, res, next) => {
-    try {
-        const carts = await getAllCarts();
+  //GET /api/cart - Get All Carts
+//   cartRouter.get('/', async (req, res, next) => {
+//     try {
+//         const carts = await getAllCarts();
 
-            res.send({ carts });
+//             res.send({ carts });
 
-    } catch (error) {
-        next(error);
-    }    
-})
+//     } catch (error) {
+//         next(error);
+//     }    
+// })
 
-//GET api/cart/:userId
-cartRouter.get('/userId/:userId', async (req, res, next) => {
+//GET api/cart/:userId - Get Cart By UserId
+cartRouter.get('/user/:userId', async (req, res, next) => {
     try {
         const { userId } = req.params;
         const cartById = await getCartByUserId(userId);
@@ -93,7 +90,7 @@ cartRouter.get('/userId/:userId', async (req, res, next) => {
     }
     })
   
-//POST/api/cart
+//POST/api/cart - Create Cart
 cartRouter.post('/', async (req,res,next) => {
     const { userId, purchaseStatus } = req.body;
 

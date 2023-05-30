@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { getUserByUsername, createUser, getAllUsers, getUser, getUserById, getUserInfoByUser, getAddressById, updateUserInfo, updateUserAddress, getAddressByUsername} = require('../db/users');
+const { getUserByUsername, createUser, deleteUser, getAllUsers, getUser, getUserById, getUserInfoByUser, getAddressById, updateUserInfo, updateUserAddress, getAddressByUsername} = require('../db/users');
 const { requireAdmin, requireUser } = require('./utils');
 const { getAllGames } = require('../db');
 const { JWT_SECRET } = process.env;
@@ -111,6 +111,25 @@ router.get('/admin', requireAdmin, async(req, res, next) => {
     res.send({message: "logged in as admin", usersWithInfo, allGames})
   } catch (message){
     res.send(message);
+  }
+});
+
+router.delete('/:id', requireAdmin, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await getUserById(id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'UserNotFound', message: 'No user found with that id' });
+    }
+
+    const deletedUser = await deleteUser(id);
+    const allUsers = await getAllUsers();
+    console.log(allUsers);
+    console.log(deletedUser)
+    res.status(200).json(deletedUser);
+  } catch (error) {
+    next(error);
   }
 });
 

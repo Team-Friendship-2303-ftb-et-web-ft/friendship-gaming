@@ -71,7 +71,7 @@ const Admin = ({gamesList, game, setGame, currentUser, isAdmin, token}) => {
                 }
                 {showUsers &&
                   <div className="container">
-                    <AdminUsers gamesList={gamesList} isAdmin={isAdmin} adminUsersList={adminUsersList}/>
+                    <AdminUsers gamesList={gamesList} token={token} isAdmin={isAdmin} adminUsersList={adminUsersList}/>
                   </div>
                 }
 

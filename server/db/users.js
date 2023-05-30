@@ -1,3 +1,4 @@
+const { getCartByUserId, getCartItemsByOrder } = require('./cart');
 const client = require('./client');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -81,18 +82,29 @@ async function getUserByUsername(username) {
 
 async function deleteUser(id) {
   try {
+    const cart = await getCartByUserId(id);
+    console.log(cart);
     await client.query(`
-      ALTER TABLE userInfo
-      DROP COLUMN "userId" CASCADE
-    `);
+      DELETE FROM userInfo
+      WHERE "userId"=$1
+    `,[id]);
+    cart.map(async(cart)=>{
+      await client.query(`
+        DELETE FROM cartItems
+        WHERE "cartId"=$1
+      `,[cart.id])
+    })
     await client.query(`
-      ALTER TABLE cart
-      DROP COLUMN "userId" CASCADE
-  `);
-    await client.query(`
+      DELETE FROM cart
+      WHERE "userId"=$1
+    `, [id]);
+    const {rows: [deletedUser]} = await client.query(`
       DELETE FROM users
       WHERE users.id=$1
+      RETURNING *;
     `, [id]);
+    console.log(deletedUser);
+    return deletedUser;
   } catch (error) {
     console.error(error);
   }

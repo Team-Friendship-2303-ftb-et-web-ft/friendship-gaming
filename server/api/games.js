@@ -100,7 +100,7 @@ gamesRouter.delete('/:gameId', requireAdmin, async (req, res, next) => {
     }
 
     const deletedGame = await destroyGame(gameId);
-
+    console.log(deletedGame);
     res.status(200).json(deletedGame);
   } catch (error) {
     next(error);

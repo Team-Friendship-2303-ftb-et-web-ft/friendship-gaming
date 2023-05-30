@@ -19,6 +19,7 @@ function App() {
   const [selectedGame, setSelectedGame] = useState({});
   const [usersList, setUsersList] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [game, setGame] = useState(null);
 
 
  
@@ -87,6 +88,7 @@ function App() {
 
       <Route path="/Admin" element= {<Admin token={token} isAdmin={isAdmin} gamesList={gamesList} setGamesList={setGamesList} currentUser={currentUser} />}/>
 
+
       <Route path="/Cart" element= 
       {<Cart
         isLoggedIn={isLoggedIn}
@@ -122,7 +124,7 @@ function App() {
 
       <Route path="/SearchBar" element= {<SearchBar gamesList={gamesList}/>}/>
 
-      <Route path="/games/:gameId" element= {<SingleGame/>}/>
+      <Route path="/games/:gameId" element= {<SingleGame game={game} setGame={setGame} />}/>
 
       
     </Routes> 

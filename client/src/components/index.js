@@ -15,3 +15,4 @@ export { default as SingleGame } from "./SingleGame";
 export { default as CreateGameForm } from "./CreateGameForm";
 export { default as AdminGames } from "./AdminGames";
 export { default as AdminUsers } from "./AdminUsers";
+export { default as EditGameForm } from "./EditGameForm";

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import EditGameForm from './EditGameForm';
 import { destroyGame } from '../api';
+
 import './Admin.css';
 
 const AdminGames = ({ gamesList, setGamesList, token, isAdmin }) => {
     const [selectedGameId, setSelectedGameId] = useState(null);
+
 
     const deleteGame = async (gameId) => {
         try {
@@ -21,14 +23,17 @@ const AdminGames = ({ gamesList, setGamesList, token, isAdmin }) => {
         setGamesList(gamesList.map(game => game.id === updatedGame.id ? updatedGame : game));
     };
 
+
     return (
       <div className="container">
         {isAdmin && gamesList.map(game => {
           let tagArr = [];
           if (game.tags && game.tags.length) {
+
             let tagNames = Object.values(game.tags);
             tagNames.map(tag => tagArr.push(tag.name));
           }
+
                 return (
                     <div key={game.id} id="game">
                         <div className="titlebox">
@@ -57,6 +62,7 @@ const AdminGames = ({ gamesList, setGamesList, token, isAdmin }) => {
                 );
             })}
         </div>
+
     );
 };
 

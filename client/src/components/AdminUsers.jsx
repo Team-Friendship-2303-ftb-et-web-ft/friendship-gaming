@@ -1,6 +1,7 @@
 import './Admin.css'
+import { deleteUser } from '../api';
 
-const AdminUsers = ({adminUsersList, isAdmin}) => {
+const AdminUsers = ({adminUsersList, token, isAdmin}) => {
     return(
         <div className="container">
 
@@ -30,9 +31,10 @@ const AdminUsers = ({adminUsersList, isAdmin}) => {
                 }
             </>   
             }
+            
             <div className="button">
-                <button onClick={console.log('add update form function here')}>Update</button>
-                <button onClick={() => {console.log('add delete function here')}}>Delete</button>
+                {/* <button onClick={console.log('add update form function here')}>Update</button> */}
+                <button onClick={async()=>{await deleteUser(user.id, token)}}>Delete</button>
             </div>
             </div>
           )

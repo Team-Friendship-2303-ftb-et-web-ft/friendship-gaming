@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Register.css';
-import { registerUser } from '../api';
+import { createCart, registerUser } from '../api';
 
 const Register = ({
     isLoggedIn,
@@ -10,25 +10,28 @@ const Register = ({
     setToken,
     currentUser,
     setCurrentUser,
+    currentCart, 
+    setCurrentCart, 
   }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    console.log(username);
     const navigate = useNavigate();
   
     const handleSubmit = async (event) => {
       event.preventDefault();
       const userToAuth = { username, password};
-      console.log(userToAuth);
+      // console.log(userToAuth);
       const data = await registerUser(userToAuth);
-      console.log(data);
-  
+      // console.log('data----->',data);
+
+      
       if (data.token) {
         setToken(data.token);
-        console.log(data.token);
         setCurrentUser(username);
-        console.log(username);
-        setIsLoggedIn(true); }
+        const cart = await createCart({userId:data.user.id, purchaseStatus:false});
+        setIsLoggedIn(true); 
+        setCurrentCart(cart);
+      }
         {
         console.log("login is set to true");
         setUsername('');

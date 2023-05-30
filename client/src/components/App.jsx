@@ -20,6 +20,9 @@ function App() {
   const [usersList, setUsersList] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState(null);
+  const [currentCart, setCurrentCart] = useState({});
+
+  
 
 
  
@@ -120,11 +123,12 @@ function App() {
         setIsLoggedIn={setIsLoggedIn}
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
-        setToken={setToken}/>}/>
+        setToken={setToken}
+        currentCart={currentCart} setCurrentCart={setCurrentCart}/>}/>
 
       <Route path="/SearchBar" element= {<SearchBar gamesList={gamesList}/>}/>
 
-      <Route path="/games/:gameId" element= {<SingleGame game={game} setGame={setGame} />}/>
+      <Route path="/games/:gameId" element= {<SingleGame game={game} currentUser={currentUser} currentCart={currentCart} token={token} setGame={setGame} />}/>
 
       
     </Routes> 

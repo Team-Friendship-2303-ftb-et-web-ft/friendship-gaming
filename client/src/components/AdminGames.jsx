@@ -22,13 +22,13 @@ const AdminGames = ({ gamesList, setGamesList, token, isAdmin }) => {
     };
 
     return (
-        <div className="container">
-            {isAdmin && gamesList.map(game => {
-                let tagArr = [];
-                if (game.tags.length) {
-                    let tagNames = Object.values(game.tags);
-                    tagNames.map(tag => tagArr.push(tag.name));
-                }
+      <div className="container">
+        {isAdmin && gamesList.map(game => {
+          let tagArr = [];
+          if (game.tags && game.tags.length) {
+            let tagNames = Object.values(game.tags);
+            tagNames.map(tag => tagArr.push(tag.name));
+          }
                 return (
                     <div key={game.id} id="game">
                         <div className="titlebox">
@@ -37,7 +37,7 @@ const AdminGames = ({ gamesList, setGamesList, token, isAdmin }) => {
                         </div>
                         <p>Author: {game.authorName}</p>
                         <p>Genre: {game.genre}</p>
-                        {game.tags.length ? <p>Tags: {tagArr.join(' ')}</p> : <p>Tags: N/A</p>}
+                        {game.tags && game.tags.length ? <p>Tags: {tagArr.join(' ')}</p> : <p>Tags: N/A</p>}
                         <p>Price: {game.price}</p>
                         <p>Inventory: {game.inventoryqty}</p>
                         <p>Description: {game.description}</p>

@@ -388,7 +388,7 @@ async function createInitialCarts() {
     });
     await createCart({
       userId: 2,
-      purchaseStatus: true
+      purchaseStatus: false
     });
     await createCart({
       userId: 3,
@@ -488,7 +488,7 @@ const rebuildDB = async () => {
     console.error('Error during rebuildDB', error);
     throw error;
   } finally {
-    // await client.end();
+    await client.end();
     console.log("Database has been rebuilt, and you're good to go!");
   }
 };

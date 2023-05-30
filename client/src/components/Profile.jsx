@@ -53,15 +53,18 @@ const Profile = (props) => {
                     <div key={index}>
                         <h3>Order Number : {cart.id}</h3>
                         <div className="cartItemsList">
-                            <h4>Items: {cart.cartItems.games.title}</h4>
-                       {/* {
-                        cart.map((cartItem) => {
-
+                            <h4>Items:</h4>
+                       {cart.cartItems.map((cartItem) => {
+                            console.log("This is cartItem MAP:", cartItem)
                             return(
-                                <li></li>
+                                <div>
+                                    <li>{cartItem.games.title} Quantity: {cartItem.quantity}</li>
+                                    <li>{cartItem.games.quantity}</li>
+                                </div>
+                                
                             )
                         })
-                       } */}
+                       }
                     </div>
                         <p>Purchase Total: </p>
                     </div>

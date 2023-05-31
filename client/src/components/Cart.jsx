@@ -43,7 +43,7 @@ const Cart = ({userCartsList, setUserCartsList, isLoggedIn, currentUser}) => {
                             // console.log("This is cartItem MAP:", cartItem);
                             return(
                                 <div>
-                                    <li>{cartItem.games.title} ${cartItem.games.price}</li>
+                                    <li>{cartItem.game.title} ${cartItem.game.price}</li>
                                     <input className="quantity" type="number" min="1" max="6"/> {cartItem.quantity}
                                     <button>Remove</button>
                                 </div>

@@ -43,6 +43,7 @@
 #cart-totals{
     display: flex;
     flex-direction: column;
+    background-color: white;
     border: solid 10px;
     border-color: #D9D9D9;
     min-height: 800px;
@@ -91,4 +92,8 @@
     margin:10px;
     border-color: #e1dede;
     color: #000000;
+}
+
+.cartItemImage {
+    width: 100px;
 }

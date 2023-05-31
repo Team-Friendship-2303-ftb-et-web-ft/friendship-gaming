@@ -2,13 +2,13 @@ const client = require("./client");
 const { attachTagsToGames } = require("./tags")
 // The creategame function is used to create a new game entry in the database.
 
-async function createGame({ authorName, genre, title, price, description, featured, inventoryqty }) {
+async function createGame({ authorName, genre, title, price, description, featured, inventoryqty, imageUrl }) {
   try {
     const { rows: [ game ] } = await client.query(`
-      INSERT INTO games("authorName", genre, title, price, description, featured, inventoryqty)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      INSERT INTO games("authorName", genre, title, price, description, featured, inventoryqty, imageUrl)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *;
-    `, [authorName, genre, title, price, description, featured, inventoryqty]);
+    `, [authorName, genre, title, price, description, featured, inventoryqty, imageUrl]);
 
     console.log(game);
     return game;
@@ -17,6 +17,7 @@ async function createGame({ authorName, genre, title, price, description, featur
     throw error;
   }
 }
+
 
 
 async function getGameById(id) {

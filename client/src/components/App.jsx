@@ -23,7 +23,16 @@ function App() {
   const [currentCart, setCurrentCart] = useState({});
   const [userCartsList, setUserCartsList] = useState([]);
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('currentUser');
 
+    if (storedToken && storedUser) {
+      setToken(storedToken);
+      setCurrentUser(storedUser);
+      setIsLoggedIn(true);
+    }
+  }, []);
  
   useEffect(() => {
     const fetchUser = async () => {

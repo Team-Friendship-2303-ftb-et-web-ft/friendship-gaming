@@ -24,7 +24,7 @@
  filter: none;
 }
 
- h1 {
+.header-components h1 {
   font-size: 2.4em;
   font-style: italic;
   color: #000000;
@@ -36,7 +36,7 @@ nav {
   flex-direction: row;
   justify-content: space-between;
 }
-button {
+.header-components button {
   width: 70px;
   background-color: #000000;
   height: 25px;
@@ -177,4 +177,3 @@ button.nav:hover > p span.bg {
 button.nav:hover > p span.text:after {
   background: #ece8e1;
 }
-

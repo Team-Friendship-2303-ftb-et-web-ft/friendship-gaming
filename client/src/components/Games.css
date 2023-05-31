@@ -3,35 +3,35 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+}
   
-  h1#featured-title,
-  h1#genre-title,
-  h1#all-games-title {
+h1#featured-title,
+h1#genre-title,
+h1#all-games-title {
     color: white;
-  }
+}
   
-  .game-card {
+.game-card {
     position: relative;
     width: 250px;
     margin: 10px;
     color: #fff;
-  }
+}
   
-  .game-card:hover {
+.game-card:hover {
     color: #000;
-  }
+}
   
-  .game-image {
+.game-image {
     width: 100%;
     transition: opacity 0.3s ease-in-out;
-  }
+}
   
-  .game-card:hover .game-image {
+.game-card:hover .game-image {
     opacity: 0.3;
-  }
+}
   
-  .game-info {
+.game-info {
     position: absolute;
     top: 0;
     left: 0;
@@ -44,33 +44,42 @@
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
     text-align: center;
-  }
+}
   
-  .game-title {
+.game-title {
     text-shadow: 2px 2px 3px purple;
     color: white;
-  }
+}
   
-  .game-card:hover .game-title {
+.game-card:hover .game-title {
     text-shadow: none;
-  }
+}
   
-  .game-card .game-info .hover-info {
+.game-card .game-info .hover-info {
     opacity: 0;
-  }
+}
   
-  .game-card:hover .game-info .hover-info {
+.game-card:hover .game-info .hover-info {
     opacity: 1;
-  }
+}
   
-  #featured-section,
-  #all-games-section {
+#featured-section,
+#all-games-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-  }
+}
   
-  .genre-button {
+.genre-button {
+    display: inline-block;
     margin: 5px;
-  }
-  
+    padding: 10px 20px;
+    border: none;
+    background-color: #8326EF;
+    color: white; 
+    font-size: 16px;
+    text-align: center;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 15px;
+}

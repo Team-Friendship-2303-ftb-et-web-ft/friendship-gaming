@@ -1,5 +1,6 @@
 const {
   createUser,
+  changeAdminStatus,
   getUser,
   getAllUsers,
   getUserById,
@@ -630,6 +631,10 @@ const testDB = async () => {
     console.log("Calling getCartInfo");
     const getCartInfo = await getCartsWithAllInfo(2);
     console.log("Result:", getCartInfo);
+
+    // console.log("Calling changeAdminStatus");
+    // const adminStatus = await changeAdminStatus({id:1, boolean:false});
+    // console.log("Result:", adminStatus);
 
     // console.log("Calling deleteCartItems");
     // const deleteOrderItems = await deleteCartItems(1);

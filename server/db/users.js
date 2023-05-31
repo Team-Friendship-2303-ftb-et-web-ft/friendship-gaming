@@ -138,8 +138,6 @@ async function getUserInfoByUser(userId) {
   return userInfo;
 }
 
-
-//////////////broken - will fix soon
 async function updateUserInfo({id, ...fields}) {
   try {
     const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 2}`).join(', ');
@@ -152,6 +150,21 @@ async function updateUserInfo({id, ...fields}) {
     `, [id, ...Object.values(fields)]);
 
     return rows;
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+async function changeAdminStatus({id, boolean}) {
+  try {    
+    const { rows: [user] } = await client.query(`
+      UPDATE users
+      SET "isAdmin"=$2
+      WHERE id=$1
+      RETURNING *
+    `, [id, boolean]);
+
+    return user;
   } catch (error) {
     console.error(error)
   }
@@ -225,5 +238,6 @@ module.exports = {
   createAddress,
   getAddressById,
   getAddressByUsername,
-  updateUserAddress
+  updateUserAddress,
+  changeAdminStatus
 };

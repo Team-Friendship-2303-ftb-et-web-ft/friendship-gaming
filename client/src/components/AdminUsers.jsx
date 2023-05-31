@@ -1,13 +1,27 @@
 import './Admin.css'
-import { deleteUser } from '../api';
+import { changeAdminStatus, deleteUser } from '../api';
 
 const AdminUsers = ({adminUsersList, token, isAdmin}) => {
+
+    
+    
     return(
         <div className="container">
 
         {isAdmin &&
           adminUsersList.map(user => {
-        
+              const handleUpdate = async () => {
+                  try {
+                    let bool = !user.adminDetails.isAdmin;
+                    const target = { id: user.id, boolean: bool};
+                    await changeAdminStatus(target, token);
+                    window.location.reload();
+
+                  } catch (error) {
+                    console.error(error);
+                  }
+                }
+              
           return (
             <div key={user.id} id="game">
             <div className="titlebox">
@@ -33,7 +47,7 @@ const AdminUsers = ({adminUsersList, token, isAdmin}) => {
             }
             
             <div className="button">
-                {/* <button onClick={console.log('add update form function here')}>Update</button> */}
+                <button onClick={()=>{handleUpdate()}}>Make Admin</button>
                 <button onClick={async()=>{await deleteUser(user.id, token)}}>Delete</button>
             </div>
             </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Forms.css'
 
 const CreateGameForm = ({ token }) => {
   const [authorName, setAuthorName] = useState('');

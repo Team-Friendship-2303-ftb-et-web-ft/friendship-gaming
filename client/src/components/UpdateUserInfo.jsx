@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { updateUser, getUsersWithInfo } from '../api';
+import './Forms.css'
 
 const UpdateUserForm = ({currentUser, token}) => {
     
@@ -22,13 +23,12 @@ const UpdateUserForm = ({currentUser, token}) => {
     const [country, setCountry] = useState('');
 
     const handleUpdate = async (e) => {
-      console.log('testing');
-        // e.preventDefault();
+        e.preventDefault();
         try {
           const userData = { firstName, lastName, dateOfBirth, city, streetAddress, state, postalCode, country };
           // console.log('this is user data->:',userData);
           const updatedUser = await updateUser(currentUser.user.id, userData, token);
-          // console.log(updatedUser);
+          console.log(updatedUser); // returns a promise
         } catch (error) {
           console.error(error);
         }

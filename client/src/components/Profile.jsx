@@ -35,7 +35,7 @@ const Profile = (props) => {
         <div className='profileMain' >
            <div className="welcome"><h2><strong>Welcome, {currentUser.user.username}</strong> </h2>
            <button className="update" onClick={() => navigate('../Admin')}>Admin Dashboard</button>
-           <button onClick={() => navigate('./UpdateUserInfo.jsx')} className='update'>Update Information</button>
+           <button onClick={() => navigate('./UpdateUserInfo')} className='update'>Update Information</button>
            </div> 
 
         <div className='profileBody'>
@@ -53,7 +53,7 @@ const Profile = (props) => {
                             console.log("This is cartItem MAP:", cartItem)
                             return(
                                 <div>
-                                    <li>{cartItem.games.title}   Quantity: {cartItem.quantity}</li>
+                                    <li>{cartItem.game.title}   Quantity: {cartItem.quantity}  Price: {cartItem.priceAtPurchase}</li>
                                 </div>
                                 
                             )

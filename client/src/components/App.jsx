@@ -22,7 +22,6 @@ function App() {
   const [game, setGame] = useState(null);
   const [currentCart, setCurrentCart] = useState({});
   const [userCartsList, setUserCartsList] = useState([]);
-  const [adminUsersList, setAdminUsersList] = useState([]);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -98,7 +97,7 @@ function App() {
       <Route path="/" element= {<Home gamesList={gamesList} setGamesList={setGamesList}  />}/>
 
 
-      <Route path="/Admin" element= {<Admin adminUsersList={adminUsersList} token={token} isAdmin={isAdmin} gamesList={gamesList} setGamesList={setGamesList} currentUser={currentUser} />}/>
+      <Route path="/Admin" element= {<Admin token={token} isAdmin={isAdmin} gamesList={gamesList} setGamesList={setGamesList} currentUser={currentUser} />}/>
 
 
       <Route path="/Cart" element= 
@@ -132,7 +131,7 @@ function App() {
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
 
-      <Route path="/Profile/UpdateUserForm" element= {<UpdateUserForm currentUser={currentUser} token={token}/>}/>
+      <Route path="/UpdateUser" element= {<UpdateUserForm currentUser={currentUser} token={token}/>}/>
 
       <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} 
       currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} 

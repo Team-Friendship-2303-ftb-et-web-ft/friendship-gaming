@@ -7,12 +7,12 @@ import './Admin.css';
 const AdminGames = ({ gamesList, setGamesList, token, isAdmin }) => {
     const [selectedGameId, setSelectedGameId] = useState(null);
 
-
     const deleteGame = async (gameId) => {
         try {
             await destroyGame(gameId, token);
             const updatedGames = gamesList.filter(game => game.id !== gameId);
             setGamesList(updatedGames);
+            window.location.reload();
         } catch (error) {
             console.error(`Failed to delete game: ${error}`);
         }

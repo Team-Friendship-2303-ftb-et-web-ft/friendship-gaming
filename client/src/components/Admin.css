@@ -3,9 +3,10 @@ div#outerContainer {
 }
 
 div#adminTabs {
-    background-color: #e3e3ef;
+    background-color: #e3e3efb0;
     padding: 20px;
-    width: 10%;
+    width: 20%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

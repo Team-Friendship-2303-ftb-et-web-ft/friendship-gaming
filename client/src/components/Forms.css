@@ -1,0 +1,26 @@
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(59, 59, 59);
+    padding: 20px;
+}
+
+label {
+    color: white;
+    font-size: 18px;
+    padding:20px;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+input {
+    margin-left: 10px;
+}
+
+textarea {
+    margin-left: 10px;
+}
+
+button {
+    width: 150px;
+}

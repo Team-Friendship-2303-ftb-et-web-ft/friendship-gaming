@@ -53,7 +53,7 @@ const Profile = (props) => {
                             console.log("This is cartItem MAP:", cartItem)
                             return(
                                 <div>
-                                    <li>{cartItem.games.title}   Quantity: {cartItem.quantity}</li>
+                                    <li>{cartItem.game.title}   Quantity: {cartItem.quantity}</li>
                                 </div>
                                 
                             )

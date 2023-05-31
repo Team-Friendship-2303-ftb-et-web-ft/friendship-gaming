@@ -7,7 +7,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
     const navigate = useNavigate();
     return (
         <>
-        <section className="header">
+        <section className="header" id="header-component">
             <div className="logo">
             <a href="http://localhost:5173/" target="_blank">
           <img src="./images/logo3t.png" className="logoimage" alt=" logo" />

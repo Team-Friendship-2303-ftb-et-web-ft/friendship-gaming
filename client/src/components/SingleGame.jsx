@@ -31,7 +31,7 @@ function SingleGame({game, currentUser, token, currentCart, setGame}) {
         <h1 id="single-game-title">{game.title}</h1>
         <p className="game-author">By {game.authorName}</p>
       </div>
-      <img id="single-game-image" src={game.imageUrl || "/images/fotor-ai-20230516102519.jpg"} alt={game.title}/>
+      <img id="single-game-image" src={game.imageurl} alt={game.title}/>
       <div id="single-game-info">
         <div className="game-details">
           <p className="game-description">{game.description}</p>

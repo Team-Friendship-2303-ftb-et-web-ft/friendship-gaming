@@ -388,7 +388,7 @@ async function createInitialCarts() {
     });
     await createCart({
       userId: 2,
-      purchaseStatus: false
+      purchaseStatus: true
     });
     await createCart({
       userId: 3,
@@ -396,7 +396,7 @@ async function createInitialCarts() {
     });
     await createCart({
       userId: 2,
-      purchaseStatus: true
+      purchaseStatus: false
     });
     console.log("Carts have been created!")
 }catch (error){

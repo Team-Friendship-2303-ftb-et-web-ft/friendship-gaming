@@ -82,43 +82,37 @@ async function updatePurchaseStatus({ id }) {
 }
 
 async function getCartsWithAllInfo(userId) {
-  // console.log("This is userId:",userId);
   try {
-      const allCarts = await getCartByUserId(userId);
-      // console.log("This is allCarts:", allCarts)
+    const allCarts = await getCartByUserId(userId);
+    
+    const getInfo = async (cart) => {
+      const cartItems = await getCartItemsByCartId(cart.id);
+      console.log("Cart Items: ", cartItems); // Debugging line
 
-      const getInfo = async (cart) => {
-        const cartItems = await getCartItemsByCartId(cart.id);
-        // console.log("This is cartItems puppy monkey baby:", cartItems)
-        await Promise.all(
-            cartItems.map( async (cartItem) => {
-              // console.log("This is single cartItem:", cartItem)
+      await Promise.all(
+        cartItems.map(async (cartItem) => {
+          console.log("Single Cart Item: ", cartItem); // Debugging line
+          const game = await getGameById(cartItem.gameId);
 
-            const games  = await getGameById(cartItem.gameId);
-              // console.log("This is games:", games)
-          
-          if (games) {
-            cartItem.games = games;
+          if (game) {
+            cartItem.game = game;
           }
+        })
+      );
 
-        }))
-  
-        return { ...cart, cartItems }
-      }
+      return { ...cart, cartItems };
+    };
 
-      const promises = allCarts.map(getInfo)
-      // console.log("This is promises:",promises);
+    const cartInfoPromises = allCarts.map(getInfo);
+    const cartInfo = await Promise.all(cartInfoPromises);
 
-      const cartInfo = await Promise.all(promises);
-      // console.log("This is cartInfo 1:",cartInfo);
-
-      return cartInfo;
-      // console.log("This is cartInfo 2:", cartInfo);
-
+    return cartInfo;
   } catch (error) {
-      throw error;
+    console.error("Error getting carts with all info:", error);
+    throw error;
   }
 }
+
 
 //----------Cart Items----------//
 

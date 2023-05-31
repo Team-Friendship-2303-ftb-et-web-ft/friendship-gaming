@@ -131,13 +131,31 @@ export const getUsersWithInfo = async (token) => {
 export const updateUser = async (userId, userData, token) => {
   console.log(userData)
   try {
-    const response = await fetch(`api/users/${userId}`, {
+    const response = await fetch(`api/users/user/${userId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(userData)
+    });
+    const updatedUser = await response.json();
+    console.log('this is updaatedUser->',updatedUser);
+    return updatedUser;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export const changeAdminStatus = async (target, token) => {
+  try {
+    const response = await fetch(`api/users/admin`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(target)
     });
     const updatedUser = await response.json();
     console.log('this is updaatedUser->',updatedUser);

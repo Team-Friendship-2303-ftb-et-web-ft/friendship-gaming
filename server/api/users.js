@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { getUserByUsername, createUser, deleteUser, getAllUsers, getUser, getUserById, getUserInfoByUser, getAddressById, updateUserInfo, updateUserAddress, getAddressByUsername} = require('../db/users');
+const { getUserByUsername, createUser, deleteUser, getAllUsers, getUser, getUserById, getUserInfoByUser, getAddressById, updateUserInfo, updateUserAddress, getAddressByUsername, changeAdminStatus} = require('../db/users');
 const { requireAdmin, requireUser } = require('./utils');
 const { getAllGames } = require('../db');
 const { JWT_SECRET } = process.env;
@@ -34,7 +34,7 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/user/:id', async (req, res, next) => {
   try {
     const {id} = req.params;
     const {firstName, lastName, dateOfBirth, city, street_address, state, postal_code, country} = req.body;
@@ -58,6 +58,16 @@ router.patch('/:id', async (req, res, next) => {
       console.log(updatedUserInfo)
       res.send(updatedUserInfo[0]);
     }
+  } catch (error) {
+    console.error(error);
+  }
+})
+
+router.patch('/admin', requireAdmin, async(req, res, next)=> {
+  try {
+    const {id, boolean} = req.body
+    const user = await changeAdminStatus({id, boolean});
+    res.send(user);
   } catch (error) {
     console.error(error);
   }

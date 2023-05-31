@@ -240,6 +240,7 @@ async function createInitialGames(){
       description: "A adventure game where you vanquish enchanted furniture to forge the sacred sword." ,
       featured: true ,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: "Nebula Interactive"  ,
@@ -249,6 +250,7 @@ async function createInitialGames(){
       description:  "An FPS game where you hijack mutant zombies in Russia." ,
       featured: true,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: "Blackout Studios" ,
@@ -258,6 +260,7 @@ async function createInitialGames(){
       description: "An horror game where you retrieve holy artifacts with vampires in the lava kingdom.",
       featured: true ,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName:  "Nexus Interactive",
@@ -267,6 +270,7 @@ async function createInitialGames(){
       description:"A adventure game where you build unknown worlds with robots.",
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: "Phantasmic Games" ,
@@ -276,6 +280,7 @@ async function createInitialGames(){
       description: "An adventure horror game where you save extra-dimensional entities because, I mean, why the hell not.",
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: "AquaSphere Games" ,
@@ -285,6 +290,7 @@ async function createInitialGames(){
       description:  "A god game where you build underwater cities by gaining god points.",
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: "MutantMatch Studios" ,
@@ -294,6 +300,7 @@ async function createInitialGames(){
       description: "A shooting game where you encounter mutants with unpredictable powers.",
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName:  "MythicRealms Interactive",
@@ -303,6 +310,7 @@ async function createInitialGames(){
       description: 'In the mystical realm of Eldoria, an ancient prophecy whispers of a hidden Lost Kingdom. As a brave adventurer, you embark on a perilous journey to unravel the secrets of this legendary realm. Armed with a legendary artifact and accompanied by a loyal group of companions, you must navigate treacherous landscapes, battle fearsome creatures, and solve mind-bending puzzles.',
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: "MonkeyStrike Studios" ,
@@ -312,6 +320,7 @@ async function createInitialGames(){
       description: "A FPS where you fight ninjas to save  the world from a dictator monkey.",
       featured: true,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName:  "SinisterByte Games",
@@ -321,6 +330,7 @@ async function createInitialGames(){
       description: "A horror game where you hijack evil AIs as slowly as possible.",
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName:  "LunarFire Entertainment",
@@ -330,6 +340,7 @@ async function createInitialGames(){
       description:  "An FPS where you defeat space people on the Moon.",
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: 'Abyssal Secrets Studio' ,
@@ -339,6 +350,7 @@ async function createInitialGames(){
       description: "An adventure game where you freeze oozes and solve puzzles in the darkest caves to reach the center of the earth.",
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: "BioTech Nightmares" ,
@@ -348,6 +360,7 @@ async function createInitialGames(){
       description: "A horror game where you are a reporter trying to expose a lab that does experiments on bears and reptiles. Fusing them with reobotics and AI thechnology in a laboratory.",
       featured: true,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: "BioTech Nightmares",
@@ -357,6 +370,7 @@ async function createInitialGames(){
       description: "Beastech Part 2: After exposing Beastech labs they shut down but, left some experiments behind that have escaped and are reaking havic. It is up to you and your knew friend Gnome (half bear half robot ) or G for short,to stop them from taking over your city and spreading across the country.",
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     },
      {
       authorName: "WitchForge Games" ,
@@ -366,6 +380,7 @@ async function createInitialGames(){
       description: "An adventure game where you explore dungeons with witches.",
       featured: false,
       inventoryqty: 1000,
+      imageUrl: ,
     }
   ]
 

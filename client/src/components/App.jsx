@@ -21,6 +21,7 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState(null);
   const [currentCart, setCurrentCart] = useState({});
+  const [userCartsList, setUserCartsList] = useState([]);
 
   
 
@@ -95,12 +96,18 @@ function App() {
       <Route path="/Cart" element= 
       {<Cart
         isLoggedIn={isLoggedIn}
-        cart={cart}
-        setCart={setCart}
+        userCartsList={userCartsList}
+        setUserCartsList={setUserCartsList}
+        currentUser={currentUser}
       />}/>
 
 
-      <Route path="/Checkout" element= {<Checkout/>}/>
+      <Route path="/Checkout" element=
+       {<Checkout
+        userCartsList={userCartsList}
+        setUserCartsList={setUserCartsList}
+        currentUser={currentUser}
+       />}/>
 
       <Route path="/Error" element= {<Error/>}/>
 
@@ -117,7 +124,9 @@ function App() {
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
 
-      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} setCartItemsList={setCartItemsList} />}/>
+      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} 
+      currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} 
+      setCartItemsList={setCartItemsList} userCartsList={userCartsList} setUserCartsList={setUserCartsList} />}/>
 
       <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}

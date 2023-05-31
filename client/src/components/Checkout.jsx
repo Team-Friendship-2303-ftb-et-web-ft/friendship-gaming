@@ -1,7 +1,25 @@
 import React from "react";
+import { useEffect } from "react";
 import './Checkout.css'
 
-const Checkout = () => {
+const Checkout = ({userCartsList, setUserCartsList, currentUser}) => {
+
+        useEffect(() => {
+        const fetchUserCarts = async () => {
+                    
+             try{
+                const userCarts = await getCartsWithAllInfo(currentUser.user.id);
+                    console.log("This is userCarts:", userCarts);
+
+                setUserCartsList(userCarts.cart);       
+              
+            } catch (error){
+                console.error(error);
+            }
+        };
+        fetchUserCarts()
+    }, []);
+
     return (
         <>
         <h1 className="checkout-header">Checkout</h1>
@@ -38,14 +56,16 @@ const Checkout = () => {
           </div>  
           </div>
           </div>
-          <div className="cart-info">
-          <div id="cart-totals">
+          </div>
+  
+                <div className="cart-info">
+                <div id="cart-totals">
                 <h2>Cart</h2>
-                <p>Place holder, items qty and total go here</p>
-            </div>
-          </div>
-          </div>
-        </>   
+
+                </div>
+                </div>
+                
+        </>
     )  
 }
 

@@ -397,7 +397,7 @@ export const updatePurchaseStatus = async (orderId, cartObj, token) => {
 //CREATE CART ITEM
 export const createCartItems = async (CartItemObj, token) => {
   try {
-    const response = await fetch(`api/cartItems`, {
+    const response = await fetch(`/api/cartItems`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

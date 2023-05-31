@@ -140,7 +140,7 @@ function App() {
 
       <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} 
       currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} 
-      setCartItemsList={setCartItemsList} userCartsList={userCartsList} setUserCartsList={setUserCartsList} />}/>
+      setCartItemsList={setCartItemsList} userCartsList={userCartsList} setUserCartsList={setUserCartsList} isAdmin={isAdmin} setIsAdmin={setIsAdmin} />}/>
 
       <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}

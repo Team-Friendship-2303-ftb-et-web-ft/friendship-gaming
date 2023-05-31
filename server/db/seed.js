@@ -234,7 +234,7 @@ async function createInitialGames(){
   const gamesToCreate = [
     {
       authorName:  "Lysandra Nightshade",
-      genre: "adventure" ,
+      genre: "Action" ,
       title: "Enchanted Arsenal: The Battle for the Sacred Sword",
       price: 45.00,
       description: "A adventure game where you vanquish enchanted furniture to forge the sacred sword." ,
@@ -252,7 +252,7 @@ async function createInitialGames(){
     },
      {
       authorName: "Blackout Studios" ,
-      genre: "horror",
+      genre: "Horror",
       title: "Inferno of the Undead",
       price: 59.99,
       description: "An horror game where you retrieve holy artifacts with vampires in the lava kingdom.",
@@ -261,7 +261,7 @@ async function createInitialGames(){
     },
      {
       authorName:  "Nexus Interactive",
-      genre: "adventure",
+      genre: "Arcade",
       title: "Robo-World Builder: The Unknown Frontier",
       price: 25.99,
       description:"A adventure game where you build unknown worlds with robots.",
@@ -270,7 +270,7 @@ async function createInitialGames(){
     },
      {
       authorName: "Phantasmic Games" ,
-      genre: "adventure",
+      genre: "Action",
       title: "Beyond The Veil" ,
       price: 45.00,
       description: "An adventure horror game where you save extra-dimensional entities because, I mean, why the hell not.",
@@ -279,7 +279,7 @@ async function createInitialGames(){
     },
      {
       authorName: "AquaSphere Games" ,
-      genre: "adventure",
+      genre: "Arcade",
       title:  "Oceanic Realms: Divine City Builder" ,
       price: 49.99,
       description:  "A god game where you build underwater cities by gaining god points.",
@@ -297,7 +297,7 @@ async function createInitialGames(){
     },
      {
       authorName:  "MythicRealms Interactive",
-      genre: "adventure" ,
+      genre: "Horror" ,
       title: "Eternal Legends: Lost Kingdom",
       price: 39.99,
       description: 'In the mystical realm of Eldoria, an ancient prophecy whispers of a hidden Lost Kingdom. As a brave adventurer, you embark on a perilous journey to unravel the secrets of this legendary realm. Armed with a legendary artifact and accompanied by a loyal group of companions, you must navigate treacherous landscapes, battle fearsome creatures, and solve mind-bending puzzles.',
@@ -315,7 +315,7 @@ async function createInitialGames(){
     },
      {
       authorName:  "SinisterByte Games",
-      genre: "horror",
+      genre: "Horror",
       title: "Devil's Dominion: Haunting the AI",
       price: 29.99,
       description: "A horror game where you hijack evil AIs as slowly as possible.",
@@ -324,7 +324,7 @@ async function createInitialGames(){
     },
      {
       authorName:  "LunarFire Entertainment",
-      genre: "FPS",
+      genre: "Action",
       title: "Moonstrike: Space Soldier",
       price: 44.99,
       description:  "An FPS where you defeat space people on the Moon.",
@@ -333,7 +333,7 @@ async function createInitialGames(){
     },
      {
       authorName: 'Abyssal Secrets Studio' ,
-      genre: "adventure",
+      genre: "Arcade",
       title: "GooQuest: Depths of the Abyss" ,
       price: 34.99,
       description: "An adventure game where you freeze oozes and solve puzzles in the darkest caves to reach the center of the earth.",
@@ -351,7 +351,7 @@ async function createInitialGames(){
     },
      {
       authorName: "BioTech Nightmares",
-      genre: "horror",
+      genre: "Action",
       title: "Beastech: G's Revenge" ,
       price: 59.99,
       description: "Beastech Part 2: After exposing Beastech labs they shut down but, left some experiments behind that have escaped and are reaking havic. It is up to you and your knew friend Gnome (half bear half robot ) or G for short,to stop them from taking over your city and spreading across the country.",
@@ -360,7 +360,7 @@ async function createInitialGames(){
     },
      {
       authorName: "WitchForge Games" ,
-      genre: "adventure",
+      genre: "Arcade",
       title: "Cauldron's Call: Dungeon Delve",
       price: 39.99,
       description: "An adventure game where you explore dungeons with witches.",

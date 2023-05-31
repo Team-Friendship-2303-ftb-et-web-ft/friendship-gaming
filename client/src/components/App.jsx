@@ -21,7 +21,16 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState(null);
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('currentUser');
 
+    if (storedToken && storedUser) {
+      setToken(storedToken);
+      setCurrentUser(storedUser);
+      setIsLoggedIn(true);
+    }
+  }, []);
  
   useEffect(() => {
     const fetchUser = async () => {

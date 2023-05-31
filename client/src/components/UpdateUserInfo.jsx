@@ -4,7 +4,7 @@ import { updateUser, getUsersWithInfo } from '../api';
 const UpdateUserForm = ({currentUser, token}) => {
     
     // const [firstName, setFirstName] = useState(user.info.firstName);
-    // const [lastName, setLastName] = useState(user.info.lastNamee);
+    // const [lastName, setLastName] = useState(user.info.lastName);
     // const [dateOfBirth, setDateOfBirth] = useState(user.info.dateOfBirth);
     // const [city, setCity] = useState(user.address.city);
     // const [streetAddress, setStreetAddress] = useState(user.address.streetAddress);
@@ -26,9 +26,8 @@ const UpdateUserForm = ({currentUser, token}) => {
         // e.preventDefault();
         try {
           const userData = { firstName, lastName, dateOfBirth, city, streetAddress, state, postalCode, country };
-          console.log('this is user data->:',userData);
-          ///const user = await getUserWithInfo////get this users info
-          // const updatedUser = await updateUser(user.id, userData, token);
+          // console.log('this is user data->:',userData);
+          const updatedUser = await updateUser(currentUser.user.id, userData, token);
           // console.log(updatedUser);
         } catch (error) {
           console.error(error);

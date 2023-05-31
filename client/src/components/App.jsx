@@ -5,7 +5,7 @@ import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame, CreateGameForm, UpdateUserForm} from "./index";
 import reactLogo from '../assets/react.svg'
-import {getAllGames, getAllUsers, getMe} from '../api';
+import {getAllGames, getAllUsers, getMe, getUsersWithInfo} from '../api';
 import './App.css'
 
 function App() {
@@ -22,9 +22,21 @@ function App() {
   const [game, setGame] = useState(null);
   const [currentCart, setCurrentCart] = useState({});
   const [userCartsList, setUserCartsList] = useState([]);
+  const [adminUsersList, setAdminUsersList] = useState([]);
 
   
-
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const fetchedUsers = await getUsersWithInfo(token);
+        setAdminUsersList(fetchedUsers.usersWithInfo)
+      } catch (error) {
+        console.error(error)
+      }
+    };
+      fetchUsers()
+  }, []);
 
  
   useEffect(() => {
@@ -33,7 +45,7 @@ function App() {
         // console.log(token)
         if (token) {
           const fetchedUser = await getMe(token);
-          console.log(fetchedUser);
+          console.log('thisis fetched user ',fetchedUser);
           setIsAdmin(fetchedUser.user.isAdmin);
           setCurrentUser(fetchedUser)
         }
@@ -90,7 +102,7 @@ function App() {
       <Route path="/" element= {<Home gamesList={gamesList} setGamesList={setGamesList}  />}/>
 
 
-      <Route path="/Admin" element= {<Admin token={token} isAdmin={isAdmin} gamesList={gamesList} setGamesList={setGamesList} currentUser={currentUser} />}/>
+      <Route path="/Admin" element= {<Admin adminUsersList={adminUsersList} token={token} isAdmin={isAdmin} gamesList={gamesList} setGamesList={setGamesList} currentUser={currentUser} />}/>
 
 
       <Route path="/Cart" element= 

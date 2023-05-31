@@ -1,12 +1,12 @@
 form {
     display: flex;
     flex-direction: column;
-    background-color: rgb(59, 59, 59);
+    background-color: #e3e3efb0;
     padding: 20px;
 }
 
 label {
-    color: white;
+    color: black;
     font-size: 18px;
     padding:20px;
     text-transform: capitalize;

@@ -124,7 +124,7 @@ function App() {
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
 
-      <Route path="/Profile/UpdateUserForm" element= {<UpdateUserForm />}/>
+      <Route path="/Profile/UpdateUserForm" element= {<UpdateUserForm currentUser={currentUser} token={token}/>}/>
 
       <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} 
       currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} 

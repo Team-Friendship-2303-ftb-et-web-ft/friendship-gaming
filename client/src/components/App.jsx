@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import ReactDOM from "react-dom";
 import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
-  Profile, Register, SearchBar, SingleGame, CreateGameForm} from "./index";
+  Profile, Register, SearchBar, SingleGame, CreateGameForm, UpdateUserForm} from "./index";
 import reactLogo from '../assets/react.svg'
 import {getAllGames, getAllUsers, getMe} from '../api';
 import './App.css'
@@ -118,6 +118,7 @@ function App() {
           setIsLoggedIn={setIsLoggedIn}/>}/>
 
       <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} setCartItemsList={setCartItemsList} />}/>
+      <Route path="/Profile/UpdateUserForm" element= {<UpdateUserForm />}/>
 
       <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}

@@ -128,6 +128,24 @@ export const getUsersWithInfo = async (token) => {
   }
 }
 
+export const updateUser = async (userId, userData, token) => {
+  try {
+    const response = await fetch(`api/users/${userId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(userData)
+    });
+    const updatedUser = await response.json();
+    console.log(updatedUser);
+    return updatedUser;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 //------------ GAMES ------------//
 
 // CREATE GAME

@@ -41,7 +41,7 @@ const Profile = (props) => {
         {isLoggedIn ?
         <div className='profileMain' >
            <div className="welcome"><h2><strong>Welcome, {currentUser.user.username}</strong> </h2>
-           <button onClick={() => navigate('./UpdateUserInfo.jsx')} className='update'>Update Information</button>
+           <button onClick={() => navigate('./UpdateUserForm')} className='update'>Update Information</button>
            </div> 
 
         <div className='profileBody'>

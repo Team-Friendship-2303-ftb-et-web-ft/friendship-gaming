@@ -5,14 +5,28 @@ import {getUsersWithInfo} from '../api';
 import './Admin.css'
 
 
-const Admin = ({gamesList, setGamesList, adminUsersList, currentUser, isAdmin, token}) => {
+const Admin = ({gamesList, setGamesList, currentUser, isAdmin, token}) => {
 
     const navigate = useNavigate();
 
     const [showGames, setShowGames] = useState(true);
     const [showAddGameForm, setShowAddGameForm] = useState(false);
     const [showUsers, setShowUsers] = useState(false);
+    const [adminUsersList, setAdminUsersList] = useState([]);
 
+  
+    useEffect(() => {
+      const fetchUsers = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          const fetchedUsers = await getUsersWithInfo(token);
+          setAdminUsersList(fetchedUsers.usersWithInfo)
+        } catch (error) {
+          console.error(error)
+        }
+      };
+        fetchUsers()
+    }, []);
 
 
     return (

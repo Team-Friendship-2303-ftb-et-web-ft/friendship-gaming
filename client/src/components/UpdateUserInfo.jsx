@@ -22,11 +22,11 @@ const UpdateUserForm = ({currentUser, token}) => {
     const [postalCode, setPostalCode] = useState('');
     const [country, setCountry] = useState('');
 
-    const handleUpdate = async (e) => {
-        e.preventDefault();
+    const handleUpdate = async () => {
+        // e.preventDefault
         try {
-          const userData = { firstName, lastName, dateOfBirth, city, streetAddress, state, postalCode, country };
-          // console.log('this is user data->:',userData);
+          const userData = { firstName, lastName, dateOfBirth, city, street_address: streetAddress, state, postal_code: postalCode, country };
+          console.log('this is user data->:',userData);
           const updatedUser = await updateUser(currentUser.user.id, userData, token);
           console.log(updatedUser); // returns a promise
         } catch (error) {

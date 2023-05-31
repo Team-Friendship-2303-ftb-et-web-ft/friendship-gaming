@@ -38,7 +38,7 @@ router.patch('/:id', async (req, res, next) => {
   try {
     const {id} = req.params;
     const {firstName, lastName, dateOfBirth, city, street_address, state, postal_code, country} = req.body;
-
+    console.log(firstName, lastName, dateOfBirth, city, street_address, state, postal_code, country)
     const user = await getUserById(id);
 
     //check to see if user exists
@@ -54,6 +54,8 @@ router.patch('/:id', async (req, res, next) => {
       const updatedUserInfo = await updateUserInfo({id: userInfo.id, firstName, lastName, dateOfBirth});
 
       updatedUserInfo[0]['userAddress'] = UserAddress;
+      console.log('useraddress',UserAddress);
+      console.log(updatedUserInfo)
       res.send(updatedUserInfo[0]);
     }
   } catch (error) {

@@ -1,0 +1,38 @@
+.cartBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    text-align: left;
+    font-family: 'Zeyada', cursive;
+    background: #E3E3EF;
+    margin: 2%;
+    margin-left: 2%;
+    padding-left: 2%;
+   width: auto;
+    min-height: 500px;
+ }
+
+.itemsHeader {
+    display: flex;
+    align-items: left;
+}
+
+.quantity {
+    width: 25px;
+}
+
+.checkout {
+    display: flex;
+    flex-direction: column;
+}
+
+.totalHeader {
+    text-align: right;
+    margin-right: 250px;
+}
+
+.checkoutButton {
+    align-content: right;
+    width: 100px;
+}

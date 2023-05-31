@@ -1,6 +1,6 @@
 const express = require('express');
 const cartItemsRouter = express.Router();
-const { createCartItems, getAllCartItems, getCartItemsByOrder, getCartItemsByCartId, updateCartItemQty, deleteCartItems } = require('../db');
+const { createCartItems, getAllCartItems, getCartItemsByOrder, getCartItemsByCartId, updateCartItemQty, deleteCartItems, getGameById } = require('../db');
 const { requireUser } = require('./utils');
 
 //GET /api/cartItems//order/:orderId - Get CartItems By OrderId
@@ -87,6 +87,10 @@ try{
         quantity,
         priceAtPurchase
     });
+
+    const game = await getGameById(gameId);
+
+    newCartItem.game = game;
 
     res.send({ newCartItem });
 

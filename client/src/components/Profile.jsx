@@ -5,8 +5,7 @@ import {NavLink, useNavigate} from 'react-router-dom';
 import './Profile.css'
 import { getCartsWithAllInfo } from "../api";
 const Profile = (props) => {
-    const {isLoggedIn, currentUser, token, cartsList, setCartsList } = props;
-    const [userCartsList, setUserCartsList] = useState([]);
+    const {isLoggedIn, currentUser, userCartsList, setUserCartsList, token, cartsList, setCartsList } = props;
     const navigate = useNavigate();
   
     console.log("This is currentUser:", currentUser.user.id);
@@ -41,7 +40,7 @@ const Profile = (props) => {
         {isLoggedIn ?
         <div className='profileMain' >
            <div className="welcome"><h2><strong>Welcome, {currentUser.user.username}</strong> </h2>
-           <button onClick={() => navigate('./UpdateUserInfo.jsx')} className='update'>Update Information</button>
+           <button onClick={() => navigate('./UpdateUserForm')} className='update'>Update Information</button>
            </div> 
 
         <div className='profileBody'>

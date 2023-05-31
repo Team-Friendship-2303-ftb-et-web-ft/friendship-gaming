@@ -3,9 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import ReactDOM from "react-dom";
 import Header from './Header';
 import { Home, Admin, Cart, Checkout, Error, Games, Login, 
-  Profile, Register, SearchBar, SingleGame, CreateGameForm} from "./index";
+  Profile, Register, SearchBar, SingleGame, CreateGameForm, UpdateUserForm} from "./index";
 import reactLogo from '../assets/react.svg'
-import {getAllGames, getAllUsers, getMe} from '../api';
+import {getAllGames, getAllUsers, getMe, getUsersWithInfo} from '../api';
 import './App.css'
 
 function App() {
@@ -20,6 +20,9 @@ function App() {
   const [usersList, setUsersList] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState(null);
+  const [currentCart, setCurrentCart] = useState({});
+  const [userCartsList, setUserCartsList] = useState([]);
+  const [adminUsersList, setAdminUsersList] = useState([]);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -38,7 +41,7 @@ function App() {
         // console.log(token)
         if (token) {
           const fetchedUser = await getMe(token);
-          console.log(fetchedUser);
+          console.log('thisis fetched user ',fetchedUser);
           setIsAdmin(fetchedUser.user.isAdmin);
           setCurrentUser(fetchedUser)
         }
@@ -95,18 +98,24 @@ function App() {
       <Route path="/" element= {<Home gamesList={gamesList} setGamesList={setGamesList}  />}/>
 
 
-      <Route path="/Admin" element= {<Admin token={token} isAdmin={isAdmin} gamesList={gamesList} setGamesList={setGamesList} currentUser={currentUser} />}/>
+      <Route path="/Admin" element= {<Admin adminUsersList={adminUsersList} token={token} isAdmin={isAdmin} gamesList={gamesList} setGamesList={setGamesList} currentUser={currentUser} />}/>
 
 
       <Route path="/Cart" element= 
       {<Cart
         isLoggedIn={isLoggedIn}
-        cart={cart}
-        setCart={setCart}
+        userCartsList={userCartsList}
+        setUserCartsList={setUserCartsList}
+        currentUser={currentUser}
       />}/>
 
 
-      <Route path="/Checkout" element= {<Checkout/>}/>
+      <Route path="/Checkout" element=
+       {<Checkout
+        userCartsList={userCartsList}
+        setUserCartsList={setUserCartsList}
+        currentUser={currentUser}
+       />}/>
 
       <Route path="/Error" element= {<Error/>}/>
 
@@ -123,17 +132,22 @@ function App() {
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}/>}/>
 
-      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} setCartItemsList={setCartItemsList} />}/>
+      <Route path="/Profile/UpdateUserForm" element= {<UpdateUserForm currentUser={currentUser} token={token}/>}/>
+
+      <Route path="/Profile" element= {<Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} 
+      currentUser={currentUser} setCurrentUser={setCurrentUser} token={token} cartItemsList={cartItemsList} 
+      setCartItemsList={setCartItemsList} userCartsList={userCartsList} setUserCartsList={setUserCartsList} />}/>
 
       <Route path="/Register" element= {<Register isLoggedIn ={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
-        setToken={setToken}/>}/>
+        setToken={setToken}
+        currentCart={currentCart} setCurrentCart={setCurrentCart}/>}/>
 
       <Route path="/SearchBar" element= {<SearchBar gamesList={gamesList}/>}/>
 
-      <Route path="/games/:gameId" element= {<SingleGame game={game} setGame={setGame} />}/>
+      <Route path="/games/:gameId" element= {<SingleGame game={game} currentUser={currentUser} currentCart={currentCart} token={token} setGame={setGame} />}/>
 
       
     </Routes> 

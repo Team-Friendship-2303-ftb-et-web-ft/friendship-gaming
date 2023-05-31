@@ -128,6 +128,24 @@ export const getUsersWithInfo = async (token) => {
   }
 }
 
+export const updateUser = async (userId, userData, token) => {
+  try {
+    const response = await fetch(`api/users/${userId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(userData)
+    });
+    const updatedUser = await response.json();
+    console.log(updatedUser);
+    return updatedUser;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 //------------ GAMES ------------//
 
 // CREATE GAME
@@ -294,19 +312,19 @@ export const purchaseGame = async (gameId, quantityPurchased) => {
 
 //CREATE CART
 export const createCart = async (newCart) => {
+  console.log('input for create cart', newCart);
   try {
     const response = await fetch(`api/cart`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(newCart)
     });
-    const newCart = await response.json();
-    console.log(newCart);
+    const result = await response.json();
+    console.log(result);
 
-    return newCart;
+    return result;
 
   } catch (err) {
     console.error(err);
@@ -379,7 +397,7 @@ export const updatePurchaseStatus = async (orderId, cartObj, token) => {
 //CREATE CART ITEM
 export const createCartItems = async (CartItemObj, token) => {
   try {
-    const response = await fetch(`api/cartItems`, {
+    const response = await fetch(`/api/cartItems`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

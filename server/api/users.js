@@ -93,7 +93,7 @@ router.get('/me', requireUser, async(req, res, next) => {
   }
 });
 
-router.get('/admin', requireAdmin, async(req, res, next) => {
+router.get('/admin',  async(req, res, next) => {
   try {
     const users = await getAllUsers();
     const allGames = await getAllGames();

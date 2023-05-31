@@ -13,19 +13,19 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
           <img src="./images/logo3t.png" className="logoimage" alt=" logo" />
         </a>     
         </div>          
-            <nav id="navBar">
-            <button className="nav" onClick={() => { 
-                navigate('/');
-                window.location.reload();
-                }}>
-                <p>
-                <span className="bg"></span>
-                <span className="base"></span>
-                <span className="text">Home</span>
-                </p>
-                </button>
 
                 {isLoggedIn ?
+                       <nav id="navBar">
+                       <button className="nav" onClick={() => { 
+                           navigate('/');
+                           window.location.reload();
+                           }}>
+                           <p>
+                           <span className="bg"></span>
+                           <span className="base"></span>
+                           <span className="text">Home</span>
+                           </p>
+                           </button>
                 <button className="nav"
                     onClick={() => {
                         setIsLoggedIn(false);
@@ -39,18 +39,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
                                 <span className="text"> Log Out </span>
                                 </p>
                                 </button> 
-                            :
-                            <button className="nav"
-                                onClick={() => {
-                                    navigate('/Login');
-                                }}
-                            > <p>
-                            <span className="bg"></span>
-                            <span className="base"></span>
-                            <span className="text">Log In</span>
-                            </p> 
-                            </button>}
-                            <button className="nav"
+                     <button className="nav"
                                 onClick={() => {
                                     navigate('/Profile');
                                 }}
@@ -60,8 +49,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
                             <span className="text">Profile</span>
                             </p> 
                             </button>
-            
-                         <button className="nav"
+                                <button className="nav"
                          onClick={() => {
                             navigate('/Cart')
                          }}>
@@ -71,9 +59,48 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
                     <span className="text">Cart</span>
                     </p>
                          </button>
+                        
+                         </nav>
+                            :
+                            <nav>
+                        <button className="nav" onClick={() => { 
+                           navigate('/');
+                           window.location.reload();
+                           }}>
+                           <p>
+                           <span className="bg"></span>
+                           <span className="base"></span>
+                           <span className="text">Home</span>
+                           </p>
+                           </button>
+                            <button className="nav"
+                                onClick={() => {
+                                    navigate('/Login');
+                                }}
+                            > <p>
+                            <span className="bg"></span>
+                            <span className="base"></span>
+                            <span className="text">Log In</span>
+                            </p> 
+                            </button>
+                            
+                            <button className="nav"
+                         onClick={() => {
+                            navigate('/Cart')
+                         }}>
+                            <p>
+                    <span className="bg"></span>
+                    <span className="base"></span>
+                    <span className="text">Cart</span>
+                    </p>
+                         </button> 
+                         
+                         </nav>
+                         }
+            
                          
 
-            </nav>
+           
         </section>
 
         </>

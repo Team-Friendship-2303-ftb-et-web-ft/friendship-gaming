@@ -49,7 +49,7 @@ function Games() {
         {featuredGames.map(game => (
           <Link to={`/games/${game.id}`} style={{ textDecoration: 'none' }} key={game.id}>
             <div className="game-card">
-            <img className="game-image" src="/images/fotor-ai-20230516102519.jpg" alt={game.title}/>
+            <img className="game-image" src={game.imageurl} alt={game.title}/>
               <div className="game-info">
                 <h2 className="game-title">{game.title}</h2>
                 <div className="hover-info">
@@ -75,7 +75,7 @@ function Games() {
         {filteredGames.map(game => (
           <Link to={`/games/${game.id}`} style={{ textDecoration: 'none' }} key={game.id}>
             <div className="game-card">
-            <img className="game-image" src="/images/fotor-ai-20230516102524.jpg" alt={game.title}/>
+            <img className="game-image" src={game.imageurl} alt={game.title}/>
               <div className="game-info">
                 <h2 className="game-title">{game.title}</h2>
                 <div className="hover-info">

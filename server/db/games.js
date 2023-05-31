@@ -5,7 +5,7 @@ const { attachTagsToGames } = require("./tags")
 async function createGame({ authorName, genre, title, price, description, featured, inventoryqty, imageUrl }) {
   try {
     const { rows: [ game ] } = await client.query(`
-      INSERT INTO games("authorName", genre, title, price, description, featured, inventoryqty, "imageUrl")
+      INSERT INTO games("authorName", genre, title, price, description, featured, inventoryqty, imageUrl)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *;
     `, [authorName, genre, title, price, description, featured, inventoryqty, imageUrl]);

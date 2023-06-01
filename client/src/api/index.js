@@ -499,9 +499,9 @@ export const updateCartItemsQuantity = async (cartId, cartItemsObj, token) => {
 }
 
 // DELETE CART ITEM 
-export const deleteCartItem = async (cartId, token) => {
+export const deleteCartItem = async (cartItemId, token) => {
   try {
-    const response = await fetch(`api/cartItems/${cartId}`, {
+    const response = await fetch(`api/cartItems/${cartItemId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

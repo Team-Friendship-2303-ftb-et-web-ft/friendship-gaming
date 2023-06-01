@@ -32,7 +32,9 @@ const UpdateUserForm = ({currentUser, token}) => {
       }
 
     return (
+      <>
     <form id="edit-user-form">
+      <h2>Update User Information</h2>
       <label className="edit-user-label">
         First Name:
         <input type="text" className="input-field edit-user-input" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
@@ -70,6 +72,7 @@ const UpdateUserForm = ({currentUser, token}) => {
         <button onClick={()=>{window.location.reload();}} id="cancel-update-btn" className="form-btn">Cancel</button>
       </div>
     </form>
+      </>
   );
 }
 

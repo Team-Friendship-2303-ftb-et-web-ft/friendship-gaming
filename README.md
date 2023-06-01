@@ -5,6 +5,7 @@ Navigating our website is a breeze, thanks to our intuitive interface and advanc
 To enhance your shopping experience, we provide detailed game descriptions giving you valuable insights before making a purchase. Our goal is to help you make informed decisions and find games that match your preferences perfectly.
 
 With a commitment to customer satisfaction, we prioritize security and convenience. Rest assured that your personal information is handled securely.
+![BCRYPT](BCRYPT.png)
 
 Upon reaching the checkout page, you'll find a clear and concise summary of your selected items, along with their prices, quantities, and any applicable discounts or promotions. You can easily review and modify your order before proceeding.
 

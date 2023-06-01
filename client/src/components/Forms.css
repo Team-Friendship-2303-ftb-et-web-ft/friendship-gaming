@@ -1,3 +1,7 @@
+form#edit-user-form > h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 form#create-game-form, form#edit-user-form {
     display: flex;
     flex-direction: column;

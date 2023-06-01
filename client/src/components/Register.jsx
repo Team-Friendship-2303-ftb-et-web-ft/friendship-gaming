@@ -41,7 +41,14 @@ const Register = ({
      
      
     }
-  
+    function showPass() {
+      let x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
     return (
       <>
         <div className='register-container'>
@@ -58,15 +65,16 @@ const Register = ({
                 onChange={(event) => setUsername(event.target.value)} />
             </label>
             <label htmlFor='password'>
-              <input
+              <input id="password"
               className='register'
-              type='text'
+              type='password'
               name='password'
               value={password}
               placeholder='Password'
               onChange={(event) => setPassword(event.target.value)} />
             </label>
-            <button className='registerbutton' type='submit'>Create Account</button>
+          <div className="check-box"> <input type="checkbox" onClick={() => showPass()} /> Show Password</div> 
+            <div className="create-account"><button className='registerbutton' type='submit'>Create Account</button></div>
           </form>
         </div>
       </>

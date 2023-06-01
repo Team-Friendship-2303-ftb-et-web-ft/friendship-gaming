@@ -35,6 +35,7 @@ nav {
     display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-right: 70px;
 }
 .header-components button {
   width: 70px;

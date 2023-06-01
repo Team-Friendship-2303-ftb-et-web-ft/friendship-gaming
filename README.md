@@ -1,13 +1,16 @@
 Welcome to our premier ecommerce website, dedicated to bringing you the best selection of video games available online. Our platform is a gaming enthusiast's paradise, designed to cater to every gamer's needs.
 
 Navigating our website is a breeze, thanks to our intuitive interface and advanced search filters. Whether you're searching for a specific game, genre, or even a particular developer you'll find it effortlessly with our user-friendly tools.
+![BCRYPT](client/public/search.gif)
 
 To enhance your shopping experience, we provide detailed game descriptions giving you valuable insights before making a purchase. Our goal is to help you make informed decisions and find games that match your preferences perfectly.
+![BCRYPT](client/public/SingleGameView.png)
 
 With a commitment to customer satisfaction, we prioritize security and convenience. Rest assured that your personal information is handled securely.
 ![BCRYPT](client/public/BCRYPT.png)
 
 Upon reaching the checkout page, you'll find a clear and concise summary of your selected items, along with their prices, quantities, and any applicable discounts or promotions. You can easily review and modify your order before proceeding.
+![BCRYPT](client/public/cart.png)
 
 For returning customers, we offer a convenient one-click checkout option, saving you time and effort. Your shipping and billing information can be securely stored for future purchases, allowing for a swift and hassle-free experience.
 

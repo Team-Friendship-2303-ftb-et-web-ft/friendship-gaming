@@ -10,11 +10,6 @@ const SearchBar = (props) => {
     const result = gamesArray.filter((games) =>
     games.title.toLowerCase().includes(searchTerm.toLowerCase()) || games.genre.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  
-    // const resultTags = gamesArray.filter((games) =>
-    
-    // games.tags.toLowerCase().includes(searchTerm.toLowerCase())
-    // );
    
     if(result){
     return result;
@@ -40,7 +35,6 @@ return (
           let filteredList = searchAllGames(gamesList, searchForGame);
           console.log(filteredList);
           setReturnedGamesList(filteredList);
-          //Navigate('./SearchResults')
         }}
         className="searchButton"
       >

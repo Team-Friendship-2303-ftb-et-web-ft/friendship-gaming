@@ -9,7 +9,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
         <>
         <section className="header" id="header-component">
             <div className="logo">
-            <a href="http://localhost:5173/" target="_blank">
+            <a onClick={() => navigate('./') } target="_blank">
           <img src="./images/logo3t.png" className="logoimage" alt=" logo" />
         </a>     
         </div>          
@@ -65,7 +65,6 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
                             <nav>
                         <button className="nav" onClick={() => { 
                            navigate('/');
-                           window.location.reload();
                            }}>
                            <p>
                            <span className="bg"></span>

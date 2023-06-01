@@ -10,6 +10,13 @@ form#create-game-form, form#edit-user-form {
     width: 500px;
 }
 
+form#edit-game-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 500px;
+}
+
 label.create-game-label, label.edit-user-label {
     color: black;
     font-size: 18px;

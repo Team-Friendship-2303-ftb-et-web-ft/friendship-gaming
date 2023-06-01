@@ -17,12 +17,12 @@ return (
           </a>
           <p>Brooke</p>
         </div>        <div className="developer">
-          <a href="https://github.com/nedyaHV">
+          <a href="https://github.com/duckypile">
           <img src="#"></img>
           </a>
           <p>Dustin</p>
         </div>        <div className="developer">
-          <a href="https://github.com/duckypile">
+          <a href="https://github.com/nedyaHV">
           <img src="#"></img>
           </a>
           <p>Hayden</p>

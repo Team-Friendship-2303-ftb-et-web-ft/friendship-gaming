@@ -18,7 +18,7 @@ return (
           <p>Brooke</p>
         </div>        <div className="developer">
           <a href="https://github.com/duckypile">
-          <img src="#"></img>
+          <img src="http://www.avatarsinpixels.com/chibi/eyJCb2R5IjoiMSIsIlNob2VzIjoiMiIsIlBhbnRzIjoiMTciLCJUb3AiOiI3IiwiRXllcyI6IjEiLCJNb3V0aCI6IjkiLCJIYWlyVG9wIjoiNiIsInNraW5Ub25lIjoiZDg4YTU3IiwiaGFpclRvbmUiOiIwMDAwMDAiLCJleWVzVG9uZSI6IjAwMDAwMCIsInBhbnRzVG9uZSI6IjAwMDAwMCIsInRvcFRvbmUiOiIwMjM0YTMifQ==/1/show.png"></img>
           </a>
           <p>Dustin</p>
         </div>        <div className="developer">

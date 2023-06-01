@@ -69,7 +69,6 @@ const Cart = ({userCartsList, setUserCartsList, isLoggedIn, currentUser}) => {
         <h2 className="notLoggedInText">Welcome! Please login to get started!</h2>
         </div>
         }
-        
         </> 
     )  
 }

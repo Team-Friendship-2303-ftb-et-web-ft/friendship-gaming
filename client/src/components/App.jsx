@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import ReactDOM from "react-dom";
 import Header from './Header';
-import { Home, Admin, Cart, Checkout, Error, Games, Login, 
+import { Footer, Home, Admin, Cart, Checkout, Error, Games, Login, 
   Profile, Register, SearchBar, SingleGame, CreateGameForm, UpdateUserForm} from "./index";
 import reactLogo from '../assets/react.svg'
 import {getAllGames, getAllUsers, getMe, getUsersWithInfo} from '../api';
@@ -163,8 +163,8 @@ function App() {
       />
     }/>
 
-      
     </Routes> 
+      <Footer/>
     
     <div className="App">
       <div>

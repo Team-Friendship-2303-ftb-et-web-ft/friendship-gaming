@@ -54,7 +54,7 @@ const Profile = (props) => {
                             return(
                                 <div>
 
-                                    <li>{cartItem.game.title}   Quantity: {cartItem.quantity}  Price: {cartItem.priceAtPurchase}</li>
+                                    <li>{cartItem.game.title}   |    Quantity: {cartItem.quantity}   |   Price: {cartItem.priceAtPurchase}</li>
 
                                 </div>
                                 

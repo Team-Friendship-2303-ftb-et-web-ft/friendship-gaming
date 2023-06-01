@@ -39,7 +39,14 @@ const Login = ({
           navigate("/");
         }
       };
-
+      function showPass() {
+        let x = document.getElementById("password");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
     return (
         <div className="loginbody">
         <h1>Login/Sign Up!</h1>
@@ -47,7 +54,7 @@ const Login = ({
               <h2 className="loginHi">Please Log in</h2>
               
               <input
-              className="login"
+              className="login-user"
                 type="text"
                 placeholder="Username"
                 name="UserName"
@@ -55,7 +62,8 @@ const Login = ({
                 onChange={(event) => setUsername(event.target.value)}
               />
               <input
-              className="login"
+              className="login-pass"
+              id="password"
                 type="password"
                 placeholder="Password"
                 name="psw"
@@ -63,13 +71,15 @@ const Login = ({
                 onChange={(event) => setPassword(event.target.value)}
               />
               <div className="loginButtons">
+              <div className="check-box"> <input type="checkbox" onClick={() => showPass()} /> Show Password</div> 
               <button type="submit" className="loginButton" onClick={() => {handleSubmit}}>
                 Log in
               </button>
               
               </div>
+              <button onClick={() => { navigate('/Register')}} className="loginButton">Sign Up</button>
             </form>
-            <button onClick={() => { navigate('/Register')}} className="loginButton">Sign Up</button>
+            
         </div> 
     )  
 }

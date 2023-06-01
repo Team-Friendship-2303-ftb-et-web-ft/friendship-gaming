@@ -23,7 +23,7 @@ form{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 }
-input.login{
+.login-user{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -31,8 +31,25 @@ input.login{
     text-align: center;
     font-family: 'Balsamic Sans', sans-serif;
     font-size: 16px;
-    padding: 5px;
-    margin:10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    border-color: #D9D9D9;
+    color: #000000;
+}
+.login-pass{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-family: 'Balsamic Sans', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
     border-color: #D9D9D9;
     color: #000000;
 }
@@ -47,7 +64,9 @@ input.login{
     color: #000000;
     width: 85px;
     height: 30px;    
+   margin: 15px;
 }
+
 
 form.formContainer {
     margin-bottom: 10px;

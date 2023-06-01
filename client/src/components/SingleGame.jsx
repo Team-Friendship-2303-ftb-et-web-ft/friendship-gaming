@@ -36,7 +36,8 @@ function SingleGame({game, currentUser, token, currentCart, setGame}) {
         <div className="game-details">
           <p className="game-description">{game.description}</p>
           <div className="game-tags">
-          {game.tags && Array.isArray(game.tags) && game.tags.map(tag => <span className="tag">{tag.name}</span>)}
+          {game.tags && Array.isArray(game.tags) && game.tags.map(tag => <span key={tag.id} className="tag">{tag.name}</span>)}
+
           </div>
         </div>
         <div className="game-purchase">

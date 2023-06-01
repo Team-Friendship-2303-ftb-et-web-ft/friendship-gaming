@@ -13,7 +13,7 @@ return (
         </div>
         <div className="developer">
           <a href="https://github.com/BDay1">
-          <img src="#"></img>
+          <img src="http://www.avatarsinpixels.com/chibi/eyJIYWlyTG93ZXIiOiIxIiwiQm9keSI6IjEiLCJTaG9lcyI6IjQiLCJQYW50cyI6IjEiLCJUb3AiOiIzIiwiRXllcyI6IjEwIiwiTW91dGgiOiIxNiIsIkhhaXJUb3AiOiI1Iiwic2tpblRvbmUiOiJlMGFjNjkiLCJoYWlyVG9uZSI6IjMzMzMzMyIsImV5ZXNUb25lIjoiM2IxYTEyIiwicGFudHNUb25lIjoiMzMzMzMzIiwidG9wVG9uZSI6IjczN2E3YyJ9/1/show.png"></img>
           </a>
           <p>Brooke</p>
         </div>        <div className="developer">
@@ -23,7 +23,7 @@ return (
           <p>Dustin</p>
         </div>        <div className="developer">
           <a href="https://github.com/nedyaHV">
-          <img src="#"></img>
+          <img src="http://www.avatarsinpixels.com/chibi/eyJIYWlyTG93ZXIiOiI1IiwiU2hvZXMiOiIxIiwiUGFudHMiOi[…]NUb25lIjoiNTAyZjE1IiwidG9wVG9uZSI6IjI2MjYyNiJ9/1/show.png"></img>
           </a>
           <p>Hayden</p>
         </div>

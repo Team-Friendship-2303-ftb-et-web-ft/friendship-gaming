@@ -628,17 +628,17 @@ const testDB = async () => {
     // const cartItemsByCart = await getCartItemsByCartId(2);
     // console.log("Result:", cartItemsByCart);
 
-    console.log("Calling getCartInfo");
-    const getCartInfo = await getCartsWithAllInfo(2);
-    console.log("Result:", getCartInfo);
+    // console.log("Calling getCartInfo");
+    // const getCartInfo = await getCartsWithAllInfo(2);
+    // console.log("Result:", getCartInfo);
 
     // console.log("Calling changeAdminStatus");
     // const adminStatus = await changeAdminStatus({id:1, boolean:false});
     // console.log("Result:", adminStatus);
 
-    // console.log("Calling deleteCartItems");
-    // const deleteOrderItems = await deleteCartItems(1);
-    // console.log("Result:", await getAllCartItems());
+    console.log("Calling deleteCartItems");
+    const deleteOrderItems = await deleteCartItems(3);
+    console.log("Result:", deleteOrderItems);
 
     //   console.log("Calling updateCart");
     //   const updatedCart = await updatePurchaseStatus({id: 1, purchaseStatus: true});

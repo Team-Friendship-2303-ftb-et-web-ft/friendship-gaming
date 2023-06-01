@@ -13,7 +13,6 @@ function App() {
   const [currentUser,setCurrentUser] = useState('');
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [gamesList, setGamesList] = useState([]);
-  const [cart, setCart] = useState(localStorage.getItem("currentCart"));
   const [cartItemsList, setCartItemsList] = useState([]);
   const [selectedCart, setSelectedCart] = useState({});
   const [selectedGame, setSelectedGame] = useState({});
@@ -41,7 +40,6 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       try{
-        // console.log(token)
         if (token) {
           const fetchedUser = await getMe(token);
           console.log('thisis fetched user ',fetchedUser);
@@ -110,6 +108,7 @@ function App() {
         userCartsList={userCartsList}
         setUserCartsList={setUserCartsList}
         currentUser={currentUser}
+        token={token}
       />}/>
 
 

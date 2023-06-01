@@ -14,3 +14,7 @@ export function storeCurrentUser(user) {
   export function clearCurrentUser() {
     localStorage.removeItem('currentUser');
   }
+
+  export function storeCurrentCart(cart) {
+    localStorage.setItem('currentCart', cart);
+  }

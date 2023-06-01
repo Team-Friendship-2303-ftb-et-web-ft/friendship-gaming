@@ -62,13 +62,11 @@ cartItemsRouter.patch('/:cartId', requireUser, async (req, res, next) => {
   });
 
 //DELETE /api/cartItems/:cartId - Deletes CartItems
-cartItemsRouter.delete('/:cartId', requireUser, async (req, res, next) => {
+cartItemsRouter.delete('/:cartItemId', requireUser, async (req, res, next) => {
     try {
-        const { cartId } = req.params;
-        const cartItem = await getCartItemsByCartId(cartId);
-  
-        const deletedCartItem = await deleteCartItems(cartItem);
-  
+        const { cartItemId } = req.params;
+            const deletedCartItem = await deleteCartItems(cartItemId);
+
             res.send({ deletedCartItem })
 
     } catch (error) {

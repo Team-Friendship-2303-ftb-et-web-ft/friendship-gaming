@@ -1,10 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCartsWithAllInfo } from "../api";
+import { deleteCartItem, getCartsWithAllInfo } from "../api";
 import './Cart.css'
 
-const Cart = ({userCartsList, setUserCartsList, isLoggedIn, currentUser}) => {
+const Cart = ({userCartsList, setUserCartsList, isLoggedIn, currentUser, token}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -12,7 +12,7 @@ const Cart = ({userCartsList, setUserCartsList, isLoggedIn, currentUser}) => {
                     
              try{
                 const userCarts = await getCartsWithAllInfo(currentUser.user.id);
-                    console.log("This is userCarts:", userCarts);
+                    // console.log("This is userCarts:", userCarts);
 
                 setUserCartsList(userCarts.cart);       
               
@@ -40,12 +40,15 @@ const Cart = ({userCartsList, setUserCartsList, isLoggedIn, currentUser}) => {
                         <div className="cartItemsList">
                             <h2 className="itemsHeader">Items:</h2>
                                 {cart.cartItems.map((cartItem) => {
-                            // console.log("This is cartItem MAP:", cartItem);
+                            console.log("This is cartItem MAP:", cartItem);
                             return(
                                 <div>
                                     <li>{cartItem.game.title} ${cartItem.game.price}</li>
                                     <input className="quantity" type="number" min="1" max="6"/> {cartItem.quantity}
-                                    <button>Remove</button>
+                                    <button onClick={async() => {
+                                        await deleteCartItem(cartItem.id, token);
+                                        navigate("/")
+                                        }}>Remove</button>
                                 </div>
                                    
                             )

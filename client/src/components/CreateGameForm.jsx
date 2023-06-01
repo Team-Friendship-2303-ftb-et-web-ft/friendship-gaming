@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import './Forms.css'
+import './Forms.css'
 
 const CreateGameForm = ({ token }) => {
   const [authorName, setAuthorName] = useState('');
@@ -41,33 +41,33 @@ const CreateGameForm = ({ token }) => {
   return (
     //wrap with a div (make into a modal?)
     <form id="create-game-form" onSubmit={handleSubmit}>
-      <label>
+      <label className="create-game-label">
         Author Name:
-        <input type="text" id="authorName" className="input-field" value={authorName} onChange={(e) => setAuthorName(e.target.value)} required />
+        <input type="text" id="authorName" className="input-field create-game-input" value={authorName} onChange={(e) => setAuthorName(e.target.value)} required />
       </label>
-      <label>
+      <label className="create-game-label">
         Genre:
-        <input type="text" id="genre" className="input-field" value={genre} onChange={(e) => setGenre(e.target.value)} required />
+        <input type="text" id="genre" className="input-field create-game-input" value={genre} onChange={(e) => setGenre(e.target.value)} required />
       </label>
-      <label>
+      <label className="create-game-label">
         Title:
-        <input type="text" id="title" className="input-field" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        <input type="text" id="title" className="input-field create-game-input" value={title} onChange={(e) => setTitle(e.target.value)} required />
       </label>
-      <label>
+      <label className="create-game-label">
         Price:
-        <input type="number" id="price" className="input-field" value={price} onChange={(e) => setPrice(e.target.value)} required />
+        <input type="number" id="price" className="input-field create-game-input" value={price} onChange={(e) => setPrice(e.target.value)} required />
       </label>
-      <label>
+      <label className="create-game-label">
         Description:
-        <textarea id="description" className="textarea-field" value={description} onChange={(e) => setDescription(e.target.value)} required />
+        <textarea id="description" className="textarea-field create-game-input" value={description} onChange={(e) => setDescription(e.target.value)} required />
       </label>
-      <label>
-        Featured:
-        <input type="checkbox" id="featured" className="checkbox-field" checked={featured} onChange={(e) => setFeatured(e.target.checked)} />
-      </label>
-      <label>
+      <label className="create-game-label">
         Inventory Quantity:
-        <input type="number" id="inventoryqty" className="input-field" value={inventoryqty} onChange={(e) => setInventoryqty(e.target.value)} required />
+        <input type="number" id="inventoryqty" className="input-field create-game-input" value={inventoryqty} onChange={(e) => setInventoryqty(e.target.value)} required />
+      </label>
+      <label className="create-game-label checkbox-field">
+        Featured:
+        <input type="checkbox" id="featured" className="checkbox-field create-game-input" checked={featured} onChange={(e) => setFeatured(e.target.checked)} />
       </label>
       <button id="create-game-button" type="submit">Create Game</button>
     </form>

@@ -33,41 +33,41 @@ const UpdateUserForm = ({currentUser, token}) => {
 
     return (
     <form id="edit-user-form">
-      <label>
+      <label className="edit-user-label">
         First Name:
-        <input type="text" className="input-field" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+        <input type="text" className="input-field edit-user-input" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
       </label>
-      <label>
+      <label className="edit-user-label">
         Last Name:
-        <input type="text" className="input-field" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+        <input type="text" className="input-field edit-user-input" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
       </label>
-      <label>
+      <label className="edit-user-label">
         Date Of Birth:
-        <input type="date" className="input-field" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
+        <input type="date" className="input-field edit-user-input" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
       </label>
-      <label>
+      <label className="edit-user-label">
         City:
-        <input type="text" className="input-field" value={city} onChange={(e) => setCity(e.target.value)} required />
+        <input type="text" className="input-field edit-user-input" value={city} onChange={(e) => setCity(e.target.value)} required />
       </label>
-      <label>
+      <label className="edit-user-label">
         Street Address:
-        <input type="text" className="input-field" value={streetAddress} onChange={(e) => setStreetAddress(e.target.value)} required />
+        <input type="text" className="input-field edit-user-input" value={streetAddress} onChange={(e) => setStreetAddress(e.target.value)} required />
       </label>
-      <label>
+      <label className="edit-user-label">
         State:
-        <input type="text" className="input-field" value={state} onChange={(e) => setState(e.target.value)} />
+        <input type="text" className="input-field edit-user-input" value={state} onChange={(e) => setState(e.target.value)} />
       </label>
-      <label>
+      <label className="edit-user-label">
         Postal Code:
-        <input type="number" className="input-field" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required />
+        <input type="number" className="input-field edit-user-input" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required />
       </label>
-      <label>
+      <label className="edit-user-label">
         Country:
-        <input type="text" className="input-field" value={country} onChange={(e) => setCountry(e.target.value)} required />
+        <input type="text" className="input-field edit-user-input" value={country} onChange={(e) => setCountry(e.target.value)} required />
       </label>
       <div>
-        <button onClick={()=>{handleUpdate()}} id="update-user-btn" className="form-btn">Update</button>
-        <button onClick={()=>{console.log('processing cancel request')}} id="cancel-update-btn" className="form-btn">Cancel</button>
+        <button onClick={()=>{handleUpdate()}} id="edit-user-btn" className="edit-user-btn">Update</button>
+        <button onClick={()=>{window.location.reload();}} id="cancel-update-btn" className="form-btn">Cancel</button>
       </div>
     </form>
   );

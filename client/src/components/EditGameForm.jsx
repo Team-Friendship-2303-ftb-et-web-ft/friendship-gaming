@@ -70,7 +70,7 @@ const EditGameForm = ({ game, token, onGameUpdate, onCancel }) => {
       </label>
       <div>
         <button type="submit" id="update-game-btn" className="form-btn">Update Game</button>
-        <button onClick={onCancel} id="cancel-update-btn" className="form-btn">Cancel</button>
+        <button onClick={onCancel} id="cancel-update-button" className="form-btn">Cancel</button>
       </div>
     </form>
   );

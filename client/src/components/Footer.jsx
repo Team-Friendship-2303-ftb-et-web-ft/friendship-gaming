@@ -23,7 +23,7 @@ return (
           <p>Dustin</p>
         </div>        <div className="developer">
           <a href="https://github.com/nedyaHV">
-          <img src="http://www.avatarsinpixels.com/chibi/eyJIYWlyTG93ZXIiOiI1IiwiU2hvZXMiOiIxIiwiUGFudHMiOi[…]NUb25lIjoiNTAyZjE1IiwidG9wVG9uZSI6IjI2MjYyNiJ9/1/show.png"></img>
+          <img src="https://www.avatarsinpixels.com/chibi/eyJIYWlyTG93ZXIiOiI1IiwiU2hvZXMiOiIxIiwiUGFudHMiOiIxIiwiVG9wIjoiNyIsIkV5ZXMiOiI1IiwiTW91dGgiOiIzIiwiSGFpclRvcCI6IjciLCJoYWlyVG9uZSI6IjJkMWEwYyIsImV5ZXNUb25lIjoiNTAyZjE1IiwidG9wVG9uZSI6IjI2MjYyNiJ9/1/show.png"></img>
           </a>
           <p>Hayden</p>
         </div>

@@ -18,7 +18,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
                        <nav id="navBar">
                        <button className="nav" onClick={() => { 
                            navigate('/');
-                           window.location.reload();
+                        //    window.location.reload();
                            }}>
                            <p>
                            <span className="bg"></span>

@@ -42,11 +42,11 @@ function SingleGame({game, currentUser, token, currentCart, setGame}) {
         <div className="game-purchase">
           <p className="game-price">${game.price}</p>
           <button id="add-to-cart-button" onClick={async()=>{
-            console.log("This is current Cart:", currentCart.newCart.id)
+            console.log("This is current Cart:", currentCart)
             // const usercart = await getCartByUserId(2);
             // console.log(usercart);
             createCartItems({cartId: currentCart.newCart.id, gameId: game.id, quantity:1, priceAtPurchase: game.price}, token)
-            }}>Buy</button>
+            }}>Add to Cart</button>
         </div>
       </div>
     </div>

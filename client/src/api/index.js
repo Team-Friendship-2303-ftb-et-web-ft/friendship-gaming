@@ -309,7 +309,7 @@ export const destroyGame = async (gameId, token) => {
 }
   
 // PURCHASE GAME
-export const purchaseGame = async (gameId, quantityPurchased) => {
+export const purchaseGame = async (gameId, quantityPurchased, token) => {
   try {
     const response = await fetch(`api/games/${gameId}/purchase`, {
       method: 'PATCH',
@@ -393,7 +393,7 @@ export const getCartByUserId = async (userId, token) => {
 // UPDATE CART PURCHASE STATUS
 export const updatePurchaseStatus = async (orderId, cartObj, token) => {
   try {
-    const response = await fetch(`api/cart/${orderId}`, {
+    const response = await fetch(`/api/cart/${orderId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

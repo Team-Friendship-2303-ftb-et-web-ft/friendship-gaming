@@ -23,6 +23,10 @@ function App() {
   const [currentCart, setCurrentCart] = useState({});
   const [userCartsList, setUserCartsList] = useState([]);
 
+  const updateCurrentCart = (newCart) => {
+    setCurrentCart(newCart);
+  };
+
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('currentUser');
@@ -114,6 +118,8 @@ function App() {
         userCartsList={userCartsList}
         setUserCartsList={setUserCartsList}
         currentUser={currentUser}
+        token={token}
+        setCurrentCart={setCurrentCart}
        />}/>
 
       <Route path="/Error" element= {<Error/>}/>
@@ -146,7 +152,16 @@ function App() {
 
       <Route path="/SearchBar" element= {<SearchBar gamesList={gamesList}/>}/>
 
-      <Route path="/games/:gameId" element= {<SingleGame game={game} currentUser={currentUser} currentCart={currentCart} token={token} setGame={setGame} />}/>
+      <Route path="/games/:gameId" element= {
+      <SingleGame 
+        game={game} 
+        currentUser={currentUser} 
+        currentCart={currentCart} 
+        token={token} 
+        setGame={setGame}
+        updateCurrentCart={updateCurrentCart} 
+      />
+    }/>
 
       
     </Routes> 

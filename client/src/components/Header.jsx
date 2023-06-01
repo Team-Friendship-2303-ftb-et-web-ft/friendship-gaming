@@ -10,7 +10,7 @@ const Header = ({ setCurrentUser, isLoggedIn, setIsLoggedIn, setToken, gamesList
         <section className="header" id="header-component">
             <div className="logo">
             <a onClick={() => navigate('./') } target="_blank">
-          <img src="./images/logo3t.png" className="logoimage" alt=" logo" />
+          <img src="/images/logo3t.png" className="logoimage" alt=" logo" />
         </a>     
         </div>          
 

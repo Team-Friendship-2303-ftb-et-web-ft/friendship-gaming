@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Forms.css'
 
 const EditGameForm = ({ game, token, onGameUpdate, onCancel }) => {
   const [authorName, setAuthorName] = useState(game.authorName);

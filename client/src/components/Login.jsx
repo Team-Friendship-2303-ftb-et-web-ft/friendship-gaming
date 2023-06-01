@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import { loginUser } from "../api";
+import { getUsersWithInfo, loginUser } from "../api";
 import './Login.css';
 
 const Login = ({
@@ -19,6 +19,7 @@ const Login = ({
         event.preventDefault();
         const userToAuth = { username: username, password: password };
         const data = await loginUser(userToAuth);
+
         if (!data) {
           window.alert("Invalid credentials, Username or Password is incorrect");
         } else {
@@ -48,7 +49,7 @@ const Login = ({
               <input
               className="login"
                 type="text"
-                placeholder="UserName"
+                placeholder="Username"
                 name="UserName"
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}

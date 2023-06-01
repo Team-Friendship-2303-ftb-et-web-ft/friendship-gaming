@@ -48,20 +48,24 @@ const Register = ({
             <h2>Register</h2>
           <form
             onSubmit={handleSubmit} >
-            <label htmlFor='username'>Username:</label>
-            <input
-            className='register'
-              type='text'
-              name='username'
-              value={username}
-              onChange={(event) => setUsername(event.target.value)} />
-            <label htmlFor='password'> Password</label>
-            <input
-            className='register'
+            <label htmlFor='username'>
+              <input    
+                className='register'
+                type='text'
+                name='username'
+                value={username}
+                placeholder='Username'
+                onChange={(event) => setUsername(event.target.value)} />
+            </label>
+            <label htmlFor='password'>
+              <input
+              className='register'
               type='text'
               name='password'
               value={password}
+              placeholder='Password'
               onChange={(event) => setPassword(event.target.value)} />
+            </label>
             <button className='registerbutton' type='submit'>Create Account</button>
           </form>
         </div>

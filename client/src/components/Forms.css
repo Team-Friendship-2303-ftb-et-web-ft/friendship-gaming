@@ -1,26 +1,42 @@
-/* form {
+form#create-game-form, form#edit-user-form {
     display: flex;
     flex-direction: column;
     background-color: #e3e3efb0;
     padding: 20px;
+    width: 500px;
 }
 
-label {
+label.create-game-label, label.edit-user-label {
     color: black;
     font-size: 18px;
-    padding:20px;
+    padding:15px;
     text-transform: capitalize;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
 }
 
-input {
-    margin-left: 10px;
+input.create-game-input, input.edit-user-input {
+    border-radius: 4px;
+    height: 20px;
+    margin-top:10px;
 }
 
-textarea {
-    margin-left: 10px;
+label.checkbox-field {
+    display: block;
+    color: black;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: bold;
+    padding-top: 0;
 }
 
-button {
+input.checkbox-field {
+    width: 50px;
+}
+
+button#create-game-button, button#edit-user-btn, button#cancel-update-btn {
     width: 150px;
-} */
+    padding: 15px;
+    margin: 10px 0 10px 10px;
+}

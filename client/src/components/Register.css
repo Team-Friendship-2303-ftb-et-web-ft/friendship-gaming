@@ -1,5 +1,9 @@
+div.register-container > h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 .register-container{
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -15,7 +19,7 @@
   background-color: #E3E3EF;
 }
 form{
-    margin:auto;
+    margin: auto;
 }
 input.register{
     display: flex;
@@ -26,13 +30,13 @@ input.register{
     font-family: 'Balsamic Sans', sans-serif;
     font-size: 16px;
     padding: 5px;
-    margin:10px;
+    margin-bottom: 10px;
     border-color: #D9D9D9;
     color: #000000;
 }
 
 .registerbutton{
-    
+    margin-top: 10px;
     background-color: #D9D9D9;
     border: 0;
     color: #000000;

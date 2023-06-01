@@ -46,7 +46,7 @@ console.log("This is cart:", cart)
                        <input className="input"  placeholder="Card Number"></input>
                        <input className="input"  placeholder="Exiration Date"></input>
                        <input className="input"  placeholder="CVV"></input>
-                       <label for="accept">
+                       <label htmlFor="accept">
                          <input type="checkbox" id="accept" name="accept" value="yes"/> Billing address same as shipping address?
                        </label> 
                     </div>
@@ -62,21 +62,24 @@ console.log("This is cart:", cart)
                             </div>  
                     </div>
                     </div>
-                    {cart[0].cartItems.map((cartItem) => {
-                        return (
-                        <div className="cart-info">
-                        <div id="cart-totals">
-                        <h2>Cart</h2>
-                            <li> <img className="cartItemImage" src={cartItem.game.imageurl} alt={cartItem.game.title} /></li>
-                            <li>Game: {cartItem.game.title}</li>
-                            <li>Quantity: {cartItem.quantity}</li>
-                            <li>Price: {cartItem.game.price}</li>
-                        </div>
-                    </div>
-                        )
-                })}
-          
-                    </div>
+                    <div className="cart-info">
+    <div id="cart-totals">
+      <h2>Cart</h2>
+      {cart[0].cartItems.map((cartItem) => {
+        return (
+          <>
+            <li>
+              <img className="cartItemImage" src={cartItem.game.imageurl} alt={cartItem.game.title} />
+            </li>
+            <li>Game: {cartItem.game.title}</li>
+            <li>Quantity: {cartItem.quantity}</li>
+            <li>Price: {cartItem.game.price}</li>
+          </>
+        )
+      })}
+    </div>
+  </div>
+</div>
             </>
         )    
     }}

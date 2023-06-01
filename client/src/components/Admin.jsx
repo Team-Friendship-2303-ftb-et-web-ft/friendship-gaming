@@ -35,7 +35,6 @@ const Admin = ({gamesList, setGamesList, currentUser, isAdmin, token}) => {
       {/******************************* SIDEBAR *******************************/}
               <div id="adminTabs">
                 <h1 className="admin">Admin Dashboard</h1>
-
                 <button onClick={()=>{
                   setShowGames(true);
                   setShowUsers(false);
@@ -82,7 +81,7 @@ const Admin = ({gamesList, setGamesList, currentUser, isAdmin, token}) => {
                 }
 
               </div>
-          </div>
+          </div>          
         </> 
     )  
 }

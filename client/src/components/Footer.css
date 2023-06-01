@@ -1,0 +1,26 @@
+div.footer {
+    color:white;
+    text-transform: capitalize;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.images {
+    display: flex;
+}
+
+div.developer > a> img {
+    padding: 10px;
+    background-color: #e3e3ef;
+    margin: 0 10px;
+    border-radius: 50px;
+}
+
+div.developer {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
